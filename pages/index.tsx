@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Gamepad2, Brain, Sparkles, Menu, X, ChevronRight, Award, Zap } from 'lucide-react';
+import { ShoppingBag, Gamepad2, Brain, Sparkles, Menu, X, ChevronRight, Award, Zap, Search, User } from 'lucide-react';
+import Image from 'next/image';
 
 const GiriloyoLanding = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,111 +11,76 @@ const GiriloyoLanding = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
-  const featuredProducts = [
-    {
-      id: 1,
-      name: "Batik Kawung Klasik",
-      price: "Rp 850.000",
-      image: "https://images.unsplash.com/photo-1622994524768-6b7b1d4e0b5e?w=800&h=800&fit=crop&q=80",
-      artisan: "Mbah Parmi",
-      motif: "Kawung"
-    },
-    {
-      id: 2,
-      name: "Batik Parang Tulis",
-      price: "Rp 1.200.000",
-      image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&h=800&fit=crop&q=80",
-      artisan: "Pak Supardi",
-      motif: "Parang"
-    },
-    {
-      id: 3,
-      name: "Batik Sogan Modern",
-      price: "Rp 950.000",
-      image: "https://images.unsplash.com/photo-1598378612686-45ef0e5b6a1c?w=800&h=800&fit=crop&q=80",
-      artisan: "Bu Siti",
-      motif: "Sogan"
-    },
-    {
-      id: 4,
-      name: "Batik Truntum Elegan",
-      price: "Rp 1.100.000",
-      image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=800&h=800&fit=crop&q=80",
-      artisan: "Ibu Wahyuni",
-      motif: "Truntum"
-    },
-    {
-      id: 5,
-      name: "Batik Mega Mendung",
-      price: "Rp 980.000",
-      image: "https://images.unsplash.com/photo-1616522999838-3a0e1d1e5a9e?w=800&h=800&fit=crop&q=80",
-      artisan: "Pak Budi",
-      motif: "Mega Mendung"
-    },
-    {
-      id: 6,
-      name: "Batik Sekar Jagad",
-      price: "Rp 1.350.000",
-      image: "https://images.unsplash.com/photo-1622994524768-6b7b1d4e0b5e?w=800&h=800&fit=crop&q=80",
-      artisan: "Bu Lastri",
-      motif: "Sekar Jagad"
-    }
+
+ const featuredProducts = [
+    { id: 1, name: "Batik Kawung Klasik", price: "Rp 850.000", image: "/kawung.png", artisan: "Mbah Parmi", motif: "Kawung" },
+    { id: 2, name: "Batik Parang RuSak Tulis", price: "Rp 1.200.000", image: "/parang.png", artisan: "Pak Supardi", motif: "Parang" },
+    { id: 3, name: "Batik Sogan Modern", price: "Rp 950.000", image: "/sogan.png", artisan: "Bu Siti", motif: "Sogan" },
+    { id: 4, name: "Batik Truntum Elegan", price: "Rp 1.100.000", image: "/truntum.png", artisan: "Ibu Wahyuni", motif: "Truntum" },
+    { id: 5, name: "Batik Mega Mendung", price: "Rp 980.000", image: "/mega-mendung.png", artisan: "Pak Budi", motif: "Mega Mendung" },
+    { id: 6, name: "Batik Sekar Jagad", price: "Rp 1.350.000", image: "/sekar-jagad.png", artisan: "Bu Lastri", motif: "Sekar Jagad" }
   ];
+const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault(); // Mencegah "lompatan" instan
+    const targetId = e.currentTarget.href.split('#')[1];
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+      targetElement.scrollIntoView({ 
+        behavior: 'smooth', // Ini adalah kuncinya
+        block: 'start' 
+      });
+    }
+    // Menutup menu mobile jika sedang terbuka
+    if (menuOpen) {
+      setMenuOpen(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-amber-50 overflow-x-hidden">
       {/* Animated Batik Background Pattern */}
-      <div className="fixed inset-0 opacity-5 pointer-events-none">
-        <div 
-          className="absolute inset-0 animate-pulse"
-          style={{
-            backgroundImage: `url('https://cdn.pixabay.com/photo/2020/11/29/10/42/batik-5787950_1280.jpg')`,
-            backgroundSize: '400px 400px',
-            backgroundRepeat: 'repeat',
-            transform: `translateY(${scrollY * 0.1}px)`,
-          }}
-        />
-      </div>
-
-      {/* Floating Batik Pattern Decoration */}
-      <div className="fixed top-20 right-10 w-32 h-32 md:w-48 md:h-48 opacity-10 animate-spin-slow pointer-events-none hidden lg:block">
-        <img 
-          src="https://cdn.pixabay.com/photo/2020/11/29/10/41/batik-5787939_1280.jpg" 
-          alt="decoration"
-          className="w-full h-full object-contain"
-        />
-      </div>
-
-      <div className="fixed bottom-20 left-10 w-24 h-24 md:w-40 md:h-40 opacity-10 animate-bounce-slow pointer-events-none hidden lg:block">
-        <img 
-          src="https://cdn.pixabay.com/photo/2020/11/29/10/42/batik-5787948_1280.jpg" 
-          alt="decoration"
-          className="w-full h-full object-contain"
-        />
-      </div>
+        <div className="fixed inset-0 opacity-5 pointer-events-none">
+          <div 
+            className="absolute inset-0 animate-bg-scroll-slow"
+            style={{
+              backgroundImage: `url('/batik2.jpg')`, // Path yang benar
+              backgroundSize: '300px 3000px', // Ukuran pola yang lebih baik
+              backgroundRepeat: 'repeat',
+            }}
+          />
+        </div>
 
       {/* Navigation */}
-      <nav className="bg-white/95 backdrop-blur-lg shadow-lg sticky top-0 z-50 border-b-4 border-orange-500">
+      <nav className="bg-white/95 backdrop-blur-lg shadow-md sticky top-0 z-50 border-b-2 border-amber-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-20">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-linear-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl lg:text-2xl">G</span>
-              </div>
-              <span className="text-xl lg:text-2xl font-bold bg-linear-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                Giriloyo Imersive
-              </span>
+              {/* --- PERBAIKAN 1: Logo diubah ke next/image --- */}
+              <Image 
+                  src="/logo-web.png"
+                  alt="Logo"
+                  width={120}
+                  height={120}
+                  className="w-full h-full object-contain"
+                />
             </div>
             
             {/* Desktop Menu */}
             <div className="hidden lg:flex space-x-8 items-center">
-              <a href="#home" className="text-gray-700 hover:text-orange-600 transition font-medium">Beranda</a>
-              <a href="#products" className="text-gray-700 hover:text-orange-600 transition font-medium">Katalog</a>
-              <a href="#games" className="text-gray-700 hover:text-orange-600 transition font-medium">Games</a>
-              <a href="#ai" className="text-gray-700 hover:text-orange-600 transition font-medium">AI Insight</a>
-              <button className="bg-linear-to-r from-orange-600 to-red-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-xl transition transform hover:scale-105">
-                <ShoppingBag className="inline mr-2" size={18} />
+              {/* --- PERBAIKAN 2: Menambahkan onClick={handleNavClick} --- */}
+              <a href="#home" onClick={handleNavClick} className="text-stone-700 hover:text-amber-800 transition font-medium">Beranda</a>
+              <a href="#products" onClick={handleNavClick} className="text-stone-700 hover:text-amber-800 transition font-medium">Katalog</a>
+              <a href="#games" onClick={handleNavClick} className="text-stone-700 hover:text-amber-800 transition font-medium">Games</a>
+              <a href="#ai" onClick={handleNavClick} className="text-stone-700 hover:text-amber-800 transition font-medium">AI Insight</a>
+              <button className="p-2 hover:bg-amber-50 rounded-full transition">
+                <Search className="text-stone-600" size={20} />
+              </button>
+              <button className="p-2 hover:bg-amber-50 rounded-full transition">
+                <User className="text-stone-600" size={20} />
+              </button>
+              <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-6 py-2.5 rounded-full font-semibold hover:shadow-xl transition transform hover:scale-105 flex items-center gap-2">
+                <ShoppingBag size={18} />
                 Belanja
               </button>
             </div>
@@ -122,23 +88,24 @@ const GiriloyoLanding = () => {
             {/* Mobile Menu Button */}
             <button 
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-orange-100 transition"
+              className="lg:hidden p-2 rounded-lg hover:bg-amber-100 transition"
             >
-              {menuOpen ? <X size={28} className="text-orange-600" /> : <Menu size={28} className="text-orange-600" />}
+              {menuOpen ? <X size={28} className="text-amber-800" /> : <Menu size={28} className="text-amber-800" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="lg:hidden bg-white border-t border-orange-200 animate-slide-down">
+          <div className="lg:hidden bg-white border-t border-amber-200 animate-slide-down">
             <div className="px-4 py-4 space-y-3">
-              <a href="#home" className="block py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg px-4 transition font-medium">Beranda</a>
-              <a href="#products" className="block py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg px-4 transition font-medium">Katalog</a>
-              <a href="#games" className="block py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg px-4 transition font-medium">Games</a>
-              <a href="#ai" className="block py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg px-4 transition font-medium">AI Insight</a>
-              <button className="w-full bg-linear-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-full font-semibold">
-                <ShoppingBag className="inline mr-2" size={18} />
+              {/* --- PERBAIKAN 2: Menambahkan onClick={handleNavClick} --- */}
+              <a href="#home" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Beranda</a>
+              <a href="#products" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Katalog</a>
+              <a href="#games" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Games</a>
+              <a href="#ai" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">AI Insight</a>
+              <button className="w-full bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-6 py-3 rounded-full font-semibold flex items-center justify-center gap-2">
+                <ShoppingBag size={18} />
                 Belanja Sekarang
               </button>
             </div>
@@ -146,8 +113,8 @@ const GiriloyoLanding = () => {
         )}
       </nav>
 
-      {/* Hero Section with Batik Pattern */}
-      <section id="home" className="relative py-12 lg:py-24 px-4 overflow-hidden">
+      {/* Hero Section */}
+      <section id="home" className="relative py-12 lg:py-20 px-4 overflow-hidden">
         {/* Animated Batik Pattern Overlay */}
         <div className="absolute inset-0 opacity-10">
           <div 
@@ -161,74 +128,131 @@ const GiriloyoLanding = () => {
         </div>
         
         <div className="max-w-7xl mx-auto relative">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
             {/* Text Content */}
-            <div className="flex-1 text-center lg:text-left space-y-6">
-              <div className="inline-block bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-semibold mb-4 animate-bounce-slow">
-                🎨 Warisan UNESCO
+            <div className="flex-1 text-center lg:text-left space-y-6 lg:space-y-8">
+              <div className="inline-block bg-amber-100 text-amber-900 px-4 py-2 rounded-full text-sm font-bold mb-4">
+                🏛️ Warisan UNESCO
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 bg-linear-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent leading-tight">
-                Batik Tulis<br />Giriloyo
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
+                <span className="block text-stone-800 mb-2">Your one-stop</span>
+                <span className="block bg-gradient-to-r from-amber-700 via-amber-800 to-amber-900 bg-clip-text text-transparent">custom batik</span>
               </h1>
-              <p className="text-lg sm:text-xl lg:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto lg:mx-0">
-                Warisan Budaya Bertemu Teknologi Web3.<br />
-                <span className="text-orange-600 font-semibold">Beli Batik Asli, Dapat NFT Gratis!</span>
+              <p className="text-base sm:text-lg lg:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                Custom make your batik with our own 300+ patterns made with a premium craft quality in 3 workdays
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button className="bg-linear-to-r from-orange-600 to-red-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition flex items-center justify-center gap-2 text-base lg:text-lg">
-                  <ShoppingBag size={22} />
-                  Jelajahi Katalog
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition text-base lg:text-lg">
+                  SHOP NOW
                 </button>
-                <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold border-2 border-orange-600 hover:bg-orange-50 transition flex items-center justify-center gap-2 text-base lg:text-lg">
-                  <Gamepad2 size={22} />
+                <button className="bg-white text-amber-800 px-8 py-4 rounded-full font-semibold border-2 border-amber-800 hover:bg-amber-50 transition text-base lg:text-lg">
+                  <Gamepad2 className="inline mr-2" size={22} />
                   Coba Mencanting
                 </button>
               </div>
+
+              {/* Question Section */}
+              <div className="pt-8 lg:pt-12">
+                <p className="text-stone-700 font-medium mb-3">Where do you wear your batik for?</p>
+                <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                  <button className="px-6 py-2 bg-white border-2 border-amber-200 rounded-full text-stone-700 hover:border-amber-500 hover:bg-amber-50 transition font-medium text-sm">
+                    Formal
+                  </button>
+                  <button className="px-6 py-2 bg-white border-2 border-amber-200 rounded-full text-stone-700 hover:border-amber-500 hover:bg-amber-50 transition font-medium text-sm">
+                    Casual
+                  </button>
+                  <button className="px-6 py-2 bg-white border-2 border-amber-200 rounded-full text-stone-700 hover:border-amber-500 hover:bg-amber-50 transition font-medium text-sm">
+                    Event
+                  </button>
+                </div>
+              </div>
             </div>
 
-            {/* Hero Image with Batik Pattern */}
-            <div className="flex-1 w-full max-w-lg lg:max-w-none">
-              <div className="relative group">
-                <div className="absolute -inset-4 bg-linear-to-r from-orange-400 to-red-500 rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition animate-pulse"></div>
-                <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden transform group-hover:scale-105 transition duration-500">
-                  <img 
-                    src="https://images.unsplash.com/photo-1622994524768-6b7b1d4e0b5e?w=800&h=600&fit=crop&q=80" 
-                    alt="Batik Giriloyo"
-                    className="w-full h-64 sm:h-80 lg:h-96 object-cover"
-                  />
-                  <div className="absolute top-4 right-4 bg-orange-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-bounce-slow">
-                    🔗 + NFT Digital
+            {/* Hero Image */}
+            <div className="flex-1 w-full max-w-md lg:max-w-xl relative">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-br from-amber-300 to-amber-500 rounded-3xl blur-3xl opacity-20 animate-pulse"></div>
+                <img 
+                  src="/Muslimbatik.png" 
+                  alt="Batik Model"
+                  className="relative w-120 h-auto rounded-3xl shadow-2xl"
+                />
+                <div className="absolute top-6 right-6 flex flex-col gap-3">
+                  <div className="bg-white/90 backdrop-blur-sm px-4 py-3 rounded-2xl shadow-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
+                        <span className="text-amber-800 text-xs font-bold">01</span>
+                      </div>
+                      <div>
+                        <p className="text-xs text-stone-500">Step 1</p>
+                        <p className="text-sm font-bold text-stone-800">Pick Pattern</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-white/90 backdrop-blur-sm px-4 py-3 rounded-2xl shadow-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
+                        <span className="text-amber-800 text-xs font-bold">02</span>
+                      </div>
+                      <div>
+                        <p className="text-xs text-stone-500">Step 2</p>
+                        <p className="text-sm font-bold text-stone-800">Choose Size</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 mt-12 lg:mt-20">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 lg:p-6 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-              <div className="text-3xl lg:text-4xl font-bold text-orange-600 mb-2">150+</div>
-              <div className="text-sm lg:text-base text-gray-600">Karya Batik</div>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 lg:p-6 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-              <div className="text-3xl lg:text-4xl font-bold text-orange-600 mb-2">50+</div>
-              <div className="text-sm lg:text-base text-gray-600">Pengrajin</div>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 lg:p-6 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-              <div className="text-3xl lg:text-4xl font-bold text-orange-600 mb-2">2000+</div>
-              <div className="text-sm lg:text-base text-gray-600">Pembeli Puas</div>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 lg:p-6 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-              <div className="text-3xl lg:text-4xl font-bold text-orange-600 mb-2">100%</div>
-              <div className="text-sm lg:text-base text-gray-600">Tulis Tangan</div>
-            </div>
+      {/* 300+ Patterns Section */}
+      <section className="py-16 lg:py-24 px-4 bg-white/70 backdrop-blur-sm relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-5xl font-bold text-stone-800 mb-4">
+              300+ Patterns
+            </h2>
+            <p className="text-base lg:text-lg text-stone-600 max-w-2xl mx-auto">
+              Custom made your batik with over 300 authentic patterns made with a premium craft quality
+            </p>
+          </div>
+
+          {/* Pattern Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-6 mb-8">
+            {featuredProducts.slice(0, 5).map((product, index) => (
+              <div 
+                key={index}
+                className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition cursor-pointer"
+              >
+                <div className="aspect-square overflow-hidden">
+                  <img 
+                    src={product.image}
+                    alt={product.motif}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition">
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <p className="text-white font-bold text-sm">{product.motif}</p>
+                    <p className="text-amber-200 text-xs">{product.price}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 text-base lg:text-lg">
+              BROWSE PATTERNS
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="games" className="py-12 lg:py-20 px-4 bg-white/70 backdrop-blur-sm relative">
-        {/* Batik Pattern Background */}
+      {/* How It Works Section */}
+      <section className="py-16 lg:py-24 px-4 bg-amber-50 relative">
         <div 
           className="absolute inset-0 opacity-5 animate-slide-left"
           style={{
@@ -240,25 +264,111 @@ const GiriloyoLanding = () => {
         
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold mb-4 text-gray-800">
+            <h2 className="text-3xl lg:text-5xl font-bold text-stone-800 mb-4">
+              How it works
+            </h2>
+            <p className="text-base lg:text-lg text-stone-600">
+              Setiap batik dilengkapi dengan <span className="text-amber-600 font-semibold">NFT</span> sebagai sertifikat keaslian digital
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {[
+              { icon: '🎨', title: 'Pick Pattern', desc: 'Choose from 300+ authentic batik patterns' },
+              { icon: '📏', title: 'Select Size', desc: 'Pick your preferred fabric size and type' },
+              { icon: '🎭', title: 'Customize', desc: 'Adjust colors and placement to your style' },
+              { icon: '🚚', title: 'Delivery', desc: 'Receive your batik in 3 workdays + NFT certificate' },
+            ].map((step, index) => (
+              <div key={index} className="bg-white rounded-3xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition text-center">
+                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-amber-100 to-amber-200 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl lg:text-4xl">
+                  {step.icon}
+                </div>
+                <div className="w-10 h-10 bg-amber-800 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                  {index + 1}
+                </div>
+                <h3 className="text-lg lg:text-xl font-bold text-stone-800 mb-2">{step.title}</h3>
+                <p className="text-sm lg:text-base text-stone-600 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Customize Your Style */}
+      <section className="py-16 lg:py-24 px-4 bg-gradient-to-br from-amber-100 to-amber-200 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url('https://cdn.pixabay.com/photo/2020/11/29/10/41/batik-5787937_1280.jpg')`,
+            backgroundSize: '400px 400px',
+            backgroundRepeat: 'repeat',
+          }}
+        />
+        
+        <div className="max-w-7xl mx-auto relative">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <div className="flex-1">
+              <span className="inline-block bg-white/80 text-amber-900 px-4 py-2 rounded-full text-sm font-bold mb-4">
+                ✨ Personalisasi Sempurna
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-stone-800 mb-6 leading-tight">
+                Customize<br />your style
+              </h2>
+              <p className="text-lg lg:text-xl text-stone-700 mb-8 leading-relaxed">
+                Mix and match patterns, colors, and sizes to create your perfect batik. Each piece is handcrafted by master artisans from Giriloyo.
+              </p>
+              <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-2xl transition transform hover:scale-105 text-lg">
+                START CUSTOMIZING
+              </button>
+            </div>
+
+            <div className="flex-1 relative">
+              <div className="relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=600&h=700&fit=crop&q=80"
+                  alt="Customize"
+                  className="rounded-3xl shadow-2xl"
+                />
+                <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-xl">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center">
+                      <Sparkles className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <p className="text-xs text-stone-500">AI Powered</p>
+                      <p className="font-bold text-stone-800">Smart Recommendations</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Games Section */}
+      <section id="games" className="py-16 lg:py-24 px-4 bg-white/70 backdrop-blur-sm relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 lg:mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold mb-4 text-stone-800">
               Pengalaman Imersif
             </h2>
-            <p className="text-base lg:text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base lg:text-lg text-stone-600 max-w-2xl mx-auto">
               Jelajahi dunia batik melalui teknologi interaktif dan AI
             </p>
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Game 1 */}
-            <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-orange-300">
-              <div className="bg-linear-to-br from-orange-100 to-red-100 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
-                <Gamepad2 className="text-orange-600" size={32} />
+            <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-amber-300">
+              <div className="bg-gradient-to-br from-amber-100 to-amber-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
+                <Gamepad2 className="text-amber-800" size={32} />
               </div>
-              <h3 className="text-xl lg:text-2xl font-bold mb-4 text-gray-800">Mencanting Virtual</h3>
-              <p className="text-sm lg:text-base text-gray-600 mb-6 leading-relaxed">
+              <h3 className="text-xl lg:text-2xl font-bold mb-4 text-stone-800">Mencanting Virtual</h3>
+              <p className="text-sm lg:text-base text-stone-600 mb-6 leading-relaxed">
                 Rasakan sensasi membatik secara virtual! Ikuti pola tradisional dan pelajari filosofi di balik setiap goresan.
               </p>
-              <button className="text-orange-600 font-semibold flex items-center gap-2 hover:gap-4 transition-all group">
+              <button className="text-amber-800 font-semibold flex items-center gap-2 hover:gap-4 transition-all group">
                 Main Sekarang 
                 <ChevronRight size={20} className="group-hover:animate-bounce" />
               </button>
@@ -266,29 +376,29 @@ const GiriloyoLanding = () => {
 
             {/* Game 2 */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-300">
-              <div className="bg-linear-to-br from-blue-100 to-purple-100 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
-                <Brain className="text-blue-600" size={32} />
+              <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
+                <Brain className="text-blue-800" size={32} />
               </div>
-              <h3 className="text-xl lg:text-2xl font-bold mb-4 text-gray-800">Kuis Cerdas Budaya</h3>
-              <p className="text-sm lg:text-base text-gray-600 mb-6 leading-relaxed">
+              <h3 className="text-xl lg:text-2xl font-bold mb-4 text-stone-800">Kuis Cerdas Budaya</h3>
+              <p className="text-sm lg:text-base text-stone-600 mb-6 leading-relaxed">
                 Uji pengetahuan Anda tentang batik! Kompetisi real-time dengan sistem leaderboard yang dinamis.
               </p>
-              <button className="text-blue-600 font-semibold flex items-center gap-2 hover:gap-4 transition-all group">
+              <button className="text-blue-800 font-semibold flex items-center gap-2 hover:gap-4 transition-all group">
                 Ikut Kuis 
                 <ChevronRight size={20} className="group-hover:animate-bounce" />
               </button>
             </div>
 
             {/* AI Insight */}
-            <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-purple-300 sm:col-span-2 lg:col-span-1">
-              <div className="bg-linear-to-br from-purple-100 to-pink-100 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
-                <Sparkles className="text-purple-600" size={32} />
+            <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-amber-300 sm:col-span-2 lg:col-span-1">
+              <div className="bg-gradient-to-br from-amber-100 to-yellow-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
+                <Sparkles className="text-amber-600" size={32} />
               </div>
-              <h3 className="text-xl lg:text-2xl font-bold mb-4 text-gray-800">AI Insight</h3>
-              <p className="text-sm lg:text-base text-gray-600 mb-6 leading-relaxed">
+              <h3 className="text-xl lg:text-2xl font-bold mb-4 text-stone-800">AI Insight</h3>
+              <p className="text-sm lg:text-base text-stone-600 mb-6 leading-relaxed">
                 Dapatkan rekomendasi batik personal dari AI yang memahami filosofi dan kecocokan untuk Anda.
               </p>
-              <button className="text-purple-600 font-semibold flex items-center gap-2 hover:gap-4 transition-all group">
+              <button className="text-amber-700 font-semibold flex items-center gap-2 hover:gap-4 transition-all group">
                 Tanya AI 
                 <ChevronRight size={20} className="group-hover:animate-bounce" />
               </button>
@@ -297,67 +407,46 @@ const GiriloyoLanding = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section id="products" className="py-12 lg:py-20 px-4 relative">
+      {/* Batik Stories Section */}
+      <section className="py-16 lg:py-24 px-4 bg-gradient-to-br from-stone-100 to-amber-50 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold mb-4 text-gray-800">
-              Koleksi Pilihan
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-5xl font-bold text-stone-800 mb-4">
+              Batik stories
             </h2>
-            <p className="text-base lg:text-lg text-gray-600 max-w-2xl mx-auto">
-              Setiap batik dilengkapi dengan <span className="text-orange-600 font-semibold">NFT</span> sebagai sertifikat keaslian digital
+            <p className="text-base lg:text-lg text-stone-600">
+              Cerita di balik setiap motif batik Giriloyo
             </p>
           </div>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {featuredProducts.map((product, index) => (
-              <div 
-                key={product.id} 
-                className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 group"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="relative h-56 sm:h-64 lg:h-72 overflow-hidden">
-                  <img 
-                    src={product.image} 
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-                  <div className="absolute top-4 right-4 bg-linear-to-r from-orange-600 to-red-600 text-white px-3 py-1 rounded-full text-xs lg:text-sm font-bold shadow-lg flex items-center gap-1">
-                    <Award size={14} />
-                    NFT
-                  </div>
-                  <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm text-gray-800 px-3 py-1 rounded-full text-xs font-semibold">
-                    Motif {product.motif}
-                  </div>
-                </div>
-                <div className="p-5 lg:p-6">
-                  <h3 className="text-lg lg:text-xl font-bold mb-2 text-gray-800">{product.name}</h3>
-                  <p className="text-gray-600 text-xs lg:text-sm mb-4 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    Dibuat oleh {product.artisan}
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xl lg:text-2xl font-bold text-orange-600">{product.price}</span>
-                    <button className="bg-linear-to-r from-orange-600 to-red-600 text-white px-4 lg:px-6 py-2 rounded-full font-semibold hover:shadow-lg transition transform hover:scale-105 text-sm lg:text-base">
-                      Lihat Detail
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
 
-          <div className="text-center mt-12">
-            <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-bold border-3 border-orange-600 hover:bg-orange-600 hover:text-white transition text-base lg:text-lg shadow-xl hover:shadow-2xl transform hover:scale-105">
-              Lihat Semua Koleksi →
-            </button>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition group">
+              <img 
+                src="/batik1.jpg"
+                alt="Story"
+                className="w-full h-64 object-cover group-hover:scale-105 transition duration-500"
+              />
+              <div className="p-6 lg:p-8">
+                <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold mb-3">
+                  TRADISI
+                </span>
+                <h3 className="text-xl lg:text-2xl font-bold text-stone-800 mb-3">
+                  A community of 50+ Master Artisans
+                </h3>
+                <p className="text-stone-600 text-sm lg:text-base mb-4 leading-relaxed">
+                  Meet the craftsmen preserving centuries-old batik techniques in Giriloyo village...
+                </p>
+                <button className="text-amber-800 font-semibold flex items-center gap-2 hover:gap-4 transition-all">
+                  Baca Selengkapnya <ChevronRight size={18} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Phygital Banner with Batik Pattern */}
-      <section id="ai" className="py-12 lg:py-20 px-4 bg-linear-to-r from-orange-600 via-red-600 to-pink-600 relative overflow-hidden">
+      <section id="ai" className="py-16 lg:py-24 px-4 bg-gradient-to-r from-amber-800 via-amber-900 to-stone-900 relative overflow-hidden">
         {/* Animated Batik Pattern */}
         <div 
           className="absolute inset-0 opacity-10 animate-slide-up"
@@ -368,43 +457,102 @@ const GiriloyoLanding = () => {
           }}
         />
         
-        <div className="max-w-5xl mx-auto text-center text-white relative z-10">
-          <div className="inline-block bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-sm font-bold mb-6 animate-bounce-slow">
-            🚀 Inovasi Terbaru
+        <div className="max-w-5xl mx-auto text-center text-amber-50 relative z-10">
+          <div className="inline-block bg-amber-700/30 backdrop-blur-md px-4 py-2 rounded-full text-sm font-bold mb-6 border border-amber-500/30">
+            🚀 Inovasi Web3
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 leading-tight">
             Phygital Experience
           </h2>
           <p className="text-lg sm:text-xl lg:text-2xl mb-10 opacity-95 max-w-3xl mx-auto leading-relaxed">
-            Beli batik asli, dapatkan <span className="font-bold underline">NFT gratis</span> sebagai sertifikat digital yang tersimpan selamanya di blockchain
+            Beli batik asli, dapatkan <span className="font-bold text-amber-300 underline decoration-amber-400">NFT gratis</span> sebagai sertifikat digital yang tersimpan selamanya di blockchain
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 lg:gap-8 justify-center items-center mb-10">
-            <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/30 transition transform hover:scale-105 w-full sm:w-auto">
-              <div className="text-5xl lg:text-6xl mb-4 animate-bounce-slow">🎨</div>
-              <p className="font-bold text-lg lg:text-xl">Batik Fisik</p>
-              <p className="text-sm lg:text-base opacity-90 mt-2">Karya tulis tangan</p>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/20 transition transform hover:scale-105 w-full sm:w-auto border border-amber-500/20">
+              <div className="text-5xl lg:text-6xl mb-4">🎨</div>
+              <p className="font-bold text-lg lg:text-xl mb-2">Batik Fisik</p>
+              <p className="text-sm lg:text-base opacity-90">Karya tulis tangan asli</p>
             </div>
             
             <div className="flex items-center justify-center">
-              <Zap className="text-yellow-300 animate-pulse" size={40} />
+              <Zap className="text-amber-300 animate-pulse" size={40} />
             </div>
             
-            <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/30 transition transform hover:scale-105 w-full sm:w-auto">
-              <div className="text-5xl lg:text-6xl mb-4 animate-bounce-slow">🔗</div>
-              <p className="font-bold text-lg lg:text-xl">NFT Digital</p>
-              <p className="text-sm lg:text-base opacity-90 mt-2">Sertifikat blockchain</p>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/20 transition transform hover:scale-105 w-full sm:w-auto border border-amber-500/20">
+              <div className="text-5xl lg:text-6xl mb-4">🔗</div>
+              <p className="font-bold text-lg lg:text-xl mb-2">NFT Digital</p>
+              <p className="text-sm lg:text-base opacity-90">Sertifikat blockchain</p>
             </div>
           </div>
 
-          <button className="bg-white text-orange-600 px-8 lg:px-12 py-4 rounded-full font-bold text-base lg:text-xl hover:bg-gray-100 transition shadow-2xl transform hover:scale-110 hover:shadow-orange-300/50">
+          <button className="bg-amber-50 text-amber-900 px-8 lg:px-12 py-4 rounded-full font-bold text-base lg:text-xl hover:bg-white transition shadow-2xl transform hover:scale-110 hover:shadow-amber-500/50">
             Mulai Berbelanja Sekarang
           </button>
         </div>
       </section>
 
+      {/* Featured Products Grid */}
+      <section id="products" className="py-16 lg:py-24 px-4 bg-white relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 lg:mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold mb-4 text-stone-800">
+              Koleksi Premium
+            </h2>
+            <p className="text-base lg:text-lg text-stone-600 max-w-2xl mx-auto">
+              Setiap batik dilengkapi dengan <span className="text-amber-600 font-semibold">NFT</span> sebagai sertifikat keaslian digital
+            </p>
+          </div>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {featuredProducts.map((product, index) => (
+              <div 
+                key={product.id} 
+                className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 group border border-stone-100"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="relative h-56 sm:h-64 lg:h-72 overflow-hidden bg-stone-100">
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                  <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-3 py-1 rounded-full text-xs lg:text-sm font-bold shadow-lg flex items-center gap-1">
+                    <Award size={14} />
+                    NFT
+                  </div>
+                  <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm text-stone-800 px-3 py-1 rounded-full text-xs font-semibold shadow-md">
+                    Motif {product.motif}
+                  </div>
+                </div>
+                <div className="p-5 lg:p-6">
+                  <h3 className="text-lg lg:text-xl font-bold mb-2 text-stone-800">{product.name}</h3>
+                  <p className="text-stone-600 text-xs lg:text-sm mb-4 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    Dibuat oleh {product.artisan}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xl lg:text-2xl font-bold text-amber-700">{product.price}</span>
+                    <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-4 lg:px-6 py-2 rounded-full font-semibold hover:shadow-lg transition transform hover:scale-105 text-sm lg:text-base">
+                      Lihat Detail
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <button className="bg-white text-amber-800 px-8 py-4 rounded-full font-bold border-2 border-amber-800 hover:bg-amber-800 hover:text-amber-50 transition text-base lg:text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+              Lihat Semua Koleksi →
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* Footer with Batik Pattern */}
-      <footer className="bg-gray-900 text-white py-12 lg:py-16 px-4 relative overflow-hidden">
+      <footer className="bg-stone-900 text-amber-50 py-12 lg:py-16 px-4 relative overflow-hidden">
         <div 
           className="absolute inset-0 opacity-5"
           style={{
@@ -418,20 +566,25 @@ const GiriloyoLanding = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
             {/* Brand */}
             <div className="sm:col-span-2">
-              <h3 className="text-2xl lg:text-3xl font-bold mb-4 bg-linear-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-                Giriloyo Imersive
-              </h3>
-              <p className="text-gray-400 mb-6 text-sm lg:text-base leading-relaxed">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-amber-600 to-amber-800 rounded-lg flex items-center justify-center shadow-lg">
+                  <span className="text-amber-50 font-bold text-2xl">G</span>
+                </div>
+                <h3 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-300 bg-clip-text text-transparent">
+                  Giriloyo Imersive
+                </h3>
+              </div>
+              <p className="text-stone-400 mb-6 text-sm lg:text-base leading-relaxed">
                 Melestarikan warisan budaya batik tulis Giriloyo melalui teknologi Web3 dan pengalaman digital yang imersif.
               </p>
               <div className="flex gap-4">
-                <button className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-600 transition">
+                <button className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber-700 transition border border-amber-800/30">
                   <span className="text-xl">📷</span>
                 </button>
-                <button className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-600 transition">
+                <button className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber-700 transition border border-amber-800/30">
                   <span className="text-xl">💬</span>
                 </button>
-                <button className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-600 transition">
+                <button className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber-700 transition border border-amber-800/30">
                   <span className="text-xl">✉️</span>
                 </button>
               </div>
@@ -439,33 +592,33 @@ const GiriloyoLanding = () => {
 
             {/* Links */}
             <div>
-              <h4 className="font-bold mb-4 text-base lg:text-lg">Jelajahi</h4>
-              <ul className="space-y-2 text-gray-400 text-sm lg:text-base">
-                <li><a href="#" className="hover:text-orange-400 transition">Katalog Batik</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition">Games</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition">AI Insight</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition">Tentang Kami</a></li>
+              <h4 className="font-bold mb-4 text-base lg:text-lg text-amber-400">Jelajahi</h4>
+              <ul className="space-y-2 text-stone-400 text-sm lg:text-base">
+                <li><a href="#" className="hover:text-amber-400 transition">Katalog Batik</a></li>
+                <li><a href="#" className="hover:text-amber-400 transition">Games</a></li>
+                <li><a href="#" className="hover:text-amber-400 transition">AI Insight</a></li>
+                <li><a href="#" className="hover:text-amber-400 transition">Tentang Kami</a></li>
               </ul>
             </div>
 
             {/* Support */}
             <div>
-              <h4 className="font-bold mb-4 text-base lg:text-lg">Bantuan</h4>
-              <ul className="space-y-2 text-gray-400 text-sm lg:text-base">
-                <li><a href="#" className="hover:text-orange-400 transition">FAQ</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition">Cara Pembelian</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition">Panduan NFT</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition">Kontak</a></li>
+              <h4 className="font-bold mb-4 text-base lg:text-lg text-amber-400">Bantuan</h4>
+              <ul className="space-y-2 text-stone-400 text-sm lg:text-base">
+                <li><a href="#" className="hover:text-amber-400 transition">FAQ</a></li>
+                <li><a href="#" className="hover:text-amber-400 transition">Cara Pembelian</a></li>
+                <li><a href="#" className="hover:text-amber-400 transition">Panduan NFT</a></li>
+                <li><a href="#" className="hover:text-amber-400 transition">Kontak</a></li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-8 text-center">
-            <p className="text-gray-500 text-sm lg:text-base">
+          <div className="border-t border-stone-800 pt-8 text-center">
+            <p className="text-stone-500 text-sm lg:text-base mb-2">
               © 2024 Giriloyo Imersive. Powered by Next.js • NestJS • Crossmint • Midtrans
             </p>
-            <p className="text-gray-600 text-xs mt-2">
-              Batik Tulis Giriloyo - Warisan Budaya UNESCO
+            <p className="text-stone-600 text-xs">
+              Batik Tulis Giriloyo - Warisan Budaya UNESCO 🏛️
             </p>
           </div>
         </div>
@@ -473,6 +626,15 @@ const GiriloyoLanding = () => {
 
       {/* Custom CSS for animations */}
       <style jsx>{`
+        @keyframes bg-scroll-slow {
+          from { background-position: 0 0; }
+          to { background-position: 0 -300px; } /* -300px = 1x backgroundSize */
+        }
+
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
         @keyframes spin-slow {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
