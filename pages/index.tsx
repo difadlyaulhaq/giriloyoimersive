@@ -99,10 +99,10 @@ const GiriloyoLanding = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-20">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-linear-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl lg:text-2xl">G</span>
               </div>
-              <span className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+              <span className="text-xl lg:text-2xl font-bold bg-linear-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
                 Giriloyo Imersive
               </span>
             </div>
@@ -113,7 +113,7 @@ const GiriloyoLanding = () => {
               <a href="#products" className="text-gray-700 hover:text-orange-600 transition font-medium">Katalog</a>
               <a href="#games" className="text-gray-700 hover:text-orange-600 transition font-medium">Games</a>
               <a href="#ai" className="text-gray-700 hover:text-orange-600 transition font-medium">AI Insight</a>
-              <button className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-xl transition transform hover:scale-105">
+              <button className="bg-linear-to-r from-orange-600 to-red-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-xl transition transform hover:scale-105">
                 <ShoppingBag className="inline mr-2" size={18} />
                 Belanja
               </button>
@@ -137,7 +137,7 @@ const GiriloyoLanding = () => {
               <a href="#products" className="block py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg px-4 transition font-medium">Katalog</a>
               <a href="#games" className="block py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg px-4 transition font-medium">Games</a>
               <a href="#ai" className="block py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg px-4 transition font-medium">AI Insight</a>
-              <button className="w-full bg-gradient-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-full font-semibold">
+              <button className="w-full bg-linear-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-full font-semibold">
                 <ShoppingBag className="inline mr-2" size={18} />
                 Belanja Sekarang
               </button>
@@ -167,7 +167,7 @@ const GiriloyoLanding = () => {
               <div className="inline-block bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-semibold mb-4 animate-bounce-slow">
                 🎨 Warisan UNESCO
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 bg-linear-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent leading-tight">
                 Batik Tulis<br />Giriloyo
               </h1>
               <p className="text-lg sm:text-xl lg:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto lg:mx-0">
@@ -175,7 +175,7 @@ const GiriloyoLanding = () => {
                 <span className="text-orange-600 font-semibold">Beli Batik Asli, Dapat NFT Gratis!</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition flex items-center justify-center gap-2 text-base lg:text-lg">
+                <button className="bg-linear-to-r from-orange-600 to-red-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition flex items-center justify-center gap-2 text-base lg:text-lg">
                   <ShoppingBag size={22} />
                   Jelajahi Katalog
                 </button>
@@ -189,7 +189,7 @@ const GiriloyoLanding = () => {
             {/* Hero Image with Batik Pattern */}
             <div className="flex-1 w-full max-w-lg lg:max-w-none">
               <div className="relative group">
-                <div className="absolute -inset-4 bg-gradient-to-r from-orange-400 to-red-500 rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition animate-pulse"></div>
+                <div className="absolute -inset-4 bg-linear-to-r from-orange-400 to-red-500 rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition animate-pulse"></div>
                 <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden transform group-hover:scale-105 transition duration-500">
                   <img 
                     src="https://images.unsplash.com/photo-1622994524768-6b7b1d4e0b5e?w=800&h=600&fit=crop&q=80" 
@@ -251,7 +251,7 @@ const GiriloyoLanding = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Game 1 */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-orange-300">
-              <div className="bg-gradient-to-br from-orange-100 to-red-100 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
+              <div className="bg-linear-to-br from-orange-100 to-red-100 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
                 <Gamepad2 className="text-orange-600" size={32} />
               </div>
               <h3 className="text-xl lg:text-2xl font-bold mb-4 text-gray-800">Mencanting Virtual</h3>
@@ -266,7 +266,7 @@ const GiriloyoLanding = () => {
 
             {/* Game 2 */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-300">
-              <div className="bg-gradient-to-br from-blue-100 to-purple-100 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
+              <div className="bg-linear-to-br from-blue-100 to-purple-100 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
                 <Brain className="text-blue-600" size={32} />
               </div>
               <h3 className="text-xl lg:text-2xl font-bold mb-4 text-gray-800">Kuis Cerdas Budaya</h3>
@@ -281,7 +281,7 @@ const GiriloyoLanding = () => {
 
             {/* AI Insight */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-purple-300 sm:col-span-2 lg:col-span-1">
-              <div className="bg-gradient-to-br from-purple-100 to-pink-100 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
+              <div className="bg-linear-to-br from-purple-100 to-pink-100 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
                 <Sparkles className="text-purple-600" size={32} />
               </div>
               <h3 className="text-xl lg:text-2xl font-bold mb-4 text-gray-800">AI Insight</h3>
@@ -322,8 +322,8 @@ const GiriloyoLanding = () => {
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-                  <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-600 to-red-600 text-white px-3 py-1 rounded-full text-xs lg:text-sm font-bold shadow-lg flex items-center gap-1">
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                  <div className="absolute top-4 right-4 bg-linear-to-r from-orange-600 to-red-600 text-white px-3 py-1 rounded-full text-xs lg:text-sm font-bold shadow-lg flex items-center gap-1">
                     <Award size={14} />
                     NFT
                   </div>
@@ -339,7 +339,7 @@ const GiriloyoLanding = () => {
                   </p>
                   <div className="flex justify-between items-center">
                     <span className="text-xl lg:text-2xl font-bold text-orange-600">{product.price}</span>
-                    <button className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-4 lg:px-6 py-2 rounded-full font-semibold hover:shadow-lg transition transform hover:scale-105 text-sm lg:text-base">
+                    <button className="bg-linear-to-r from-orange-600 to-red-600 text-white px-4 lg:px-6 py-2 rounded-full font-semibold hover:shadow-lg transition transform hover:scale-105 text-sm lg:text-base">
                       Lihat Detail
                     </button>
                   </div>
@@ -357,7 +357,7 @@ const GiriloyoLanding = () => {
       </section>
 
       {/* Phygital Banner with Batik Pattern */}
-      <section id="ai" className="py-12 lg:py-20 px-4 bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 relative overflow-hidden">
+      <section id="ai" className="py-12 lg:py-20 px-4 bg-linear-to-r from-orange-600 via-red-600 to-pink-600 relative overflow-hidden">
         {/* Animated Batik Pattern */}
         <div 
           className="absolute inset-0 opacity-10 animate-slide-up"
@@ -418,7 +418,7 @@ const GiriloyoLanding = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
             {/* Brand */}
             <div className="sm:col-span-2">
-              <h3 className="text-2xl lg:text-3xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+              <h3 className="text-2xl lg:text-3xl font-bold mb-4 bg-linear-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
                 Giriloyo Imersive
               </h3>
               <p className="text-gray-400 mb-6 text-sm lg:text-base leading-relaxed">
