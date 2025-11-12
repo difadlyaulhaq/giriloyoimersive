@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+// PERBAIKAN: Impor Link untuk routing
+import Link from 'next/link';
 import { ShoppingBag, Gamepad2, Brain, Sparkles, Menu, X, ChevronRight, Award, Zap, Search, User, MapPin, Calendar, Users, Mountain, BookOpen, School, Home, Palette } from 'lucide-react';
 import Image from 'next/image';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const GiriloyoLanding = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -102,6 +106,7 @@ const GiriloyoLanding = () => {
         <div className="fixed bottom-8 right-8 z-40 flex flex-col gap-3">
           <button 
             onClick={() => document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' })}
+            // PERBAIKAN: bg-linear-to-r -> bg-gradient-to-r
             className="group relative bg-gradient-to-r from-amber-600 to-amber-700 text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-amber-500/50 transition transform hover:scale-110 flex items-center justify-center"
           >
             <Gamepad2 size={24} />
@@ -112,6 +117,7 @@ const GiriloyoLanding = () => {
           
           <button 
             onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+            // PERBAIKAN: bg-linear-to-r -> bg-gradient-to-r
             className="group relative bg-gradient-to-r from-blue-600 to-blue-700 text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-blue-500/50 transition transform hover:scale-110 flex items-center justify-center"
           >
             <ShoppingBag size={24} />
@@ -122,6 +128,7 @@ const GiriloyoLanding = () => {
           
           <button 
             onClick={() => document.getElementById('ai')?.scrollIntoView({ behavior: 'smooth' })}
+            // PERBAIKAN: bg-linear-to-r -> bg-gradient-to-r
             className="group relative bg-gradient-to-r from-purple-600 to-purple-700 text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-purple-500/50 transition transform hover:scale-110 flex items-center justify-center animate-pulse"
           >
             <Sparkles size={24} />
@@ -129,73 +136,23 @@ const GiriloyoLanding = () => {
               AI Insight
             </span>
           </button>
+          
+          <Link href="/bookingwisatapage" passHref>
+            <button 
 
-          <button 
-            onClick={() => document.getElementById('eduwisata')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group relative bg-gradient-to-r from-green-600 to-emerald-700 text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-green-500/50 transition transform hover:scale-110 flex items-center justify-center"
-          >
-            <School size={24} />
-            <span className="absolute right-16 bg-stone-800 text-white px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none">
-              Booking Paket
-            </span>
-          </button>
+              className="group relative bg-gradient-to-r from-green-600 to-emerald-700 text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-green-500/50 transition transform hover:scale-110 flex items-center justify-center"
+            >
+              <School size={24} />
+              <span className="absolute right-16 bg-stone-800 text-white px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none">
+                Booking Paket
+              </span>
+            </button>
+          </Link>
         </div>
       )}
 
       {/* Navigation */}
-      <nav className="bg-white/95 backdrop-blur-lg shadow-md sticky top-0 z-50 border-b-2 border-amber-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 lg:h-20">
-            <div className="flex items-center space-x-3">
-              <Image 
-                  src="/logo-web.png"
-                  alt="Logo"
-                  width={40}
-                  height={40}
-                  className="w-40 h-30 object-contain"
-                />
-            </div>
-            
-            {/* Desktop Menu */}
-            <div className="hidden lg:flex space-x-8 items-center">
-              <a href="#home" onClick={handleNavClick} className="text-stone-700 hover:text-amber-800 transition font-medium">Beranda</a>
-              <a href="#desa-wisata" onClick={handleNavClick} className="text-stone-700 hover:text-amber-800 transition font-medium">Desa Wisata</a>
-              <a href="#eduwisata" onClick={handleNavClick} className="text-stone-700 hover:text-amber-800 transition font-medium">Eduwisata</a>
-              <a href="#products" onClick={handleNavClick} className="text-stone-700 hover:text-amber-800 transition font-medium">Belanja</a>
-              <a href="#games" onClick={handleNavClick} className="text-stone-700 hover:text-amber-800 transition font-medium">Games</a>
-              <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-6 py-2.5 rounded-full font-semibold hover:shadow-xl transition transform hover:scale-105 flex items-center gap-2">
-                <Calendar size={18} />
-                Booking Paket
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button 
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-amber-100 transition"
-            >
-              {menuOpen ? <X size={28} className="text-amber-800" /> : <Menu size={28} className="text-amber-800" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="lg:hidden bg-white border-t border-amber-200 animate-slide-down">
-            <div className="px-4 py-4 space-y-3">
-              <a href="#home" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Beranda</a>
-              <a href="#desa-wisata" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Desa Wisata</a>
-              <a href="#eduwisata" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Eduwisata</a>
-              <a href="#products" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Belanja</a>
-              <a href="#games" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Games</a>
-              <button className="w-full bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-6 py-3 rounded-full font-semibold flex items-center justify-center gap-2">
-                <Calendar size={18} />
-                Booking Paket Wisata
-              </button>
-            </div>
-          </div>
-        )}
-      </nav>
+      <Navbar />
 
       {/* Hero Section - Desa Wisata Focused */}
       <section id="home" className="relative py-12 lg:py-20 px-4 overflow-hidden">
@@ -220,19 +177,23 @@ const GiriloyoLanding = () => {
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
                 <span className="block text-stone-800 mb-2">Desa Wisata</span>
+                {/* PERBAIKAN: bg-linear-to-r -> bg-gradient-to-r */}
                 <span className="block bg-gradient-to-r from-amber-700 via-amber-800 to-amber-900 bg-clip-text text-transparent">Batik Giriloyo</span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 Jelajahi warisan batik tulis UNESCO, booking paket eduwisata, bermain game interaktif, dan belanja batik autentik dengan NFT digital
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                <button 
-                  onClick={() => document.getElementById('eduwisata')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition text-base lg:text-lg flex items-center justify-center gap-2"
-                >
-                  <Calendar size={22} />
-                  Booking Paket Wisata
-                </button>
+                {/* PERBAIKAN: Implementasi Routing */}
+                <Link href="/bookingwisatapage">
+                  <button 
+                    // PERBAIKAN: bg-linear-to-r -> bg-gradient-to-r
+                    className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition text-base lg:text-lg flex items-center justify-center gap-2"
+                  >
+                    <Calendar size={22} />
+                    Booking Paket Wisata
+                  </button>
+                </Link>
                 <button 
                   onClick={() => document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' })}
                   className="bg-white text-amber-800 px-8 py-4 rounded-full font-semibold border-2 border-amber-800 hover:bg-amber-50 transition text-base lg:text-lg flex items-center justify-center gap-2"
@@ -262,6 +223,7 @@ const GiriloyoLanding = () => {
             {/* Hero Image */}
             <div className="flex-1 w-full max-w-md lg:max-w-xl relative">
               <div className="relative">
+                {/* PERBAIKAN: bg-linear-to-br -> bg-gradient-to-br */}
                 <div className="absolute -inset-4 bg-gradient-to-br from-amber-300 to-amber-500 rounded-3xl blur-3xl opacity-20 animate-pulse"></div>
                 <img 
                   src="/Muslimbatik.png" 
@@ -295,6 +257,7 @@ const GiriloyoLanding = () => {
       </section>
 
       {/* Desa Wisata Highlight Section */}
+      {/* PERBAIKAN: bg-linear-to-br -> bg-gradient-to-br */}
       <section id="desa-wisata" className="py-16 lg:py-24 px-4 bg-gradient-to-br from-amber-100 to-orange-100 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 lg:mb-16">
@@ -308,6 +271,7 @@ const GiriloyoLanding = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16">
             <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-xl hover:shadow-2xl transition text-center transform hover:-translate-y-2">
+              {/* PERBAIKAN: bg-linear-to-br -> bg-gradient-to-br */}
               <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-white" />
               </div>
@@ -316,6 +280,7 @@ const GiriloyoLanding = () => {
             </div>
 
             <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-xl hover:shadow-2xl transition text-center transform hover:-translate-y-2">
+              {/* PERBAIKAN: bg-linear-to-brrom -> bg-gradient-to-br from */}
               <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-white" />
               </div>
@@ -344,7 +309,7 @@ const GiriloyoLanding = () => {
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-amber-400 to-red-500 rounded-3xl blur-2xl opacity-20 group-hover:opacity-30 transition"></div>
               <img 
-                src="/batik1.jpg"
+                src="/modelcanting.png"
                 alt="Desa Giriloyo"
                 className="relative w-full h-auto rounded-3xl shadow-2xl"
               />
@@ -446,17 +411,21 @@ const GiriloyoLanding = () => {
                     </li>
                   ))}
                 </ul>
-                <button className={`w-full py-4 rounded-full font-bold transition transform hover:scale-105 ${
-                  paket.popular
-                    ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-lg hover:shadow-xl'
-                    : 'bg-stone-100 text-stone-800 hover:bg-stone-200'
-                }`}>
-                  Booking Sekarang
-                </button>
+                {/* PERBAIKAN: Implementasi Routing */}
+                <Link href="/bookingwisatapage" passHref>
+                  <button className={`w-full py-4 rounded-full font-bold transition transform hover:scale-105 ${
+                    paket.popular
+                      ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-lg hover:shadow-xl'
+                      : 'bg-stone-100 text-stone-800 hover:bg-stone-200'
+                  }`}>
+                    Booking Sekarang
+                  </button>
+                </Link>
               </div>
             ))}
           </div>
 
+          {/* PERBAIKAN: bg-linear-to-br -> bg-gradient-to-br */}
           <div className="bg-gradient-to-br from-green-100 to-emerald-100 rounded-3xl p-8 lg:p-12 text-center">
             <School className="w-16 h-16 text-green-700 mx-auto mb-6" />
             <h3 className="text-2xl lg:text-3xl font-bold text-stone-800 mb-4">
@@ -470,15 +439,19 @@ const GiriloyoLanding = () => {
                 <span className="text-2xl mr-2">💬</span>
                 Hubungi via WhatsApp
               </button>
-              <button className="bg-gradient-to-r from-green-600 to-emerald-700 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105">
-                Download Proposal Eduwisata
-              </button>
+              {/* PERBAIKAN: Implementasi Routing */}
+              <Link href="/bookingwisatapage" passHref>
+                <button className="bg-gradient-to-r from-green-600 to-emerald-700 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105">
+                  Download Proposal Eduwisata
+                </button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Interactive Games Section */}
+      {/* PERBAIKAN: bg-linear-to-br -> bg-gradient-to-br */}
       <section id="games" className="py-16 lg:py-24 px-4 bg-gradient-to-br from-amber-50 to-orange-50 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 lg:mb-16">
@@ -493,6 +466,7 @@ const GiriloyoLanding = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Game 1 */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-amber-300">
+              {/* PERBAIKAN: bg-linear-to-br -> bg-gradient-to-br */}
               <div className="bg-gradient-to-br from-amber-100 to-amber-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
                 <Gamepad2 className="text-amber-800" size={32} />
               </div>
@@ -511,6 +485,7 @@ const GiriloyoLanding = () => {
 
             {/* Game 2 */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-300">
+              {/* PERBAIKAN: bg-linear-to-br -> bg-gradient-to-br */}
               <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
                 <Brain className="text-blue-800" size={32} />
               </div>
@@ -529,6 +504,7 @@ const GiriloyoLanding = () => {
 
             {/* AI Insight */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-purple-300 sm:col-span-2 lg:col-span-1">
+              {/* PERBAIKAN: bg-linear-to-br -> bg-gradient-to-br */}
               <div className="bg-gradient-to-br from-purple-100 to-pink-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
                 <Sparkles className="text-purple-600" size={32} />
               </div>
@@ -574,6 +550,7 @@ const GiriloyoLanding = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                   />
                 </div>
+                {/* PERBAIKAN: bg-linear-to-t -> bg-gradient-to-t */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition">
                   <div className="absolute bottom-3 left-3 right-3">
                     <p className="text-white font-bold text-sm">{product.motif}</p>
@@ -585,14 +562,18 @@ const GiriloyoLanding = () => {
           </div>
 
           <div className="text-center">
-            <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 text-base lg:text-lg">
-              Lihat Semua Motif
-            </button>
+            {/* PERBAIKAN: Implementasi Routing */}
+            <Link href="/productdetailpage" passHref>
+              <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 text-base lg:text-lg">
+                Lihat Semua Motif
+              </button>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Phygital Banner with Batik Pattern */}
+      {/* PERBAIKAN: bg-linear-to-r -> bg-gradient-to-r */}
       <section id="ai" className="py-16 lg:py-24 px-4 bg-gradient-to-r from-purple-800 via-purple-900 to-pink-900 relative overflow-hidden">
         {/* Animated Batik Pattern */}
         <div 
@@ -671,7 +652,9 @@ const GiriloyoLanding = () => {
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
                   />
+                  {/* PERBAIKAN: bg-linear-to-t -> bg-gradient-to-t */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                  {/* PERBAIKAN: bg-linear-to-r -> bg-gradient-to-r */}
                   <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-3 py-1 rounded-full text-xs lg:text-sm font-bold shadow-lg flex items-center gap-1">
                     <Award size={14} />
                     NFT
@@ -688,9 +671,12 @@ const GiriloyoLanding = () => {
                   </p>
                   <div className="flex justify-between items-center">
                     <span className="text-xl lg:text-2xl font-bold text-amber-700">{product.price}</span>
-                    <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-4 lg:px-6 py-2 rounded-full font-semibold hover:shadow-lg transition transform hover:scale-105 text-sm lg:text-base">
-                      Beli Sekarang
-                    </button>
+                    {/* PERBAIKAN: Implementasi Routing */}
+                    <Link href="/productdetailpage" passHref>
+                      <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-4 lg:px-6 py-2 rounded-full font-semibold hover:shadow-lg transition transform hover:scale-105 text-sm lg:text-base">
+                        Beli Sekarang
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -698,12 +684,16 @@ const GiriloyoLanding = () => {
           </div>
 
           <div className="text-center mt-12">
-            <button className="bg-white text-amber-800 px-8 py-4 rounded-full font-bold border-2 border-amber-800 hover:bg-amber-800 hover:text-amber-50 transition text-base lg:text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
-              Lihat Semua Koleksi →
-            </button>
+            {/* PERBAIKAN: Implementasi Routing */}
+            <Link href="/productdetailpage" passHref>
+              <button className="bg-white text-amber-800 px-8 py-4 rounded-full font-bold border-2 border-amber-800 hover:bg-amber-800 hover:text-amber-50 transition text-base lg:text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+                Lihat Semua Koleksi →
+              </button>
+            </Link>
           </div>
 
           {/* Phygital Info */}
+          {/* PERBAIKAN: bg-linear-to-r -> bg-gradient-to-r */}
           <div className="mt-16 bg-gradient-to-r from-amber-800 via-amber-900 to-stone-900 rounded-3xl p-8 lg:p-12 text-center text-white">
             <div className="flex flex-col sm:flex-row gap-6 lg:gap-8 justify-center items-center mb-8">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/20 transition transform hover:scale-105 w-full sm:w-auto border border-amber-500/20">
@@ -730,78 +720,7 @@ const GiriloyoLanding = () => {
       </section>
 
       {/* Footer with Batik Pattern */}
-      <footer className="bg-stone-900 text-amber-50 py-12 lg:py-16 px-4 relative overflow-hidden">
-        <div 
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `url('https://cdn.pixabay.com/photo/2020/11/29/10/42/batik-5787948_1280.jpg')`,
-            backgroundSize: '300px 300px',
-            backgroundRepeat: 'repeat',
-          }}
-        />
-        
-        <div className="max-w-7xl mx-auto relative">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
-            {/* Brand */}
-            <div className="sm:col-span-2">
-              <div className="flex items-center gap-3 mb-4 bg-white px-3 py-2 rounded-2xl w-max border border-amber-800/30">
-                <Image 
-                  src="/logo-web.png"
-                  alt="Logo"
-                  width={40}
-                  height={40}
-                  className="w-30 h-20 object-contain"
-                />
-              </div>
-              <p className="text-stone-400 mb-6 text-sm lg:text-base leading-relaxed">
-                Desa Wisata Batik Giriloyo - Melestarikan warisan budaya melalui eduwisata, teknologi Web3, dan pengalaman digital yang imersif.
-              </p>
-              <div className="flex gap-4">
-                <button className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber-700 transition border border-amber-800/30">
-                  <span className="text-xl">📷</span>
-                </button>
-                <button className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber-700 transition border border-amber-800/30">
-                  <span className="text-xl">💬</span>
-                </button>
-                <button className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber-700 transition border border-amber-800/30">
-                  <span className="text-xl">✉️</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Links */}
-            <div>
-              <h4 className="font-bold mb-4 text-base lg:text-lg text-amber-400">Jelajahi</h4>
-              <ul className="space-y-2 text-stone-400 text-sm lg:text-base">
-                <li><a href="#desa-wisata" className="hover:text-amber-400 transition">Desa Wisata</a></li>
-                <li><a href="#eduwisata" className="hover:text-amber-400 transition">Paket Eduwisata</a></li>
-                <li><a href="#products" className="hover:text-amber-400 transition">Belanja Batik</a></li>
-                <li><a href="#games" className="hover:text-amber-400 transition">Games Interaktif</a></li>
-              </ul>
-            </div>
-
-            {/* Support */}
-            <div>
-              <h4 className="font-bold mb-4 text-base lg:text-lg text-amber-400">Bantuan</h4>
-              <ul className="space-y-2 text-stone-400 text-sm lg:text-base">
-                <li><a href="#" className="hover:text-amber-400 transition">Cara Booking</a></li>
-                <li><a href="#" className="hover:text-amber-400 transition">Panduan Wisata</a></li>
-                <li><a href="#" className="hover:text-amber-400 transition">Panduan NFT</a></li>
-                <li><a href="#" className="hover:text-amber-400 transition">Kontak Kami</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-stone-800 pt-8 text-center">
-            <p className="text-stone-500 text-sm lg:text-base mb-2">
-              © 2024 Desa Wisata Batik Giriloyo. Powered by Next.js • NestJS • Crossmint • Midtrans
-            </p>
-            <p className="text-stone-600 text-xs">
-              Best Tourism Village UNESCO 2021 🏛️ • Batik Tulis Warisan Budaya
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Custom CSS for animations */}
       <style jsx>{`
