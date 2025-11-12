@@ -135,15 +135,15 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                 🏛️ Warisan UNESCO
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
-                <span className="block text-stone-800 mb-2">Your one-stop</span>
-                <span className="block bg-linear-to-r from-amber-700 via-amber-800 to-amber-900 bg-clip-text text-transparent">custom batik</span>
+                <span className="block text-stone-800 mb-2">Satu-satunya tempat</span>
+                <span className="block bg-linear-to-r from-amber-700 via-amber-800 to-amber-900 bg-clip-text text-transparent">batik kustom Anda</span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Custom make your batik with our own 300+ patterns made with a premium craft quality in 3 workdays
+                Buat batik kustom Anda dengan 300+ motif kami yang dibuat dengan kualitas premium dalam 3 hari kerja
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
                 <button className="bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition text-base lg:text-lg">
-                  SHOP NOW
+                  BELANJA SEKARANG
                 </button>
                 <button className="bg-white text-amber-800 px-8 py-4 rounded-full font-semibold border-2 border-amber-800 hover:bg-amber-50 transition text-base lg:text-lg">
                   <Gamepad2 className="inline mr-2" size={22} />
@@ -153,16 +153,16 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 
               {/* Question Section */}
               <div className="pt-8 lg:pt-12">
-                <p className="text-stone-700 font-medium mb-3">Where do you wear your batik for?</p>
+                <p className="text-stone-700 font-medium mb-3">Anda memakai batik untuk acara apa?</p>
                 <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                   <button className="px-6 py-2 bg-white border-2 border-amber-200 rounded-full text-stone-700 hover:border-amber-500 hover:bg-amber-50 transition font-medium text-sm">
                     Formal
                   </button>
                   <button className="px-6 py-2 bg-white border-2 border-amber-200 rounded-full text-stone-700 hover:border-amber-500 hover:bg-amber-50 transition font-medium text-sm">
-                    Casual
+                    Kasual
                   </button>
                   <button className="px-6 py-2 bg-white border-2 border-amber-200 rounded-full text-stone-700 hover:border-amber-500 hover:bg-amber-50 transition font-medium text-sm">
-                    Event
+                    Acara
                   </button>
                 </div>
               </div>
@@ -174,7 +174,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                 <div className="absolute -inset-4 bg-linear-to-br from-amber-300 to-amber-500 rounded-3xl blur-3xl opacity-20 animate-pulse"></div>
                 <img 
                   src="/Muslimbatik.png" 
-                  alt="Batik Model"
+                  alt="Model Batik"
                   className="relative w-120 h-auto rounded-3xl shadow-2xl"
                 />
                 <div className="absolute top-6 right-6 flex flex-col gap-3">
@@ -184,8 +184,8 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                         <span className="text-amber-800 text-xs font-bold">01</span>
                       </div>
                       <div>
-                        <p className="text-xs text-stone-500">Step 1</p>
-                        <p className="text-sm font-bold text-stone-800">Pick Pattern</p>
+                        <p className="text-xs text-stone-500">Langkah 1</p>
+                        <p className="text-sm font-bold text-stone-800">Pilih Motif</p>
                       </div>
                     </div>
                   </div>
@@ -195,8 +195,8 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                         <span className="text-amber-800 text-xs font-bold">02</span>
                       </div>
                       <div>
-                        <p className="text-xs text-stone-500">Step 2</p>
-                        <p className="text-sm font-bold text-stone-800">Choose Size</p>
+                        <p className="text-xs text-stone-500">Langkah 2</p>
+                        <p className="text-sm font-bold text-stone-800">Pilih Ukuran</p>
                       </div>
                     </div>
                   </div>
@@ -212,10 +212,10 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-5xl font-bold text-stone-800 mb-4">
-              300+ Patterns
+              300+ Motif
             </h2>
             <p className="text-base lg:text-lg text-stone-600 max-w-2xl mx-auto">
-              Custom made your batik with over 300 authentic patterns made with a premium craft quality
+              Buat batik kustom Anda dengan lebih dari 300 motif autentik yang dibuat dengan kualitas premium
             </p>
           </div>
 
@@ -245,7 +245,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 
           <div className="text-center">
             <button className="bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 text-base lg:text-lg">
-              BROWSE PATTERNS
+              JELAJAHI MOTIF
             </button>
           </div>
         </div>
@@ -265,7 +265,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-stone-800 mb-4">
-              How it works
+              Cara Kerjanya
             </h2>
             <p className="text-base lg:text-lg text-stone-600">
               Setiap batik dilengkapi dengan <span className="text-amber-600 font-semibold">NFT</span> sebagai sertifikat keaslian digital
@@ -274,10 +274,10 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
-              { icon: '🎨', title: 'Pick Pattern', desc: 'Choose from 300+ authentic batik patterns' },
-              { icon: '📏', title: 'Select Size', desc: 'Pick your preferred fabric size and type' },
-              { icon: '🎭', title: 'Customize', desc: 'Adjust colors and placement to your style' },
-              { icon: '🚚', title: 'Delivery', desc: 'Receive your batik in 3 workdays + NFT certificate' },
+              { icon: '🎨', title: 'Pilih Motif', desc: 'Pilih dari 300+ motif batik autentik' },
+              { icon: '📏', title: 'Pilih Ukuran', desc: 'Pilih ukuran dan jenis kain pilihan Anda' },
+              { icon: '🎭', title: 'Kustomisasi', desc: 'Sesuaikan warna dan penempatan sesuai gaya Anda' },
+              { icon: '🚚', title: 'Pengiriman', desc: 'Terima batik Anda dalam 3 hari kerja + sertifikat NFT' },
             ].map((step, index) => (
               <div key={index} className="bg-white rounded-3xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition text-center">
                 <div className="w-16 h-16 lg:w-20 lg:h-20 bg-linear-to-br from-amber-100 to-amber-200 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl lg:text-4xl">
@@ -312,13 +312,13 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                 ✨ Personalisasi Sempurna
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-stone-800 mb-6 leading-tight">
-                Customize<br />your style
+                Kustomisasi<br />gaya Anda
               </h2>
               <p className="text-lg lg:text-xl text-stone-700 mb-8 leading-relaxed">
-                Mix and match patterns, colors, and sizes to create your perfect batik. Each piece is handcrafted by master artisans from Giriloyo.
+                Padu padankan motif, warna, dan ukuran untuk menciptakan batik sempurna Anda. Setiap karya dibuat tangan oleh pengrajin ahli dari Giriloyo.
               </p>
               <button className="bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-2xl transition transform hover:scale-105 text-lg">
-                START CUSTOMIZING
+                MULAI KUSTOMISASI
               </button>
             </div>
 
@@ -326,7 +326,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
               <div className="relative">
                 <img 
                   src="/female-batik.jpg"
-                  alt="Customize"
+                  alt="Kustomisasi"
                   width={400}
                   height={400}
                   className="rounded-3xl shadow-2xl"
@@ -337,8 +337,8 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                       <Sparkles className="text-white" size={24} />
                     </div>
                     <div>
-                      <p className="text-xs text-stone-500">AI Powered</p>
-                      <p className="font-bold text-stone-800">Smart Recommendations</p>
+                      <p className="text-xs text-stone-500">Didukung AI</p>
+                      <p className="font-bold text-stone-800">Rekomendasi Cerdas</p>
                     </div>
                   </div>
                 </div>
@@ -414,7 +414,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-5xl font-bold text-stone-800 mb-4">
-              Batik stories
+              Cerita Batik
             </h2>
             <p className="text-base lg:text-lg text-stone-600">
               Cerita di balik setiap motif batik Giriloyo
@@ -425,7 +425,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
             <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition group">
               <img 
                 src="/batik1.jpg"
-                alt="Story"
+                alt="Cerita"
                 className="w-full h-64 object-cover group-hover:scale-105 transition duration-500"
               />
               <div className="p-6 lg:p-8">
@@ -433,10 +433,10 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                   TRADISI
                 </span>
                 <h3 className="text-xl lg:text-2xl font-bold text-stone-800 mb-3">
-                  A community of 50+ Master Artisans
+                  Komunitas 50+ Pengrajin Ahli
                 </h3>
                 <p className="text-stone-600 text-sm lg:text-base mb-4 leading-relaxed">
-                  Meet the craftsmen preserving centuries-old batik techniques in Giriloyo village...
+                  Temui para pengrajin yang melestarikan teknik batik berusia berabad-abad di desa Giriloyo...
                 </p>
                 <button className="text-amber-800 font-semibold flex items-center gap-2 hover:gap-4 transition-all">
                   Baca Selengkapnya <ChevronRight size={18} />
@@ -464,7 +464,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
             🚀 Inovasi Web3
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-            Phygital Experience
+            Pengalaman Phygital
           </h2>
           <p className="text-lg sm:text-xl lg:text-2xl mb-10 opacity-95 max-w-3xl mx-auto leading-relaxed">
             Beli batik asli, dapatkan <span className="font-bold text-amber-300 underline decoration-amber-400">NFT gratis</span> sebagai sertifikat digital yang tersimpan selamanya di blockchain
