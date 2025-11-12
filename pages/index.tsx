@@ -79,7 +79,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
               <button className="p-2 hover:bg-amber-50 rounded-full transition">
                 <User className="text-stone-600" size={20} />
               </button>
-              <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-6 py-2.5 rounded-full font-semibold hover:shadow-xl transition transform hover:scale-105 flex items-center gap-2">
+              <button className="bg-linear-to-rrom-amber-800 to-amber-900 text-amber-50 px-6 py-2.5 rounded-full font-semibold hover:shadow-xl transition transform hover:scale-105 flex items-center gap-2">
                 <ShoppingBag size={18} />
                 Belanja
               </button>
@@ -104,7 +104,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
               <a href="#products" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Katalog</a>
               <a href="#games" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">Games</a>
               <a href="#ai" onClick={handleNavClick} className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium">AI Insight</a>
-              <button className="w-full bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-6 py-3 rounded-full font-semibold flex items-center justify-center gap-2">
+              <button className="w-full bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-6 py-3 rounded-full font-semibold flex items-center justify-center gap-2">
                 <ShoppingBag size={18} />
                 Belanja Sekarang
               </button>
@@ -136,13 +136,13 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
                 <span className="block text-stone-800 mb-2">Your one-stop</span>
-                <span className="block bg-gradient-to-r from-amber-700 via-amber-800 to-amber-900 bg-clip-text text-transparent">custom batik</span>
+                <span className="block bg-linear-to-r from-amber-700 via-amber-800 to-amber-900 bg-clip-text text-transparent">custom batik</span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 Custom make your batik with our own 300+ patterns made with a premium craft quality in 3 workdays
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition text-base lg:text-lg">
+                <button className="bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:scale-105 transition text-base lg:text-lg">
                   SHOP NOW
                 </button>
                 <button className="bg-white text-amber-800 px-8 py-4 rounded-full font-semibold border-2 border-amber-800 hover:bg-amber-50 transition text-base lg:text-lg">
@@ -171,7 +171,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
             {/* Hero Image */}
             <div className="flex-1 w-full max-w-md lg:max-w-xl relative">
               <div className="relative">
-                <div className="absolute -inset-4 bg-gradient-to-br from-amber-300 to-amber-500 rounded-3xl blur-3xl opacity-20 animate-pulse"></div>
+                <div className="absolute -inset-4 bg-linear-to-br from-amber-300 to-amber-500 rounded-3xl blur-3xl opacity-20 animate-pulse"></div>
                 <img 
                   src="/Muslimbatik.png" 
                   alt="Batik Model"
@@ -233,7 +233,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition">
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition">
                   <div className="absolute bottom-3 left-3 right-3">
                     <p className="text-white font-bold text-sm">{product.motif}</p>
                     <p className="text-amber-200 text-xs">{product.price}</p>
@@ -244,7 +244,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
           </div>
 
           <div className="text-center">
-            <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 text-base lg:text-lg">
+            <button className="bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 text-base lg:text-lg">
               BROWSE PATTERNS
             </button>
           </div>
@@ -280,7 +280,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
               { icon: '🚚', title: 'Delivery', desc: 'Receive your batik in 3 workdays + NFT certificate' },
             ].map((step, index) => (
               <div key={index} className="bg-white rounded-3xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition text-center">
-                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-amber-100 to-amber-200 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl lg:text-4xl">
+                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-linear-to-br from-amber-100 to-amber-200 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl lg:text-4xl">
                   {step.icon}
                 </div>
                 <div className="w-10 h-10 bg-amber-800 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
@@ -295,7 +295,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       </section>
 
       {/* Customize Your Style */}
-      <section className="py-16 lg:py-24 px-4 bg-gradient-to-br from-amber-100 to-amber-200 relative overflow-hidden">
+      <section className="py-16 lg:py-24 px-4 bg-linear-to-br from-amber-100 to-amber-200 relative overflow-hidden">
         <div 
           className="absolute inset-0 opacity-10"
           style={{
@@ -317,7 +317,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
               <p className="text-lg lg:text-xl text-stone-700 mb-8 leading-relaxed">
                 Mix and match patterns, colors, and sizes to create your perfect batik. Each piece is handcrafted by master artisans from Giriloyo.
               </p>
-              <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-2xl transition transform hover:scale-105 text-lg">
+              <button className="bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-10 py-4 rounded-full font-bold hover:shadow-2xl transition transform hover:scale-105 text-lg">
                 START CUSTOMIZING
               </button>
             </div>
@@ -333,7 +333,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                 />
                 <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-xl">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-linear-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center">
                       <Sparkles className="text-white" size={24} />
                     </div>
                     <div>
@@ -363,7 +363,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Game 1 */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-amber-300">
-              <div className="bg-gradient-to-br from-amber-100 to-amber-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
+              <div className="bg-linear-to-br from-amber-100 to-amber-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
                 <Gamepad2 className="text-amber-800" size={32} />
               </div>
               <h3 className="text-xl lg:text-2xl font-bold mb-4 text-stone-800">Mencanting Virtual</h3>
@@ -378,7 +378,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 
             {/* Game 2 */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-300">
-              <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
+              <div className="bg-linear-to-br from-blue-100 to-blue-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
                 <Brain className="text-blue-800" size={32} />
               </div>
               <h3 className="text-xl lg:text-2xl font-bold mb-4 text-stone-800">Kuis Cerdas Budaya</h3>
@@ -393,7 +393,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 
             {/* AI Insight */}
             <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 hover:shadow-2xl transition transform hover:-translate-y-2 border-2 border-transparent hover:border-amber-300 sm:col-span-2 lg:col-span-1">
-              <div className="bg-gradient-to-br from-amber-100 to-yellow-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
+              <div className="bg-linear-to-br from-amber-100 to-yellow-200 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center mb-6 transform hover:rotate-12 transition">
                 <Sparkles className="text-amber-600" size={32} />
               </div>
               <h3 className="text-xl lg:text-2xl font-bold mb-4 text-stone-800">AI Insight</h3>
@@ -410,7 +410,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       </section>
 
       {/* Batik Stories Section */}
-      <section className="py-16 lg:py-24 px-4 bg-gradient-to-br from-stone-100 to-amber-50 relative">
+      <section className="py-16 lg:py-24 px-4 bg-linear-to-br from-stone-100 to-amber-50 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-5xl font-bold text-stone-800 mb-4">
@@ -448,7 +448,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       </section>
 
       {/* Phygital Banner with Batik Pattern */}
-      <section id="ai" className="py-16 lg:py-24 px-4 bg-gradient-to-r from-amber-800 via-amber-900 to-stone-900 relative overflow-hidden">
+      <section id="ai" className="py-16 lg:py-24 px-4 bg-linear-to-r from-amber-800 via-amber-900 to-stone-900 relative overflow-hidden">
         {/* Animated Batik Pattern */}
         <div 
           className="absolute inset-0 opacity-10 animate-slide-up"
@@ -519,8 +519,8 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-                  <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-3 py-1 rounded-full text-xs lg:text-sm font-bold shadow-lg flex items-center gap-1">
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                  <div className="absolute top-4 right-4 bg-linear-to-r from-amber-500 to-amber-600 text-white px-3 py-1 rounded-full text-xs lg:text-sm font-bold shadow-lg flex items-center gap-1">
                     <Award size={14} />
                     NFT
                   </div>
@@ -536,7 +536,7 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                   </p>
                   <div className="flex justify-between items-center">
                     <span className="text-xl lg:text-2xl font-bold text-amber-700">{product.price}</span>
-                    <button className="bg-gradient-to-r from-amber-800 to-amber-900 text-amber-50 px-4 lg:px-6 py-2 rounded-full font-semibold hover:shadow-lg transition transform hover:scale-105 text-sm lg:text-base">
+                    <button className="bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-4 lg:px-6 py-2 rounded-full font-semibold hover:shadow-lg transition transform hover:scale-105 text-sm lg:text-base">
                       Lihat Detail
                     </button>
                   </div>
@@ -569,12 +569,15 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
             {/* Brand */}
             <div className="sm:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-amber-600 to-amber-800 rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-amber-50 font-bold text-2xl">G</span>
+                <div className="w-40 h-25 bg-linear-to-br from-amber-600 to-amber-800 rounded-lg flex items-center justify-center shadow-lg">
+                  <Image 
+                  src="/logo-web.png"
+                  alt="Logo"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-contain"
+                />
                 </div>
-                <h3 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-300 bg-clip-text text-transparent">
-                  Giriloyo Imersive
-                </h3>
               </div>
               <p className="text-stone-400 mb-6 text-sm lg:text-base leading-relaxed">
                 Melestarikan warisan budaya batik tulis Giriloyo melalui teknologi Web3 dan pengalaman digital yang imersif.
