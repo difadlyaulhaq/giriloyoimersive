@@ -1,6 +1,6 @@
 # 🏛️ Giriloyo Immersive
 
-![Giriloyo Immersive Banner](public/logo-web.png)
+![Giriloyo Immersive Banner](public/logo.png)
 
 > **Warisan Budaya Bertemu Teknologi Masa Depan.**
 > Platform *Phygital* (Physical + Digital) untuk pelestarian, edukasi, dan perdagangan Batik Tulis Giriloyo yang diakui UNESCO.
