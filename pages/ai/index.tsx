@@ -163,38 +163,6 @@ const AIChatPage = () => {
                 ))}
               </div>
             </div>
-
-            {/* Product Stats */}
-            <div className="bg-white rounded-2xl p-4 shadow-lg">
-              <h3 className="font-bold text-stone-800 mb-3 flex items-center gap-2">
-                <ShoppingBag size={16} />
-                Koleksi Kami
-              </h3>
-              <div className="space-y-2 text-sm text-stone-600">
-                <div className="flex justify-between">
-                  <span>Total Produk:</span>
-                  <span className="font-bold text-stone-800">{products.length}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Klasik Tradisional:</span>
-                  <span className="font-bold text-amber-700">
-                    {products.filter(p => p.category === 'klasik').length}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Modern:</span>
-                  <span className="font-bold text-blue-700">
-                    {products.filter(p => p.category === 'modern').length}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Dengan NFT:</span>
-                  <span className="font-bold text-green-700">
-                    {products.filter(p => p.nftIncluded).length}
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Chat Container */}
