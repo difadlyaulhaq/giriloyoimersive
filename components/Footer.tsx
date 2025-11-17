@@ -32,7 +32,7 @@ const Footer = () => {
           <div className="sm:col-span-2">
             <div className="flex items-center gap-3 mb-4 bg-white px-3 py-2 rounded-2xl w-max border border-amber-800/30">
               <Image 
-                src="/logo-web.png"
+                src="/logo.png"
                 alt="Logo"
                 width={40}
                 height={40}
