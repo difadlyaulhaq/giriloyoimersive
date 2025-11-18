@@ -1,4 +1,4 @@
-// utils/cartUtils.ts
+// utils/cartUtils.ts - DIPERBAIKI
 import { 
   doc, 
   setDoc, 
@@ -20,8 +20,10 @@ export interface CartItem {
   slug: string;
 }
 
-// Helper function to get guest ID
-const getGuestId = (): string => {
+// Helper function to get guest ID - DIEKSPOR
+export const getGuestId = (): string => {
+  if (typeof window === 'undefined') return 'unknown';
+  
   let guestId = localStorage.getItem('guestId');
   
   if (!guestId) {
@@ -49,6 +51,12 @@ const triggerCartUpdateEvent = () => {
 export const addToCart = async (product: CartItem, selectedSize: string, selectedColor: string): Promise<boolean> => {
   try {
     const guestId = getGuestId();
+    
+    // Jika guestId adalah 'unknown', langsung gunakan localStorage
+    if (guestId === 'unknown') {
+      return addToCartLocal(product, selectedSize, selectedColor);
+    }
+    
     const cartRef = doc(db, 'carts', guestId);
     
     const cartSnapshot = await getDoc(cartRef);
@@ -108,6 +116,12 @@ export const addToCart = async (product: CartItem, selectedSize: string, selecte
 export const getCartItems = async (): Promise<CartItem[]> => {
   try {
     const guestId = getGuestId();
+    
+    // Jika guestId adalah 'unknown', langsung gunakan localStorage
+    if (guestId === 'unknown') {
+      return getCartItemsLocal();
+    }
+    
     const cartRef = doc(db, 'carts', guestId);
     const cartSnapshot = await getDoc(cartRef);
     
@@ -125,6 +139,12 @@ export const getCartItems = async (): Promise<CartItem[]> => {
 export const removeFromCart = async (itemId: number): Promise<CartItem[]> => {
   try {
     const guestId = getGuestId();
+    
+    // Jika guestId adalah 'unknown', langsung gunakan localStorage
+    if (guestId === 'unknown') {
+      return removeFromCartLocal(itemId);
+    }
+    
     const cartRef = doc(db, 'carts', guestId);
     const cartSnapshot = await getDoc(cartRef);
     
@@ -151,6 +171,12 @@ export const removeFromCart = async (itemId: number): Promise<CartItem[]> => {
 export const updateCartItemQuantity = async (itemId: number, newQuantity: number): Promise<CartItem[]> => {
   try {
     const guestId = getGuestId();
+    
+    // Jika guestId adalah 'unknown', langsung gunakan localStorage
+    if (guestId === 'unknown') {
+      return updateCartItemQuantityLocal(itemId, newQuantity);
+    }
+    
     const cartRef = doc(db, 'carts', guestId);
     const cartSnapshot = await getDoc(cartRef);
     
@@ -189,6 +215,13 @@ export const getCartItemCount = async (): Promise<number> => {
 export const clearCart = async (): Promise<void> => {
   try {
     const guestId = getGuestId();
+    
+    // Jika guestId adalah 'unknown', langsung gunakan localStorage
+    if (guestId === 'unknown') {
+      clearCartLocal();
+      return;
+    }
+    
     const cartRef = doc(db, 'carts', guestId);
     
     await updateDoc(cartRef, {
@@ -205,61 +238,90 @@ export const clearCart = async (): Promise<void> => {
 
 // LocalStorage Fallback Functions
 const addToCartLocal = (product: CartItem, selectedSize: string, selectedColor: string): boolean => {
-  const existingCart = localStorage.getItem('cartItems');
-  const cartItems: CartItem[] = existingCart ? JSON.parse(existingCart) : [];
-  
-  const existingItemIndex = cartItems.findIndex(
-    item => item.id === product.id && item.size === selectedSize && item.color === selectedColor
-  );
+  try {
+    const existingCart = localStorage.getItem('cartItems');
+    const cartItems: CartItem[] = existingCart ? JSON.parse(existingCart) : [];
+    
+    const existingItemIndex = cartItems.findIndex(
+      item => item.id === product.id && item.size === selectedSize && item.color === selectedColor
+    );
 
-  if (existingItemIndex > -1) {
-    cartItems[existingItemIndex].quantity += 1;
-  } else {
-    cartItems.push({
-      ...product,
-      size: selectedSize,
-      color: selectedColor,
-      quantity: 1
-    });
+    if (existingItemIndex > -1) {
+      cartItems[existingItemIndex].quantity += 1;
+    } else {
+      cartItems.push({
+        ...product,
+        size: selectedSize,
+        color: selectedColor,
+        quantity: 1
+      });
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    triggerCartUpdateEvent();
+    return true;
+  } catch (error) {
+    console.error('Error in addToCartLocal:', error);
+    return false;
   }
-
-  localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  triggerCartUpdateEvent();
-  return true;
 };
 
 const getCartItemsLocal = (): CartItem[] => {
-  const existingCart = localStorage.getItem('cartItems');
-  return existingCart ? JSON.parse(existingCart) : [];
+  try {
+    const existingCart = localStorage.getItem('cartItems');
+    return existingCart ? JSON.parse(existingCart) : [];
+  } catch (error) {
+    console.error('Error in getCartItemsLocal:', error);
+    return [];
+  }
 };
 
 const removeFromCartLocal = (itemId: number): CartItem[] => {
-  const existingCart = localStorage.getItem('cartItems');
-  const cartItems: CartItem[] = existingCart ? JSON.parse(existingCart) : [];
-  const updatedCart = cartItems.filter(item => item.id !== itemId);
-  localStorage.setItem('cartItems', JSON.stringify(updatedCart));
-  triggerCartUpdateEvent();
-  return updatedCart;
+  try {
+    const existingCart = localStorage.getItem('cartItems');
+    const cartItems: CartItem[] = existingCart ? JSON.parse(existingCart) : [];
+    const updatedCart = cartItems.filter(item => item.id !== itemId);
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+    triggerCartUpdateEvent();
+    return updatedCart;
+  } catch (error) {
+    console.error('Error in removeFromCartLocal:', error);
+    return [];
+  }
 };
 
 const updateCartItemQuantityLocal = (itemId: number, newQuantity: number): CartItem[] => {
-  const existingCart = localStorage.getItem('cartItems');
-  const cartItems: CartItem[] = existingCart ? JSON.parse(existingCart) : [];
-  const updatedCart = cartItems.map(item =>
-    item.id === itemId ? { ...item, quantity: newQuantity } : item
-  );
-  localStorage.setItem('cartItems', JSON.stringify(updatedCart));
-  triggerCartUpdateEvent();
-  return updatedCart;
+  try {
+    const existingCart = localStorage.getItem('cartItems');
+    const cartItems: CartItem[] = existingCart ? JSON.parse(existingCart) : [];
+    const updatedCart = cartItems.map(item =>
+      item.id === itemId ? { ...item, quantity: newQuantity } : item
+    );
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+    triggerCartUpdateEvent();
+    return updatedCart;
+  } catch (error) {
+    console.error('Error in updateCartItemQuantityLocal:', error);
+    return [];
+  }
 };
 
 const getCartItemCountLocal = (): number => {
-  const existingCart = localStorage.getItem('cartItems');
-  const cartItems: CartItem[] = existingCart ? JSON.parse(existingCart) : [];
-  return cartItems.reduce((total, item) => total + item.quantity, 0);
+  try {
+    const existingCart = localStorage.getItem('cartItems');
+    const cartItems: CartItem[] = existingCart ? JSON.parse(existingCart) : [];
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  } catch (error) {
+    console.error('Error in getCartItemCountLocal:', error);
+    return 0;
+  }
 };
 
 const clearCartLocal = (): void => {
-  localStorage.removeItem('cartItems');
-  triggerCartUpdateEvent();
+  try {
+    localStorage.removeItem('cartItems');
+    triggerCartUpdateEvent();
+  } catch (error) {
+    console.error('Error in clearCartLocal:', error);
+  }
 };

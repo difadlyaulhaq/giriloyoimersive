@@ -1,4 +1,4 @@
-// utils/orderUtils.ts
+// utils/orderUtils.ts - DIPERBAIKI
 import { 
   doc, 
   setDoc, 
@@ -7,8 +7,7 @@ import {
   collection,
   query,
   where,
-  getDocs,
-  orderBy 
+  getDocs
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
@@ -101,6 +100,9 @@ export const createOrder = async (
     const orderRef = doc(db, 'orders', orderId);
     await setDoc(orderRef, order);
 
+    // Juga simpan ke localStorage sebagai fallback
+    saveOrderToLocalStorage(order);
+
     return order;
   } catch (error) {
     console.error('Error creating order:', error);
@@ -108,54 +110,52 @@ export const createOrder = async (
   }
 };
 
-// Get orders by guest ID - dengan fallback jika index belum ready
+// Get orders by guest ID - dengan improvement error handling
 export const getOrdersByGuestId = async (guestId: string): Promise<Order[]> => {
   try {
+    console.log('🔍 Mencari orders untuk guestId:', guestId);
+    
     const ordersRef = collection(db, 'orders');
     
-    // Coba query dengan orderBy dulu
-    try {
-      const q = query(
-        ordersRef, 
-        where('guestId', '==', guestId),
-        orderBy('createdAt', 'desc')
-      );
-      
-      const querySnapshot = await getDocs(q);
-      const orders: Order[] = [];
-      
-      querySnapshot.forEach((doc) => {
-        orders.push(doc.data() as Order);
-      });
-      
-      return orders;
-    } catch (indexError) {
-      console.warn('Index not ready, falling back to client-side sorting:', indexError);
-      
-      // Fallback: query tanpa orderBy, sort di client
-      const q = query(ordersRef, where('guestId', '==', guestId));
-      const querySnapshot = await getDocs(q);
-      const orders: Order[] = [];
-      
-      querySnapshot.forEach((doc) => {
-        orders.push(doc.data() as Order);
-      });
-      
-      // Sort manually di client
-      return orders.sort((a, b) => 
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-    }
+    // Coba query dengan cara yang lebih sederhana dulu
+    const q = query(
+      ordersRef, 
+      where('guestId', '==', guestId)
+    );
+    
+    const querySnapshot = await getDocs(q);
+    const orders: Order[] = [];
+    
+    querySnapshot.forEach((doc) => {
+      const orderData = doc.data() as Order;
+      console.log('📦 Order ditemukan:', orderData.orderId);
+      orders.push(orderData);
+    });
+    
+    // Sort manually di client side untuk menghindari index issues
+    const sortedOrders = orders.sort((a, b) => 
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    
+    console.log(`✅ Ditemukan ${sortedOrders.length} orders`);
+    return sortedOrders;
+    
   } catch (error) {
-    console.error('Error getting orders:', error);
+    console.error('❌ Error getting orders:', error);
     
     // Fallback ke localStorage untuk development
     if (typeof window !== 'undefined') {
-      const ordersJson = localStorage.getItem('orders');
-      if (ordersJson) {
-        const allOrders: Order[] = JSON.parse(ordersJson);
-        return allOrders.filter(order => order.guestId === guestId)
-          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      try {
+        const ordersJson = localStorage.getItem('orders');
+        if (ordersJson) {
+          const allOrders: Order[] = JSON.parse(ordersJson);
+          const userOrders = allOrders.filter(order => order.guestId === guestId)
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+          console.log(`📦 Fallback: Ditemukan ${userOrders.length} orders dari localStorage`);
+          return userOrders;
+        }
+      } catch (localStorageError) {
+        console.error('Error accessing localStorage:', localStorageError);
       }
     }
     
@@ -197,6 +197,19 @@ export const updateOrderStatus = async (orderId: string, status: Order['status']
       status,
       updatedAt: new Date().toISOString()
     });
+
+    // Juga update di localStorage
+    if (typeof window !== 'undefined') {
+      const ordersJson = localStorage.getItem('orders');
+      if (ordersJson) {
+        const orders: Order[] = JSON.parse(ordersJson);
+        const updatedOrders = orders.map(order => 
+          order.orderId === orderId ? { ...order, status, updatedAt: new Date().toISOString() } : order
+        );
+        localStorage.setItem('orders', JSON.stringify(updatedOrders));
+      }
+    }
+
     return true;
   } catch (error) {
     console.error('Error updating order status:', error);

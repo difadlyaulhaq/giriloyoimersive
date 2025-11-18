@@ -41,7 +41,8 @@ const ProductCatalog = () => {
     }).format(price);
   };
 
-  const handleAddToCart = async (product: any) => {
+  
+const handleAddToCart = async (product: any) => {
   setAddingToCart(product.id);
   
   const defaultSize = product.sizes[0];
@@ -54,19 +55,23 @@ const ProductCatalog = () => {
     size: defaultSize,
     color: defaultColor,
     quantity: 1,
-    image: product.image,
+    image: product.images[0], // Gunakan images[0] bukan image
     slug: product.slug
   };
 
-  addToCart(cartItem, defaultSize, defaultColor);
-  
-  // Trigger manual update untuk navbar
-  window.dispatchEvent(new Event('cartUpdated'));
-  
-  await new Promise(resolve => setTimeout(resolve, 500));
-  setAddingToCart(null);
-  
-  alert('Produk berhasil ditambahkan ke keranjang!');
+  try {
+    await addToCart(cartItem, defaultSize, defaultColor);
+    
+    // Trigger manual update untuk navbar
+    window.dispatchEvent(new Event('cartUpdated'));
+    
+    alert('Produk berhasil ditambahkan ke keranjang!');
+  } catch (error) {
+    console.error('Error adding to cart:', error);
+    alert('Gagal menambahkan produk ke keranjang. Silakan coba lagi.');
+  } finally {
+    setAddingToCart(null);
+  }
 };
 
   const handleQuickCheckout = (product: any) => {

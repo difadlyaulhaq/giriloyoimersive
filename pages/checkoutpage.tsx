@@ -31,7 +31,7 @@ interface FormData {
 
 const CheckoutPage = () => {
   const router = useRouter();
-  const [step, setStep] = useState(1); // 1: Form, 2: Payment, 3: Success
+  const [step, setStep] = useState(1); // 1: Form, 2: Payment
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -90,186 +90,155 @@ const CheckoutPage = () => {
   };
 
   const handlePayment = async () => {
-  try {
-    // Generate order ID
-    const orderId = `GRLYO-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
-    
-    console.log('🔄 Memulai proses pembayaran Midtrans...');
+    try {
+      // Generate order ID
+      const orderId = `GRLYO-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+      
+      console.log('🔄 Memulai proses pembayaran Midtrans...');
 
-    // Prepare data for Midtrans - TAMBAHKAN shipping dan nftFee
-    const paymentData = {
-      orderId: orderId,
-      amount: total,
-      shipping: shipping, // TAMBAH INI
-      nftFee: nftFee,    // TAMBAH INI
-      customerDetails: {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
-        city: formData.city,
-        province: formData.province,
-        postalCode: formData.postalCode
-      },
-      items: cartItems.map(item => ({
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-        size: item.size,
-        color: item.color
-      }))
-    };
-
-    console.log('📦 Payment data:', {
-      orderId: paymentData.orderId,
-      amount: paymentData.amount,
-      shipping: paymentData.shipping,
-      nftFee: paymentData.nftFee,
-      items: paymentData.items,
-      itemsTotal: paymentData.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    });
-
-    // Create payment transaction
-    const response = await fetch('/api/payment/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(paymentData),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Gagal membuat transaksi pembayaran');
-    }
-
-    const paymentResult = await response.json();
-    
-    console.log('✅ Token Midtrans diterima:', paymentResult.token);
-
-    // Open Midtrans payment popup
-    if (typeof window !== 'undefined' && (window as any).snap) {
-      (window as any).snap.pay(paymentResult.token, {
-        onSuccess: async function(result: any) {
-          console.log('💰 Pembayaran berhasil:', result);
-          
-          // Create order in database
-          const nftTransactionHash = "0x" + Math.random().toString(16).substring(2, 42);
-          
-          const order = await createOrder(
-            cartItems,
-            formData,
-            subtotal,
-            shipping,
-            nftFee,
-            total,
-            nftTransactionHash
-          );
-
-          // Clear cart after successful payment
-          await clearCart();
-          
-          setStep(3);
+      // Prepare data for Midtrans
+      const paymentData = {
+        orderId: orderId,
+        amount: total,
+        shipping: shipping,
+        nftFee: nftFee,
+        customerDetails: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          province: formData.province,
+          postalCode: formData.postalCode
         },
-        onPending: function(result: any) {
-          console.log('⏳ Pembayaran pending:', result);
-          alert('Pembayaran Anda sedang diproses. Silakan selesaikan pembayaran Anda.');
-        },
-        onError: function(result: any) {
-          console.log('❌ Error pembayaran:', result);
-          alert('Terjadi kesalahan saat proses pembayaran. Silakan coba lagi.');
-        },
-        onClose: function() {
-          console.log('🔒 Popup pembayaran ditutup');
-          // User closed the popup without finishing the payment
-        }
+        items: cartItems.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          size: item.size,
+          color: item.color
+        }))
+      };
+
+      console.log('📦 Payment data:', {
+        orderId: paymentData.orderId,
+        amount: paymentData.amount,
+        shipping: paymentData.shipping,
+        nftFee: paymentData.nftFee,
+        items: paymentData.items,
+        itemsTotal: paymentData.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
       });
-    } else {
-      throw new Error('Midtrans SDK tidak terload');
+
+      // Create payment transaction
+      const response = await fetch('/api/payment/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(paymentData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Gagal membuat transaksi pembayaran');
+      }
+
+      const paymentResult = await response.json();
+      
+      console.log('✅ Token Midtrans diterima:', paymentResult.token);
+
+      // Open Midtrans payment popup
+      if (typeof window !== 'undefined' && (window as any).snap) {
+        (window as any).snap.pay(paymentResult.token, {
+          onSuccess: async function(result: any) {
+            console.log('💰 Pembayaran berhasil:', result);
+            
+            try {
+              // Create order in database
+              const nftTransactionHash = "0x" + Math.random().toString(16).substring(2, 42);
+              
+              const order = await createOrder(
+                cartItems,
+                formData,
+                subtotal,
+                shipping,
+                nftFee,
+                total,
+                nftTransactionHash,
+                result.payment_type, // Simpan payment method
+                'settlement', // Status pembayaran
+                result.transaction_id // Simpan transaction ID
+              );
+
+              console.log('✅ Order created:', order.orderId);
+
+              // Clear cart after successful payment
+              await clearCart();
+              
+              // Redirect ke halaman success
+              router.push(`/checkout/success?order_id=${order.orderId}&transaction_status=settlement&transaction_id=${result.transaction_id}`);
+              
+            } catch (error) {
+              console.error('❌ Error creating order:', error);
+              // Fallback: redirect ke success page dengan data minimal
+              router.push(`/checkout/success?order_id=${orderId}&transaction_status=settlement`);
+            }
+          },
+          onPending: async function(result: any) {
+            console.log('⏳ Pembayaran pending:', result);
+            
+            try {
+              // Create pending order in database
+              const nftTransactionHash = "0x" + Math.random().toString(16).substring(2, 42);
+              
+              const order = await createOrder(
+                cartItems,
+                formData,
+                subtotal,
+                shipping,
+                nftFee,
+                total,
+                nftTransactionHash,
+                result.payment_type, // Simpan payment method
+                'pending', // Status pembayaran
+                result.transaction_id // Simpan transaction ID
+              );
+
+              console.log('✅ Pending order created:', order.orderId);
+              
+              // Redirect ke halaman pending
+              router.push(`/checkout/pending?order_id=${order.orderId}&transaction_status=pending&transaction_id=${result.transaction_id}`);
+              
+            } catch (error) {
+              console.error('❌ Error creating pending order:', error);
+              // Fallback: redirect ke pending page dengan data minimal
+              router.push(`/checkout/pending?order_id=${orderId}&transaction_status=pending`);
+            }
+          },
+          onError: function(result: any) {
+            console.log('❌ Error pembayaran:', result);
+            // Redirect ke halaman error
+            router.push(`/checkout/error?order_id=${orderId}&transaction_status=error&error_message=${encodeURIComponent('Pembayaran gagal atau ditolak')}`);
+          },
+          onClose: function() {
+            console.log('🔒 Popup pembayaran ditutup');
+            // User closed the popup without finishing the payment
+            alert('Pembayaran dibatalkan. Silakan coba lagi jika ingin melanjutkan.');
+          }
+        });
+      } else {
+        throw new Error('Midtrans SDK tidak terload');
+      }
+
+    } catch (error: any) {
+      console.error('❌ Error dalam proses pembayaran:', error);
+      alert(`Gagal memproses pembayaran: ${error.message}`);
     }
-
-  } catch (error: any) {
-    console.error('❌ Error dalam proses pembayaran:', error);
-    alert(`Gagal memproses pembayaran: ${error.message}`);
-  }
-};
-
-  const handleShopAgain = () => {
-    router.push('/produk');
   };
 
-  if (step === 3) {
-    return (
-      <div className="min-h-screen bg-amber-50 flex items-center justify-center p-4">
-        <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
-          <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle size={48} className="text-green-600" />
-          </div>
-          
-          <h1 className="text-3xl lg:text-4xl font-bold text-stone-800 mb-4">
-            Pembayaran Berhasil! 🎉
-          </h1>
-          
-          <p className="text-lg text-stone-600 mb-8">
-            Terima kasih atas pembelian Anda. Pesanan sedang diproses oleh pengrajin kami.
-          </p>
-
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 mb-8 border border-purple-200">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <Sparkles className="text-purple-600" size={32} />
-              <h3 className="text-xl font-bold text-stone-800">NFT Certificate Minted!</h3>
-            </div>
-            <p className="text-stone-600 mb-4">
-              NFT digital Anda telah di-mint dan akan dikirim ke email dalam 5-10 menit.
-            </p>
-            <div className="bg-white rounded-xl p-4">
-              <p className="text-sm text-stone-600 mb-1">Transaction Hash:</p>
-              <p className="font-mono text-xs text-purple-600 break-all">
-                0x742d35Cc6634C0532925a3b844Bc9e7595f0bEB5
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-amber-50 rounded-2xl p-6 mb-8 text-left">
-            <h3 className="font-bold text-stone-800 mb-3">Detail Pesanan</h3>
-            <div className="space-y-2 text-sm text-stone-600">
-              <div className="flex justify-between">
-                <span>Order ID:</span>
-                <span className="font-semibold text-stone-800">GRLYO-2024-001</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Email:</span>
-                <span className="font-semibold text-stone-800">{formData.email}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Total Pembayaran:</span>
-                <span className="font-bold text-amber-700 text-lg">{formatPrice(total)}</span>
-              </div>
-            </div>
-          </div>
-
-          // Di dalam step 3, tambahkan button untuk melihat order
-          <div className="flex gap-4 flex-col sm:flex-row">
-            <button 
-              onClick={handleShopAgain}
-              className="flex-1 bg-white text-amber-800 border-2 border-amber-800 px-6 py-3 rounded-full font-bold hover:bg-amber-50 transition"
-            >
-              Belanja Lagi
-            </button>
-            <button 
-              onClick={() => router.push('/orders')}
-              className="flex-1 bg-gradient-to-r from-amber-800 to-amber-900 text-white px-6 py-3 rounded-full font-bold hover:shadow-xl transition"
-            >
-              Lihat Pesanan
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (cartItems.length === 0 && step !== 3) {
+  // Hapus step 3 dari komponen ini karena sekarang di-handle oleh halaman terpisah
+  if (cartItems.length === 0) {
     return (
       <div className="min-h-screen bg-amber-50 flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 text-center">
@@ -557,4 +526,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;
+export default CheckoutPage;  
