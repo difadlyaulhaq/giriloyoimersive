@@ -205,7 +205,7 @@ const BookingWisataPage = () => {
               <div className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-stone-700 mb-2">
+                    <label className="block text-sm font-semibold text-stone-500 mb-2">
                       <Calendar className="inline w-4 h-4 mr-2" />
                       Tanggal Kunjungan *
                     </label>
@@ -215,7 +215,7 @@ const BookingWisataPage = () => {
                       value={bookingData.visitDate}
                       onChange={handleInputChange}
                       min={new Date().toISOString().split('T')[0]}
-                      className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
+                      className="w-full text-black px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
                     />
                   </div>
 
@@ -231,7 +231,7 @@ const BookingWisataPage = () => {
                       onChange={handleInputChange}
                       // PERBAIKAN: Error 7053 hilang
                       min={packages[selectedPackage].minParticipants}
-                      className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
+                      className="w-full px-4 py-3 border-2 text-black border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
                     />
                     <p className="text-xs text-stone-500 mt-1">
                       {/* PERBAIKAN: Error 7053 hilang */}
@@ -250,7 +250,7 @@ const BookingWisataPage = () => {
                     name="groupName"
                     value={bookingData.groupName}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
+                    className="w-full px-4 py-3 border-2  text-black border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
                     placeholder="Contoh: SMK Negeri 1 Yogyakarta"
                   />
                 </div>
@@ -264,7 +264,7 @@ const BookingWisataPage = () => {
                     name="institution"
                     value={bookingData.institution}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
+                    className="w-full px-4 py-3 border-2 text-black border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
                     placeholder="Nama institusi"
                   />
                 </div>
@@ -285,7 +285,7 @@ const BookingWisataPage = () => {
                     name="contactName"
                     value={bookingData.contactName}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
+                    className="w-full px-4 py-3 border-2 text-black border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
                     placeholder="Nama lengkap"
                   />
                 </div>
@@ -301,7 +301,7 @@ const BookingWisataPage = () => {
                       name="email"
                       value={bookingData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
+                      className="w-full px-4 py-3 border-2 text-black border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
                       placeholder="email@example.com"
                     />
                   </div>
@@ -316,7 +316,7 @@ const BookingWisataPage = () => {
                       name="phone"
                       value={bookingData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
+                      className="w-full px-4 py-3 border-2 text-black border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition"
                       placeholder="08xxxxxxxxxx"
                     />
                   </div>
@@ -331,7 +331,7 @@ const BookingWisataPage = () => {
                     value={bookingData.notes}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition resize-none"
+                    className="w-full px-4 py-3 border-2 text-black border-stone-200 rounded-xl focus:border-green-600 focus:outline-none transition resize-none"
                     placeholder="Permintaan khusus atau informasi tambahan..."
                   ></textarea>
                 </div>

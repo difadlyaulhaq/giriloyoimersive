@@ -235,7 +235,7 @@ const KuisGame = () => {
         <div className="text-center mt-8">
           <button
             onClick={startGame}
-            className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 mr-4"
+            className="bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 mr-4"
           >
             Main Lagi
           </button>
@@ -260,7 +260,7 @@ const KuisGame = () => {
 
     return (
       <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
-        <div className="w-24 h-24 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-24 h-24 bg-linear-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
           <Trophy className="text-white" size={48} />
         </div>
         
@@ -355,7 +355,7 @@ const KuisGame = () => {
 
                   {/* Input Nama */}
                   <div className="max-w-md mx-auto mb-8">
-                    <label className="block text-stone-700 text-left mb-2 font-medium">
+                    <label className="block text-stone-400 text-left mb-2 font-medium">
                       Masukkan Nama Anda:
                     </label>
                     <div className="relative">
@@ -365,7 +365,7 @@ const KuisGame = () => {
                         value={playerName}
                         onChange={(e) => setPlayerName(e.target.value)}
                         placeholder="Nama pemain"
-                        className="w-full pl-10 pr-4 py-3 border-2 border-stone-200 rounded-2xl focus:border-blue-500 focus:outline-none transition"
+                        className="w-full pl-10 pr-4 py-3 border-2 border-stone-200 text-black rounded-2xl focus:border-blue-500 focus:outline-none transition"
                         maxLength={20}
                       />
                     </div>
@@ -451,7 +451,7 @@ const KuisGame = () => {
                         key={index}
                         onClick={() => handleAnswerSelect(index)}
                         disabled={selectedAnswer !== null}
-                        className={`w-full text-left p-6 rounded-2xl transition transform hover:scale-105 disabled:hover:scale-100 ${getAnswerStyle(index)}`}
+                        className={`w-full text-black text-left p-6 rounded-2xl transition transform hover:scale-105 disabled:hover:scale-100 ${getAnswerStyle(index)}`}
                       >
                         <div className="flex items-center gap-4">
                           <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
