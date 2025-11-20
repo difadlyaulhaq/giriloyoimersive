@@ -93,9 +93,9 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <Link href="/" className="cursor-pointer">
-              <div className="relative w-40 h-30"> 
+              <div className="relative w-30 h-20"> 
                 <Image 
-                  src="/logo.png"
+                  src="/LOGO-DIGIRI.png"
                   alt="Logo"
                   fill  
                   className="object-contain"
@@ -113,8 +113,8 @@ const Navbar = () => {
                   <Link 
                     key={item.id}
                     href={item.href}
-                    className={`text-stone-700 hover:text-amber-800 transition font-medium px-3 py-2 rounded-lg hover:bg-amber-50 ${
-                      router.pathname === item.href ? 'text-amber-800 bg-amber-50' : ''
+                    className={`text-slate-700 hover:text-blue-900 transition font-medium px-3 py-2 rounded-lg hover:bg-blue-50 ${
+                      router.pathname === item.href ? 'text-blue-900 bg-blue-50' : ''
                     }`}
                   >
                     {item.label}
@@ -125,7 +125,7 @@ const Navbar = () => {
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className="text-stone-700 hover:text-amber-800 transition font-medium px-3 py-2 rounded-lg hover:bg-amber-50"
+                    className="text-slate-700 hover:text-blue-900 transition font-medium px-3 py-2 rounded-lg hover:bg-blue-50"
                   >
                     {item.label}
                   </button>
@@ -136,27 +136,27 @@ const Navbar = () => {
             {/* AI Assistant Button */}
             <button
               onClick={handleAIClick}
-              className="flex items-center gap-2 text-stone-700 hover:text-purple-600 transition font-medium px-3 py-2 rounded-lg hover:bg-purple-50"
+              className="flex items-center gap-2 text-slate-700 hover:text-amber-600 transition font-medium px-3 py-2 rounded-lg hover:bg-amber-50"
             >
-              <Sparkles size={18} className="text-purple-500" />
+              <Sparkles size={18} className="text-amber-500" />
               AI Assistant
             </button>
 
             {/* Booking & Cart Section */}
-            <div className="flex items-center gap-4 ml-4 pl-4 border-l border-stone-200">
+            <div className="flex items-center gap-4 ml-4 pl-4 border-l border-slate-200">
               <Link href="/bookingwisatapage">
-                <button className="bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-6 py-2.5 rounded-full font-semibold hover:shadow-xl transition transform hover:scale-105">
+                <button className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-xl transition transform hover:scale-105">
                   Booking Paket
                 </button>
               </Link>
 
               {/* Orders Link - Icon Only */}
-              <Link href="/orders" className="text-stone-700 hover:text-amber-800 transition p-2 rounded-lg hover:bg-amber-50 relative">
+              <Link href="/orders" className="text-slate-700 hover:text-blue-900 transition p-2 rounded-lg hover:bg-blue-50 relative">
                 <ShoppingBag size={20} />
               </Link>
 
               {/* Cart with counter - Icon Only */}
-              <Link href="/keranjang" className="relative text-stone-700 hover:text-amber-800 transition p-2 rounded-lg hover:bg-amber-50">
+              <Link href="/keranjang" className="relative text-slate-700 hover:text-blue-900 transition p-2 rounded-lg hover:bg-blue-50">
                 <ShoppingCart size={20} />
                 {cartItemCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
@@ -171,7 +171,7 @@ const Navbar = () => {
           <div className="lg:hidden flex items-center gap-4">
             {/* Cart Icon for mobile */}
             <Link href="/keranjang" className="relative p-2">
-              <ShoppingCart size={24} className="text-amber-800" />
+              <ShoppingCart size={24} className="text-blue-900" />
               {cartItemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                   {cartItemCount}
@@ -181,9 +181,9 @@ const Navbar = () => {
 
             <button 
               onClick={() => setMenuOpen(!menuOpen)}
-              className="p-2 rounded-lg hover:bg-amber-100 transition"
+              className="p-2 rounded-lg hover:bg-blue-100 transition"
             >
-              {menuOpen ? <X size={24} className="text-amber-800" /> : <Menu size={24} className="text-amber-800" />}
+              {menuOpen ? <X size={24} className="text-blue-900" /> : <Menu size={24} className="text-blue-900" />}
             </button>
           </div>
         </div>
@@ -191,7 +191,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="lg:hidden bg-white border-t border-amber-200 animate-slide-down">
+        <div className="lg:hidden bg-white border-t border-blue-200 animate-slide-down">
           <div className="px-4 py-4 space-y-2">
             {navItems.map((item) => {
               if (item.href) {
@@ -199,8 +199,8 @@ const Navbar = () => {
                   <Link 
                     key={item.id}
                     href={item.href}
-                    className={`block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium ${
-                      router.pathname === item.href ? 'text-amber-800 bg-amber-50' : ''
+                    className={`block py-3 text-slate-700 hover:text-blue-900 hover:bg-blue-50 rounded-lg px-4 transition font-medium ${
+                      router.pathname === item.href ? 'text-blue-900 bg-blue-50' : ''
                     }`}
                     onClick={() => setMenuOpen(false)}
                   >
@@ -212,7 +212,7 @@ const Navbar = () => {
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className="block py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium w-full text-left"
+                    className="block py-3 text-slate-700 hover:text-blue-900 hover:bg-blue-50 rounded-lg px-4 transition font-medium w-full text-left"
                   >
                     {item.label}
                   </button>
@@ -223,19 +223,19 @@ const Navbar = () => {
             {/* AI Assistant for Mobile */}
             <button
               onClick={handleAIClick}
-              className="flex items-center gap-3 py-3 text-stone-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg px-4 transition font-medium w-full text-left"
+              className="flex items-center gap-3 py-3 text-slate-700 hover:text-amber-600 hover:bg-amber-50 rounded-lg px-4 transition font-medium w-full text-left"
             >
-              <Sparkles size={20} className="text-purple-500" />
+              <Sparkles size={20} className="text-amber-500" />
               AI Assistant
             </button>
 
             {/* Separator */}
-            <div className="border-t border-stone-200 pt-2"></div>
+            <div className="border-t border-slate-200 pt-2"></div>
 
             {/* Orders Link for Mobile */}
             <Link 
               href="/orders" 
-              className="flex items-center gap-3 py-3 text-stone-700 hover:text-amber-800 hover:bg-amber-50 rounded-lg px-4 transition font-medium"
+              className="flex items-center gap-3 py-3 text-slate-700 hover:text-blue-900 hover:bg-blue-50 rounded-lg px-4 transition font-medium"
               onClick={() => setMenuOpen(false)}
             >
               <ShoppingBag size={20} />
@@ -248,7 +248,7 @@ const Navbar = () => {
               className="block w-full"
               onClick={() => setMenuOpen(false)}
             >
-              <button className="w-full bg-linear-to-r from-amber-800 to-amber-900 text-amber-50 px-6 py-3 rounded-full font-semibold">
+              <button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-3 rounded-full font-semibold">
                 Booking Paket
               </button>
             </Link>

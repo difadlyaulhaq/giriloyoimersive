@@ -18,31 +18,31 @@ const MencantingGame = () => {
   const lastInkReductionRef = useRef(0);
 
   const batikPatterns = {
-  1: {
-    name: "Motif Kawung Dasar",
-    image: "/kawung-patern.png", // Hapus "public/"
-    description: "Ikuti pola lingkaran kawung dengan tepat",
-    targetScore: 70,
-    timeLimit: 300,
-    inkLimit: 100
-  },
-  2: {
-    name: "Motif Parang",
-    image: "/parang-patern.jpg", // Hapus "public/" 
-    description: "Ikuti pola garis miring parang dengan presisi",
-    targetScore: 75,
-    timeLimit: 360,
-    inkLimit: 100
-  },
-  3: {
-    name: "Motif Truntum",
-    image: "/truntum-patern.jpg", // Hapus "public/"
-    description: "Buat pola bintang truntum yang sempurna",
-    targetScore: 80,
-    timeLimit: 420,
-    inkLimit: 100
-  }
-};
+    1: {
+      name: "Motif Kawung Dasar",
+      image: "/kawung-patern.png",
+      description: "Ikuti pola lingkaran kawung dengan tepat",
+      targetScore: 70,
+      timeLimit: 300,
+      inkLimit: 100
+    },
+    2: {
+      name: "Motif Parang",
+      image: "/parang-patern.jpg",
+      description: "Ikuti pola garis miring parang dengan presisi",
+      targetScore: 75,
+      timeLimit: 360,
+      inkLimit: 100
+    },
+    3: {
+      name: "Motif Truntum",
+      image: "/truntum-patern.jpg",
+      description: "Buat pola bintang truntum yang sempurna",
+      targetScore: 80,
+      timeLimit: 420,
+      inkLimit: 100
+    }
+  };
 
   const currentLevel = batikPatterns[level as keyof typeof batikPatterns];
 
@@ -181,12 +181,12 @@ const MencantingGame = () => {
     setIsDrawing(true);
     ctx.beginPath();
     ctx.moveTo(x, y);
+    // WARNA TINTA ASLI BATIK (COKLAT)
     ctx.strokeStyle = '#7C2D12';
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     
-    // Reset last reduction time when starting to draw
     lastInkReductionRef.current = Date.now();
   };
 
@@ -206,17 +206,15 @@ const MencantingGame = () => {
     ctx.lineTo(x, y);
     ctx.stroke();
 
-    // PERUBAHAN PENTING: Reduce ink much slower dengan throttle
     const now = Date.now();
-    if (now - lastInkReductionRef.current > 50) { // Hanya kurangi tinta setiap 50ms
+    if (now - lastInkReductionRef.current > 50) {
       setInkLeft(prev => {
-        const newInk = Math.max(0, prev - 0.02); // Dikurangi dari 0.08 menjadi 0.02
+        const newInk = Math.max(0, prev - 0.02);
         lastInkReductionRef.current = now;
         return newInk;
       });
     }
     
-    // Progress juga diperlambat
     setProgress(prev => Math.min(prev + 0.02, 100));
   };
 
@@ -278,17 +276,17 @@ const MencantingGame = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
       {/* Header */}
       <div className="text-center pt-12 pb-8">
-        <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-bold mb-4">
+        <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-bold mb-4">
           <Target className="w-5 h-5" />
           <span>Game Edukasi</span>
         </div>
-        <h1 className="text-5xl lg:text-6xl font-bold text-stone-800 mb-4">
+        <h1 className="text-5xl lg:text-6xl font-bold text-slate-800 mb-4">
           Mencanting Virtual
         </h1>
-        <p className="text-lg text-stone-600 max-w-2xl mx-auto">
+        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
           Rasakan pengalaman membatik secara digital! Ikuti pola tradisional dan pelajari seni batik tulis.
         </p>
       </div>
@@ -297,19 +295,19 @@ const MencantingGame = () => {
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Main Game Area */}
           <div className="lg:col-span-2">
-            <div className="bg-gradient-to-br from-amber-800 to-amber-900 rounded-t-3xl p-6 text-white">
+            <div className="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-t-3xl p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-2xl font-bold">{currentLevel.name}</h2>
-                  <p className="text-amber-200 text-sm mt-1">{currentLevel.description}</p>
+                  <p className="text-blue-200 text-sm mt-1">{currentLevel.description}</p>
                 </div>
                 <div className="flex gap-6">
                   <div className="text-center">
-                    <p className="text-amber-200 text-sm">Level</p>
+                    <p className="text-blue-200 text-sm">Level</p>
                     <p className="text-2xl font-bold">{level}/3</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-amber-200 text-sm">Skor</p>
+                    <p className="text-blue-200 text-sm">Skor</p>
                     <p className="text-2xl font-bold">{score}</p>
                   </div>
                 </div>
@@ -317,36 +315,36 @@ const MencantingGame = () => {
             </div>
 
             {/* Resource Bars */}
-            <div className="bg-amber-50 px-6 py-4 grid grid-cols-3 gap-4">
+            <div className="bg-white px-6 py-4 grid grid-cols-3 gap-4">
               {/* Progress Bar */}
               <div>
                 <div className="flex items-center justify-between text-sm mb-2">
-                  <span className="text-amber-800 font-semibold flex items-center gap-1">
+                  <span className="text-blue-800 font-semibold flex items-center gap-1">
                     <Target size={16} />
                     Progress
                   </span>
-                  <span className="text-amber-900 font-bold">{Math.round(progress)}%</span>
+                  <span className="text-blue-900 font-bold">{Math.round(progress)}%</span>
                 </div>
-                <div className="w-full bg-amber-200 rounded-full h-3">
+                <div className="w-full bg-blue-200 rounded-full h-3">
                   <div 
-                    className="bg-gradient-to-r from-amber-500 to-amber-600 h-3 rounded-full transition-all duration-300"
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-300"
                     style={{ width: `${progress}%` }}
                   ></div>
                 </div>
               </div>
 
-              {/* Ink Bar */}
+              {/* Ink Bar - WARNA COKLAT UNTUK TINTA */}
               <div>
                 <div className="flex items-center justify-between text-sm mb-2">
-                  <span className="text-blue-800 font-semibold flex items-center gap-1">
+                  <span className="text-amber-800 font-semibold flex items-center gap-1">
                     <Droplets size={16} />
                     Tinta
                   </span>
-                  <span className="text-blue-900 font-bold">{Math.round(inkLeft)}%</span>
+                  <span className="text-amber-900 font-bold">{Math.round(inkLeft)}%</span>
                 </div>
-                <div className="w-full bg-blue-200 rounded-full h-3">
+                <div className="w-full bg-amber-200 rounded-full h-3">
                   <div 
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-300"
+                    className="bg-gradient-to-r from-amber-700 to-amber-800 h-3 rounded-full transition-all duration-300"
                     style={{ width: `${inkLeft}%` }}
                   ></div>
                 </div>
@@ -372,7 +370,7 @@ const MencantingGame = () => {
 
             {/* Canvas Area */}
             <div className="bg-white p-6 rounded-b-3xl shadow-2xl">
-              <div className="relative bg-amber-50 rounded-2xl overflow-hidden border-4 border-amber-100" style={{ height: '500px' }}>
+              <div className="relative bg-blue-50 rounded-2xl overflow-hidden border-4 border-blue-100" style={{ height: '500px' }}>
                 <canvas
                   ref={canvasRef}
                   onMouseDown={startDrawing}
@@ -425,11 +423,11 @@ const MencantingGame = () => {
                         <span className="text-4xl">🎨</span>
                       </div>
                       <h3 className="text-3xl font-bold mb-3">Siap Mencanting?</h3>
-                      <p className="text-amber-100 mb-2">Gunakan canting virtual untuk mengikuti pola batik</p>
-                      <p className="text-amber-200 text-sm mb-6">Tinta sekarang lebih awet! Gambarlah dengan hati-hati.</p>
+                      <p className="text-blue-100 mb-2">Gunakan canting virtual untuk mengikuti pola batik</p>
+                      <p className="text-blue-200 text-sm mb-6">Tinta sekarang lebih awet! Gambarlah dengan hati-hati.</p>
                       <button
                         onClick={startGame}
-                        className="bg-gradient-to-r from-green-500 to-green-600 text-white px-10 py-4 rounded-full font-bold hover:shadow-2xl transition transform hover:scale-105 text-lg"
+                        className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-10 py-4 rounded-full font-bold hover:shadow-2xl transition transform hover:scale-105 text-lg"
                       >
                         Mulai Mencanting
                       </button>
@@ -446,12 +444,13 @@ const MencantingGame = () => {
                       <p className="text-5xl font-bold text-amber-400 mb-6">{score}</p>
                       
                       <div className="grid grid-cols-3 gap-3 mb-6">
-                        <div className="bg-amber-500/30 backdrop-blur p-3 rounded-2xl">
-                          <p className="text-amber-100 text-xs">Progress</p>
+                        <div className="bg-blue-500/30 backdrop-blur p-3 rounded-2xl">
+                          <p className="text-blue-100 text-xs">Progress</p>
                           <p className="text-xl font-bold">{Math.round(progress)}%</p>
                         </div>
-                        <div className="bg-blue-500/30 backdrop-blur p-3 rounded-2xl">
-                          <p className="text-blue-100 text-xs">Tinta</p>
+                        {/* Warna coklat untuk tinta di hasil */}
+                        <div className="bg-amber-700/30 backdrop-blur p-3 rounded-2xl">
+                          <p className="text-amber-100 text-xs">Tinta</p>
                           <p className="text-xl font-bold">{Math.round(inkLeft)}%</p>
                         </div>
                         <div className="bg-green-500/30 backdrop-blur p-3 rounded-2xl">
@@ -460,7 +459,7 @@ const MencantingGame = () => {
                         </div>
                       </div>
 
-                      <p className="text-amber-200 mb-6">
+                      <p className="text-blue-200 mb-6">
                         {score >= currentLevel.targetScore 
                           ? '🎉 Luar biasa! Hasil cantingan Anda sangat bagus!'
                           : '✨ Bagus! Terus latih keterampilan mencanting Anda!'
@@ -470,14 +469,14 @@ const MencantingGame = () => {
                       <div className="flex gap-3">
                         <button
                           onClick={resetGame}
-                          className="bg-white text-amber-800 px-6 py-3 rounded-full font-bold hover:bg-amber-50 transition flex-1"
+                          className="bg-white text-blue-800 px-6 py-3 rounded-full font-bold hover:bg-blue-50 transition flex-1"
                         >
                           Ulangi Level
                         </button>
                         {level < 3 && (
                           <button 
                             onClick={nextLevel}
-                            className="bg-green-600 text-white px-6 py-3 rounded-full font-bold hover:bg-green-700 transition flex-1"
+                            className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-3 rounded-full font-bold hover:shadow-xl transition flex-1"
                           >
                             Level {level + 1}
                           </button>
@@ -493,18 +492,18 @@ const MencantingGame = () => {
                 <div className="flex gap-3">
                   <button
                     onClick={resetGame}
-                    className="bg-white border-2 border-stone-300 p-3 rounded-full hover:bg-stone-50 transition"
+                    className="bg-white border-2 border-slate-300 p-3 rounded-full hover:bg-slate-50 transition"
                     title="Reset"
                   >
-                    <RotateCcw size={20} className="text-stone-700" />
+                    <RotateCcw size={20} className="text-slate-700" />
                   </button>
                   
                   <button
                     onClick={toggleMusic}
-                    className="bg-white border-2 border-stone-300 p-3 rounded-full hover:bg-stone-50 transition"
+                    className="bg-white border-2 border-slate-300 p-3 rounded-full hover:bg-slate-50 transition"
                     title="Musik"
                   >
-                    {isMusicPlaying ? <Volume2 size={20} className="text-stone-700" /> : <VolumeX size={20} className="text-stone-700" />}
+                    {isMusicPlaying ? <Volume2 size={20} className="text-slate-700" /> : <VolumeX size={20} className="text-slate-700" />}
                   </button>
 
                   {/* Level Navigation */}
@@ -512,15 +511,15 @@ const MencantingGame = () => {
                     <button
                       onClick={previousLevel}
                       disabled={level === 1}
-                      className="bg-white text-stone-800 border-2 border-stone-300 px-3 py-2 rounded-full hover:bg-stone-100 transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                      className="bg-white text-slate-800 border-2 border-slate-300 px-3 py-2 rounded-full hover:bg-slate-100 transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                     >
                       ← Prev
                     </button>
-                    <span className="text-stone-600 font-medium px-2">Level {level}</span>
+                    <span className="text-slate-600 font-medium px-2">Level {level}</span>
                     <button
                       onClick={nextLevel}
                       disabled={level === 3}
-                      className="bg-white text-stone-800 border-2 border-stone-300 px-3 py-2 rounded-full hover:bg-stone-100 transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                      className="bg-white text-slate-800 border-2 border-slate-300 px-3 py-2 rounded-full hover:bg-slate-100 transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                     >
                       Next →
                     </button>
@@ -530,7 +529,7 @@ const MencantingGame = () => {
                 {gameState === 'playing' && (
                   <button
                     onClick={finishGame}
-                    className="bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-3 rounded-full font-bold hover:shadow-xl transition flex items-center gap-2"
+                    className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-3 rounded-full font-bold hover:shadow-xl transition flex items-center gap-2"
                   >
                     Selesai Mencanting
                   </button>
@@ -543,32 +542,32 @@ const MencantingGame = () => {
           <div className="space-y-6">
             {/* Cara Bermain */}
             <div className="bg-white rounded-3xl shadow-xl p-6">
-              <h3 className="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
                 <Star className="text-amber-600" />
                 Cara Bermain
               </h3>
-              <div className="space-y-3 text-stone-600 text-sm">
+              <div className="space-y-3 text-slate-600 text-sm">
                 <div className="flex gap-3">
-                  <div className="w-7 h-7 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-amber-800 font-bold">1</span>
+                  <div className="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-blue-800 font-bold">1</span>
                   </div>
                   <p>Klik dan tahan mouse untuk mulai mencanting</p>
                 </div>
                 <div className="flex gap-3">
-                  <div className="w-7 h-7 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-amber-800 font-bold">2</span>
+                  <div className="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-blue-800 font-bold">2</span>
                   </div>
                   <p>Ikuti pola batik yang terlihat samar di latar belakang</p>
                 </div>
                 <div className="flex gap-3">
-                  <div className="w-7 h-7 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-amber-800 font-bold">3</span>
+                  <div className="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-blue-800 font-bold">3</span>
                   </div>
                   <p>Tinta sekarang lebih awet - gambar dengan tenang dan presisi</p>
                 </div>
                 <div className="flex gap-3">
-                  <div className="w-7 h-7 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-amber-800 font-bold">4</span>
+                  <div className="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-blue-800 font-bold">4</span>
                   </div>
                   <p>Klik "Selesai Mencanting" ketika sudah selesai</p>
                 </div>
@@ -576,24 +575,24 @@ const MencantingGame = () => {
             </div>
 
             {/* Level Info */}
-            <div className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-3xl p-6 border-2 border-amber-200">
-              <h3 className="font-bold text-stone-800 mb-4">Level {level}</h3>
+            <div className="bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl p-6 border-2 border-blue-200">
+              <h3 className="font-bold text-slate-800 mb-4">Level {level}</h3>
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-stone-600">Motif:</span>
-                  <span className="font-semibold text-stone-800">{currentLevel.name}</span>
+                  <span className="text-slate-600">Motif:</span>
+                  <span className="font-semibold text-slate-800">{currentLevel.name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-stone-600">Target Skor:</span>
+                  <span className="text-slate-600">Target Skor:</span>
                   <span className="font-semibold text-amber-700">{currentLevel.targetScore}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-stone-600">Waktu:</span>
+                  <span className="text-slate-600">Waktu:</span>
                   <span className="font-semibold text-green-700">{formatTime(currentLevel.timeLimit)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-stone-600">Tinta Awal:</span>
-                  <span className="font-semibold text-blue-700">{currentLevel.inkLimit}%</span>
+                  <span className="text-slate-600">Tinta Awal:</span>
+                  <span className="font-semibold text-amber-800">{currentLevel.inkLimit}%</span>
                 </div>
               </div>
             </div>
@@ -614,43 +613,43 @@ const MencantingGame = () => {
 
             {/* Pencapaian */}
             <div className="bg-white rounded-3xl shadow-xl p-6">
-              <h3 className="text-xl font-bold text-stone-800 mb-4">Pencapaian</h3>
+              <h3 className="text-xl font-bold text-slate-800 mb-4">Pencapaian</h3>
               <div className="space-y-3">
                 <div className={`flex items-center gap-3 p-3 rounded-2xl transition ${
-                  level >= 1 ? 'bg-amber-50' : 'bg-stone-100 opacity-50'
+                  level >= 1 ? 'bg-blue-50' : 'bg-slate-100 opacity-50'
                 }`}>
-                  <Award className={level >= 1 ? "text-amber-600" : "text-stone-400"} size={24} />
+                  <Award className={level >= 1 ? "text-blue-600" : "text-slate-400"} size={24} />
                   <div>
-                    <p className={`font-semibold text-sm ${level >= 1 ? 'text-stone-800' : 'text-stone-400'}`}>
+                    <p className={`font-semibold text-sm ${level >= 1 ? 'text-slate-800' : 'text-slate-400'}`}>
                       Pemula Batik
                     </p>
-                    <p className={`text-xs ${level >= 1 ? 'text-stone-600' : 'text-stone-400'}`}>
+                    <p className={`text-xs ${level >= 1 ? 'text-slate-600' : 'text-slate-400'}`}>
                       Selesaikan Level 1
                     </p>
                   </div>
                 </div>
                 <div className={`flex items-center gap-3 p-3 rounded-2xl transition ${
-                  level >= 2 ? 'bg-green-50' : 'bg-stone-100 opacity-50'
+                  level >= 2 ? 'bg-amber-50' : 'bg-slate-100 opacity-50'
                 }`}>
-                  <Award className={level >= 2 ? "text-green-600" : "text-stone-400"} size={24} />
+                  <Award className={level >= 2 ? "text-amber-600" : "text-slate-400"} size={24} />
                   <div>
-                    <p className={`font-semibold text-sm ${level >= 2 ? 'text-stone-800' : 'text-stone-400'}`}>
+                    <p className={`font-semibold text-sm ${level >= 2 ? 'text-slate-800' : 'text-slate-400'}`}>
                       Canting Handal
                     </p>
-                    <p className={`text-xs ${level >= 2 ? 'text-stone-600' : 'text-stone-400'}`}>
+                    <p className={`text-xs ${level >= 2 ? 'text-slate-600' : 'text-slate-400'}`}>
                       Selesaikan Level 2
                     </p>
                   </div>
                 </div>
                 <div className={`flex items-center gap-3 p-3 rounded-2xl transition ${
-                  level >= 3 ? 'bg-purple-50' : 'bg-stone-100 opacity-50'
+                  level >= 3 ? 'bg-green-50' : 'bg-slate-100 opacity-50'
                 }`}>
-                  <Award className={level >= 3 ? "text-purple-600" : "text-stone-400"} size={24} />
+                  <Award className={level >= 3 ? "text-green-600" : "text-slate-400"} size={24} />
                   <div>
-                    <p className={`font-semibold text-sm ${level >= 3 ? 'text-stone-800' : 'text-stone-400'}`}>
+                    <p className={`font-semibold text-sm ${level >= 3 ? 'text-slate-800' : 'text-slate-400'}`}>
                       Ahli Canting
                     </p>
-                    <p className={`text-xs ${level >= 3 ? 'text-stone-600' : 'text-stone-400'}`}>
+                    <p className={`text-xs ${level >= 3 ? 'text-slate-600' : 'text-slate-400'}`}>
                       Selesaikan semua level
                     </p>
                   </div>

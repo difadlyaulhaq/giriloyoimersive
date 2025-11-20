@@ -50,9 +50,9 @@ export default async function handler(
         price: item.price,
         quantity: item.quantity,
         name: `${item.name} (${item.size}, ${item.color})`,
-        brand: 'Desa Wisata Batik Giriloyo',
+        brand: 'Digiri',
         category: 'Batik',
-        merchant_name: 'Desa Wisata Batik Giriloyo'
+        merchant_name: 'Digiri'
       })),
       // Biaya pengiriman
       {

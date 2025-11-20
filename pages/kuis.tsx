@@ -142,7 +142,7 @@ const KuisGame = () => {
 
   const getAnswerStyle = (index: number) => {
     if (selectedAnswer === null) {
-      return "bg-white border-2 border-stone-200 hover:border-blue-500 hover:bg-blue-50";
+      return "bg-white border-2 border-slate-200 hover:border-blue-600 hover:bg-blue-50";
     }
     
     const isCorrect = index === quizQuestions[currentLevel][currentQuestion].correctAnswer;
@@ -153,7 +153,7 @@ const KuisGame = () => {
     } else if (isSelected && !isCorrect) {
       return "bg-red-500 text-white border-red-500";
     } else {
-      return "bg-stone-100 text-stone-400 border-stone-100";
+      return "bg-slate-100 text-slate-400 border-slate-100";
     }
   };
 
@@ -171,17 +171,17 @@ const KuisGame = () => {
     
     return (
       <div className="bg-white rounded-3xl shadow-2xl p-8">
-        <h2 className="text-3xl font-bold text-stone-800 mb-6 text-center">Pembahasan Kuis</h2>
+        <h2 className="text-3xl font-bold text-slate-800 mb-6 text-center">Pembahasan Kuis</h2>
         
         <div className="space-y-8">
           {allQuestions.map((question, index) => (
-            <div key={question.id} className="border-b-2 border-stone-100 pb-6">
+            <div key={question.id} className="border-b-2 border-slate-100 pb-6">
               <div className="flex items-center gap-2 mb-2">
                 <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">
                   Level {Math.ceil((index + 1) / 5)}
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-stone-800 mb-4">
+              <h3 className="text-xl font-bold text-slate-800 mb-4">
                 {index + 1}. {question.question}
               </h3>
               
@@ -190,7 +190,7 @@ const KuisGame = () => {
                   const isCorrect = optIndex === question.correctAnswer;
                   const isUserAnswer = userAnswers[index] === optIndex;
                   
-                  let bgColor = "bg-white border-2 border-stone-200";
+                  let bgColor = "bg-white border-2 border-slate-200";
                   if (isCorrect) {
                     bgColor = "bg-green-100 border-2 border-green-500";
                   } else if (isUserAnswer && !isCorrect) {
@@ -206,14 +206,14 @@ const KuisGame = () => {
                         <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
                           isCorrect ? 'bg-green-500 text-white' : 
                           isUserAnswer && !isCorrect ? 'bg-red-500 text-white' : 
-                          'bg-stone-100 text-stone-600'
+                          'bg-slate-100 text-slate-600'
                         }`}>
                           {String.fromCharCode(65 + optIndex)}
                         </div>
                         <span className={`font-medium ${
                           isCorrect ? 'text-green-800' : 
                           isUserAnswer && !isCorrect ? 'text-red-800' : 
-                          'text-stone-700'
+                          'text-slate-700'
                         }`}>
                           {option}
                           {isCorrect && " ✓"}
@@ -235,13 +235,13 @@ const KuisGame = () => {
         <div className="text-center mt-8">
           <button
             onClick={startGame}
-            className="bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 mr-4"
+            className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 mr-4"
           >
             Main Lagi
           </button>
           <button
             onClick={() => setGameState('finished')}
-            className="bg-white text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-full font-bold hover:bg-blue-50 transition"
+            className="bg-white text-blue-800 border-2 border-blue-800 px-8 py-4 rounded-full font-bold hover:bg-blue-50 transition"
           >
             Kembali ke Hasil
           </button>
@@ -260,20 +260,20 @@ const KuisGame = () => {
 
     return (
       <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
-        <div className="w-24 h-24 bg-linear-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-24 h-24 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
           <Trophy className="text-white" size={48} />
         </div>
         
-        <h2 className="text-2xl lg:text-3xl font-bold text-stone-800 mb-4">
+        <h2 className="text-2xl lg:text-3xl font-bold text-slate-800 mb-4">
           Level {currentLevel.slice(-1)} Selesai!
         </h2>
         
-        <div className="bg-green-50 rounded-2xl p-6 mb-8">
-          <p className="text-2xl font-bold text-green-700 mb-2">
+        <div className="bg-amber-50 rounded-2xl p-6 mb-8">
+          <p className="text-2xl font-bold text-amber-700 mb-2">
             {levelScores[currentLevel]} Poin
           </p>
-          <p className="text-stone-600 font-medium mb-2">{levelNames[currentLevel]}</p>
-          <p className="text-stone-600">
+          <p className="text-slate-600 font-medium mb-2">{levelNames[currentLevel]}</p>
+          <p className="text-slate-600">
             {levelScores[currentLevel] >= 400 ? 'Luar biasa! ✨' :
              levelScores[currentLevel] >= 300 ? 'Hebat! 👍' :
              'Bagus! Terus belajar! 📚'}
@@ -282,22 +282,22 @@ const KuisGame = () => {
 
         {nextLevel === 'level2' && (
           <div className="mb-6">
-            <h3 className="font-bold text-stone-700 mb-2">Selanjutnya: Level 2</h3>
-            <p className="text-stone-600">Mari pelajari tentang urgensi melestarikan batik tulis!</p>
+            <h3 className="font-bold text-slate-700 mb-2">Selanjutnya: Level 2</h3>
+            <p className="text-slate-600">Mari pelajari tentang urgensi melestarikan batik tulis!</p>
           </div>
         )}
 
         {nextLevel === 'level3' && (
           <div className="mb-6">
-            <h3 className="font-bold text-stone-700 mb-2">Selanjutnya: Level 3</h3>
-            <p className="text-stone-600">Pelajari bagaimana Anda bisa membantu melestarikan warisan budaya ini!</p>
+            <h3 className="font-bold text-slate-700 mb-2">Selanjutnya: Level 3</h3>
+            <p className="text-slate-600">Pelajari bagaimana Anda bisa membantu melestarikan warisan budaya ini!</p>
           </div>
         )}
 
         <div className="flex gap-4 justify-center">
           <button
             onClick={() => startLevel(nextLevel)}
-            className="bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105"
+            className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105"
           >
             Lanjut ke Level {nextLevel.slice(-1)}
           </button>
@@ -322,7 +322,7 @@ const KuisGame = () => {
         <meta name="description" content="Uji pengetahuan Anda tentang batik dalam kuis interaktif" />
       </Head>
       
-      <div className="min-h-screen bg-linear-to-br from-blue-50 to-cyan-100">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
         <Navbar />
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
@@ -332,10 +332,10 @@ const KuisGame = () => {
               <Trophy className="w-5 h-5" />
               <span>Kuis Interaktif Berlevel</span>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-bold text-stone-800 mb-4">
+            <h1 className="text-4xl lg:text-6xl font-bold text-slate-800 mb-4">
               Kuis Cerdas Berbatik
             </h1>
-            <p className="text-lg lg:text-xl text-stone-600 max-w-2xl mx-auto">
+            <p className="text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto">
               "Menghargai Sang Maha Karya" - Uji pengetahuan batik Anda melalui 3 level tantangan!
             </p>
           </div>
@@ -349,23 +349,23 @@ const KuisGame = () => {
                     <Users className="text-blue-600" size={48} />
                   </div>
                   
-                  <h2 className="text-2xl lg:text-3xl font-bold text-stone-800 mb-4">
+                  <h2 className="text-2xl lg:text-3xl font-bold text-slate-800 mb-4">
                     Siap Bermain?
                   </h2>
 
                   {/* Input Nama */}
                   <div className="max-w-md mx-auto mb-8">
-                    <label className="block text-stone-400 text-left mb-2 font-medium">
+                    <label className="block text-slate-400 text-left mb-2 font-medium">
                       Masukkan Nama Anda:
                     </label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-400 w-5 h-5" />
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
                       <input
                         type="text"
                         value={playerName}
                         onChange={(e) => setPlayerName(e.target.value)}
                         placeholder="Nama pemain"
-                        className="w-full pl-10 pr-4 py-3 border-2 border-stone-200 text-black rounded-2xl focus:border-blue-500 focus:outline-none transition"
+                        className="w-full pl-10 pr-4 py-3 border-2 border-slate-200 text-black rounded-2xl focus:border-blue-600 focus:outline-none transition"
                         maxLength={20}
                       />
                     </div>
@@ -406,7 +406,7 @@ const KuisGame = () => {
 
                   <button
                     onClick={startGame}
-                    className="bg-linear-to-r from-blue-600 to-cyan-600 text-white px-12 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-12 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={!playerName.trim()}
                   >
                     Mulai Petualangan
@@ -440,7 +440,7 @@ const KuisGame = () => {
                   </div>
 
                   {/* Question */}
-                  <h2 className="text-2xl lg:text-3xl font-bold text-stone-800 mb-8 leading-relaxed">
+                  <h2 className="text-2xl lg:text-3xl font-bold text-slate-800 mb-8 leading-relaxed">
                     {quizQuestions[currentLevel][currentQuestion].question}
                   </h2>
 
@@ -459,7 +459,7 @@ const KuisGame = () => {
                               ? 'bg-blue-100 text-blue-800' 
                               : index === quizQuestions[currentLevel][currentQuestion].correctAnswer
                                 ? 'bg-green-100 text-green-800'
-                                : 'bg-stone-100 text-stone-400'
+                                : 'bg-slate-100 text-slate-400'
                           }`}>
                             {String.fromCharCode(65 + index)}
                           </div>
@@ -475,11 +475,11 @@ const KuisGame = () => {
 
               {gameState === 'finished' && (
                 <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12 text-center">
-                  <div className="w-24 h-24 bg-linear-to-r from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <div className="w-24 h-24 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
                     <Trophy className="text-white" size={48} />
                   </div>
                   
-                  <h2 className="text-2xl lg:text-3xl font-bold text-stone-800 mb-4">
+                  <h2 className="text-2xl lg:text-3xl font-bold text-slate-800 mb-4">
                     Selamat, {playerName}!
                   </h2>
                   
@@ -487,19 +487,19 @@ const KuisGame = () => {
                     <p className="text-4xl font-bold text-amber-700 mb-2">{score} Poin</p>
                     <div className="grid grid-cols-3 gap-4 mb-4">
                       <div className="text-center">
-                        <p className="text-sm text-stone-600">Level 1</p>
+                        <p className="text-sm text-slate-600">Level 1</p>
                         <p className="font-bold text-blue-600">{levelScores.level1}</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-sm text-stone-600">Level 2</p>
+                        <p className="text-sm text-slate-600">Level 2</p>
                         <p className="font-bold text-green-600">{levelScores.level2}</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-sm text-stone-600">Level 3</p>
+                        <p className="text-sm text-slate-600">Level 3</p>
                         <p className="font-bold text-amber-600">{levelScores.level3}</p>
                       </div>
                     </div>
-                    <p className="text-stone-600">
+                    <p className="text-slate-600">
                       {score >= 1200 ? 'Luar biasa! Anda benar-benar ahli batik! 🎉' :
                        score >= 900 ? 'Hebat! Pengetahuan batik Anda sangat baik! ✨' :
                        score >= 600 ? 'Bagus! Terus belajar tentang batik! 👍' :
@@ -510,13 +510,13 @@ const KuisGame = () => {
                   <div className="flex gap-4 justify-center">
                     <button
                       onClick={startGame}
-                      className="bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105"
+                      className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105"
                     >
                       Main Lagi
                     </button>
                     <button 
                       onClick={showReview}
-                      className="bg-white text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-full font-bold hover:bg-blue-50 transition"
+                      className="bg-white text-blue-800 border-2 border-blue-800 px-8 py-4 rounded-full font-bold hover:bg-blue-50 transition"
                     >
                       Lihat Pembahasan
                     </button>
@@ -530,7 +530,7 @@ const KuisGame = () => {
             {/* Leaderboard */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-3xl shadow-2xl p-6 lg:p-8 sticky top-8">
-                <h2 className="text-xl font-bold text-stone-800 mb-6 flex items-center gap-2">
+                <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
                   <Trophy className="text-amber-600" />
                   Leaderboard Global
                 </h2>
@@ -542,55 +542,55 @@ const KuisGame = () => {
                       className={`flex items-center gap-4 p-4 rounded-2xl transition ${
                         player.name === playerName 
                           ? 'bg-blue-100 border-2 border-blue-200' 
-                          : 'bg-stone-50 hover:bg-stone-100'
+                          : 'bg-slate-50 hover:bg-slate-100'
                       }`}
                     >
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
                         index === 0 ? 'bg-amber-100 text-amber-800' :
-                        index === 1 ? 'bg-stone-200 text-stone-800' :
+                        index === 1 ? 'bg-slate-200 text-slate-800' :
                         index === 2 ? 'bg-orange-100 text-orange-800' :
-                        'bg-stone-100 text-stone-600'
+                        'bg-slate-100 text-slate-600'
                       }`}>
                         {index + 1}
                       </div>
                       <div className="flex-1">
                         <p className={`font-semibold ${
-                          player.name === playerName ? 'text-blue-800' : 'text-stone-800'
+                          player.name === playerName ? 'text-blue-800' : 'text-slate-800'
                         }`}>
                           {player.name} {player.name === playerName && '(Anda)'}
                         </p>
                       </div>
-                      <div className="bg-stone-100 px-3 py-1 rounded-full font-bold text-stone-800">
+                      <div className="bg-slate-100 px-3 py-1 rounded-full font-bold text-slate-800">
                         {player.score}
                       </div>
                     </div>
                   ))}
                   {leaderboard.length === 0 && (
-                    <div className="text-center py-4 text-stone-500">
+                    <div className="text-center py-4 text-slate-500">
                       Belum ada data leaderboard
                     </div>
                   )}
                 </div>
 
                 {/* Stats */}
-                <div className="mt-6 p-4 bg-stone-50 rounded-2xl">
-                  <h3 className="font-bold text-stone-800 mb-3">Statistik Game</h3>
+                <div className="mt-6 p-4 bg-slate-50 rounded-2xl">
+                  <h3 className="font-bold text-slate-800 mb-3">Statistik Game</h3>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-stone-600">Pemain Online</p>
-                      <p className="font-bold text-stone-800">{players.length}</p>
+                      <p className="text-slate-600">Pemain Online</p>
+                      <p className="font-bold text-slate-800">{players.length}</p>
                     </div>
                     <div>
-                      <p className="text-stone-600">Total Pertanyaan</p>
-                      <p className="font-bold text-stone-800">15</p>
+                      <p className="text-slate-600">Total Pertanyaan</p>
+                      <p className="font-bold text-slate-800">15</p>
                     </div>
                     <div>
-                      <p className="text-stone-600">Level</p>
-                      <p className="font-bold text-stone-800">3</p>
+                      <p className="text-slate-600">Level</p>
+                      <p className="font-bold text-slate-800">3</p>
                     </div>
                     <div>
-                      <p className="text-stone-600">Skor Maksimal</p>
-                      <p className="font-bold text-stone-800">1500</p>
+                      <p className="text-slate-600">Skor Maksimal</p>
+                      <p className="font-bold text-slate-800">1500</p>
                     </div>
                   </div>
                 </div>

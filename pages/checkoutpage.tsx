@@ -240,14 +240,14 @@ const CheckoutPage = () => {
   // Hapus step 3 dari komponen ini karena sekarang di-handle oleh halaman terpisah
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-amber-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 text-center">
-          <ShoppingBag size={64} className="text-stone-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-stone-800 mb-4">Keranjang Kosong</h2>
-          <p className="text-stone-600 mb-6">Silakan tambahkan produk ke keranjang terlebih dahulu.</p>
+      <div className="min-h-screen bg-white flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8 text-center border border-gray-200">
+          <ShoppingBag size={64} className="text-gray-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Keranjang Kosong</h2>
+          <p className="text-gray-600 mb-6">Silakan tambahkan produk ke keranjang terlebih dahulu.</p>
           <button 
             onClick={() => router.push('/produk')}
-            className="bg-amber-600 text-white px-6 py-3 rounded-full hover:bg-amber-700 transition"
+            className="bg-blue-900 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition"
           >
             Jelajahi Produk
           </button>
@@ -257,22 +257,22 @@ const CheckoutPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-white">
       
       <Navbar />
       <MidtransScript />
       
       {/* Header */}
-      <div className="bg-white border-b border-stone-200">
+      <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl lg:text-3xl font-bold text-stone-800">Checkout</h1>
+            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Checkout</h1>
             <div className="flex items-center gap-2">
-              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 1 ? 'bg-amber-600 text-white' : 'bg-stone-200 text-stone-600'} font-bold text-sm`}>
+              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 1 ? 'bg-blue-900 text-white' : 'bg-gray-200 text-gray-600'} font-bold text-sm`}>
                 1
               </div>
-              <div className={`w-12 h-1 ${step >= 2 ? 'bg-amber-600' : 'bg-stone-200'}`}></div>
-              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 2 ? 'bg-amber-600 text-white' : 'bg-stone-200 text-stone-600'} font-bold text-sm`}>
+              <div className={`w-12 h-1 ${step >= 2 ? 'bg-blue-900' : 'bg-gray-200'}`}></div>
+              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 2 ? 'bg-blue-900 text-white' : 'bg-gray-200 text-gray-600'} font-bold text-sm`}>
                 2
               </div>
             </div>
@@ -285,12 +285,12 @@ const CheckoutPage = () => {
           {/* Form Section */}
           <div className="lg:col-span-2">
             {step === 1 ? (
-              <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-xl p-6 lg:p-8">
-                <h2 className="text-2xl font-bold text-stone-800 mb-6">Informasi Pengiriman</h2>
+              <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 border border-gray-200">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Informasi Pengiriman</h2>
                 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-semibold text-stone-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       <User className="inline w-4 h-4 mr-2" />
                       Nama Lengkap *
                     </label>
@@ -299,7 +299,7 @@ const CheckoutPage = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-amber-600 focus:outline-none transition"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-900 focus:outline-none transition"
                       placeholder="Masukkan nama lengkap"
                       required
                     />
@@ -307,7 +307,7 @@ const CheckoutPage = () => {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-stone-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
                         <Mail className="inline w-4 h-4 mr-2" />
                         Email *
                       </label>
@@ -316,14 +316,14 @@ const CheckoutPage = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-amber-600 focus:outline-none transition"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-900 focus:outline-none transition"
                         placeholder="email@example.com"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-stone-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
                         <Phone className="inline w-4 h-4 mr-2" />
                         No. Telepon *
                       </label>
@@ -332,7 +332,7 @@ const CheckoutPage = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-amber-600 focus:outline-none transition"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-900 focus:outline-none transition"
                         placeholder="08xxxxxxxxxx"
                         required
                       />
@@ -340,7 +340,7 @@ const CheckoutPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-stone-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       <MapPin className="inline w-4 h-4 mr-2" />
                       Alamat Lengkap *
                     </label>
@@ -349,7 +349,7 @@ const CheckoutPage = () => {
                       value={formData.address}
                       onChange={handleInputChange}
                       rows={3}
-                      className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-amber-600 focus:outline-none transition resize-none"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-900 focus:outline-none transition resize-none"
                       placeholder="Jalan, No. Rumah, RT/RW, Kelurahan"
                       required
                     ></textarea>
@@ -357,52 +357,52 @@ const CheckoutPage = () => {
 
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-stone-700 mb-2">Kota *</label>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Kota *</label>
                       <input
                         type="text"
                         name="city"
                         value={formData.city}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-amber-600 focus:outline-none transition"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-900 focus:outline-none transition"
                         placeholder="Kota"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-stone-700 mb-2">Provinsi *</label>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Provinsi *</label>
                       <input
                         type="text"
                         name="province"
                         value={formData.province}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-amber-600 focus:outline-none transition"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-900 focus:outline-none transition"
                         placeholder="Provinsi"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-stone-700 mb-2">Kode Pos</label>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Kode Pos</label>
                       <input
                         type="text"
                         name="postalCode"
                         value={formData.postalCode}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-amber-600 focus:outline-none transition"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-900 focus:outline-none transition"
                         placeholder="12345"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-stone-700 mb-2">Catatan (Opsional)</label>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Catatan (Opsional)</label>
                     <textarea
                       name="notes"
                       value={formData.notes}
                       onChange={handleInputChange}
                       rows={2}
-                      className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl focus:border-amber-600 focus:outline-none transition resize-none"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-900 focus:outline-none transition resize-none"
                       placeholder="Catatan untuk pengrajin..."
                     ></textarea>
                   </div>
@@ -410,35 +410,35 @@ const CheckoutPage = () => {
 
                 <div className="mt-8 flex items-center gap-3 p-4 bg-purple-50 rounded-xl border border-purple-200">
                   <Award className="text-purple-600 shrink-0" size={24} />
-                  <p className="text-sm text-stone-700">
+                  <p className="text-sm text-gray-700">
                     <span className="font-bold text-purple-700">NFT Certificate</span> akan dikirim ke email Anda setelah pembayaran berhasil
                   </p>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full mt-6 bg-linear-to-r from-amber-800 to-amber-900 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition text-lg"
+                  className="w-full mt-6 bg-gradient-to-r from-blue-900 to-slate-900 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition text-lg"
                 >
                   Lanjut ke Pembayaran
                 </button>
               </form>
             ) : (
-              <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8">
-                <h2 className="text-2xl font-bold text-stone-800 mb-6">Metode Pembayaran</h2>
+              <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 border border-gray-200">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Metode Pembayaran</h2>
                 
                 <div className="space-y-4 mb-8">
-                  <button className="w-full p-6 border-2 border-amber-600 rounded-2xl hover:bg-amber-50 transition text-left bg-amber-50">
+                  <button className="w-full p-6 border-2 border-blue-900 rounded-2xl hover:bg-blue-50 transition text-left bg-blue-50">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                          <CreditCard className="text-amber-700" size={24} />
+                        <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                          <CreditCard className="text-blue-900" size={24} />
                         </div>
                         <div>
-                          <p className="font-bold text-stone-800">Midtrans Payment Gateway</p>
-                          <p className="text-sm text-stone-600">QRIS, Transfer Bank, E-Wallet, Kartu Kredit</p>
+                          <p className="font-bold text-gray-900">Midtrans Payment Gateway</p>
+                          <p className="text-sm text-gray-600">QRIS, Transfer Bank, E-Wallet, Kartu Kredit</p>
                         </div>
                       </div>
-                      <div className="w-6 h-6 bg-amber-600 rounded-full flex items-center justify-center">
+                      <div className="w-6 h-6 bg-blue-900 rounded-full flex items-center justify-center">
                         <CheckCircle size={16} className="text-white" />
                       </div>
                     </div>
@@ -457,7 +457,7 @@ const CheckoutPage = () => {
 
                 <button
                   onClick={handlePayment}
-                  className="w-full bg-linear-to-r from-amber-800 to-amber-900 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition text-lg"
+                  className="w-full bg-gradient-to-r from-blue-900 to-slate-900 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition text-lg"
                 >
                   Bayar Sekarang - {formatPrice(total)}
                 </button>
@@ -467,8 +467,8 @@ const CheckoutPage = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 sticky top-8">
-              <h2 className="text-xl font-bold text-stone-800 mb-6">Ringkasan Pesanan</h2>
+            <div className="bg-white rounded-3xl shadow-xl p-6 lg:p-8 sticky top-8 border border-gray-200">
+              <h2 className="text-xl font-bold text-gray-900 mb-6">Ringkasan Pesanan</h2>
               
               <div className="space-y-4 mb-6">
                 {cartItems.map((item) => (
@@ -479,40 +479,40 @@ const CheckoutPage = () => {
                       className="w-20 h-20 object-cover rounded-xl"
                     />
                     <div className="flex-1">
-                      <h3 className="font-bold text-stone-800 text-sm">{item.name}</h3>
-                      <p className="text-xs text-stone-600">
+                      <h3 className="font-bold text-gray-900 text-sm">{item.name}</h3>
+                      <p className="text-xs text-gray-600">
                         {item.size} • {item.color} • Qty: {item.quantity}
                       </p>
-                      <p className="font-bold text-amber-700 mt-1">{formatPrice(item.price)}</p>
+                      <p className="font-bold text-amber-600 mt-1">{formatPrice(item.price)}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="border-t border-stone-200 pt-4 space-y-3">
+              <div className="border-t border-gray-200 pt-4 space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-stone-600">Subtotal</span>
-                  <span className="font-semibold text-stone-800">{formatPrice(subtotal)}</span>
+                  <span className="text-gray-600">Subtotal</span>
+                  <span className="font-semibold text-gray-900">{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-stone-600">Ongkir</span>
-                  <span className="font-semibold text-stone-800">{formatPrice(shipping)}</span>
+                  <span className="text-gray-600">Ongkir</span>
+                  <span className="font-semibold text-gray-900">{formatPrice(shipping)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-stone-600 flex items-center gap-2">
+                  <span className="text-gray-600 flex items-center gap-2">
                     NFT Certificate
                     <Award size={14} className="text-purple-600" />
                   </span>
                   <span className="font-semibold text-green-600">GRATIS</span>
                 </div>
-                <div className="border-t border-stone-200 pt-3 flex justify-between">
-                  <span className="font-bold text-stone-800">Total</span>
-                  <span className="font-bold text-amber-700 text-xl">{formatPrice(total)}</span>
+                <div className="border-t border-gray-200 pt-3 flex justify-between">
+                  <span className="font-bold text-gray-900">Total</span>
+                  <span className="font-bold text-amber-600 text-xl">{formatPrice(total)}</span>
                 </div>
               </div>
 
-              <div className="mt-6 p-4 bg-amber-50 rounded-xl">
-                <p className="text-xs text-stone-600 leading-relaxed">
+              <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                <p className="text-xs text-gray-600 leading-relaxed">
                   <ShoppingBag className="inline w-4 h-4 mr-1" />
                   Batik akan diproses oleh pengrajin dalam <span className="font-bold">7-14 hari kerja</span>
                 </p>
@@ -526,4 +526,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;  
+export default CheckoutPage;

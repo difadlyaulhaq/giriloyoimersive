@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { 
   ShoppingBag, MapPin, Clock, CheckCircle, Truck, Package, 
-  AlertCircle, CreditCard, Wallet, QrCode, CreditCardIcon, Smartphone 
+  AlertCircle, CreditCard, Wallet, QrCode, CreditCardIcon, Smartphone,
+  RotateCw
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -16,25 +17,30 @@ const OrdersPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadOrders = async () => {
-      try {
-        setError(null);
-        const guestId = localStorage.getItem('guestId');
-        if (guestId) {
-          const userOrders = await getOrdersByGuestId(guestId);
-          setOrders(userOrders);
-        } else {
-          setError('Guest ID tidak ditemukan. Silakan tambahkan produk ke keranjang terlebih dahulu.');
-        }
-      } catch (err) {
-        console.error('Error loading orders:', err);
-        setError('Gagal memuat pesanan. Silakan refresh halaman atau coba lagi nanti.');
-      } finally {
-        setLoading(false);
+  const loadOrders = async () => {
+    try {
+      setError(null);
+      setLoading(true);
+      const guestId = localStorage.getItem('guestId');
+      if (guestId) {
+        const userOrders = await getOrdersByGuestId(guestId);
+        // Sort orders by date (newest first)
+        const sortedOrders = userOrders.sort((a, b) => 
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        setOrders(sortedOrders);
+      } else {
+        setError('Guest ID tidak ditemukan. Silakan tambahkan produk ke keranjang terlebih dahulu.');
       }
-    };
+    } catch (err) {
+      console.error('Error loading orders:', err);
+      setError('Gagal memuat pesanan. Silakan refresh halaman atau coba lagi nanti.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadOrders();
   }, []);
 
@@ -61,11 +67,13 @@ const OrdersPage = () => {
       case 'paid':
         return <CheckCircle className="text-green-600" size={20} />;
       case 'processing':
-        return <Package className="text-amber-600" size={20} />;
+        return <Package className="text-amber-500" size={20} />;
       case 'shipped':
         return <Truck className="text-blue-600" size={20} />;
       case 'delivered':
         return <CheckCircle className="text-green-600" size={20} />;
+      case 'cancelled':
+        return <AlertCircle className="text-red-600" size={20} />;
       default:
         return <Clock className="text-gray-600" size={20} />;
     }
@@ -82,10 +90,27 @@ const OrdersPage = () => {
     }
   };
 
+  const getStatusColor = (status: Order['status']) => {
+    switch (status) {
+      case 'paid':
+      case 'delivered':
+        return 'text-green-600';
+      case 'processing':
+        return 'text-amber-500';
+      case 'shipped':
+        return 'text-blue-600';
+      case 'cancelled':
+        return 'text-red-600';
+      default:
+        return 'text-gray-600';
+    }
+  };
+
   const getPaymentMethodIcon = (method?: string) => {
     if (!method) return <CreditCard size={16} />;
     
-    switch (method.toLowerCase()) {
+    const methodLower = method.toLowerCase();
+    switch (methodLower) {
       case 'gopay':
         return <Wallet className="text-green-600" size={16} />;
       case 'qris':
@@ -95,9 +120,9 @@ const OrdersPage = () => {
       case 'bni':
       case 'bri':
       case 'mandiri':
-        return <CreditCardIcon className="text-blue-600" size={16} />;
+        return <CreditCardIcon className="text-blue-900" size={16} />;
       case 'credit_card':
-        return <CreditCard className="text-orange-600" size={16} />;
+        return <CreditCard className="text-amber-500" size={16} />;
       case 'shopeepay':
       case 'dana':
       case 'ovo':
@@ -110,7 +135,8 @@ const OrdersPage = () => {
   const getPaymentMethodText = (method?: string) => {
     if (!method) return 'Midtrans';
     
-    switch (method.toLowerCase()) {
+    const methodLower = method.toLowerCase();
+    switch (methodLower) {
       case 'gopay': return 'GoPay';
       case 'qris': return 'QRIS';
       case 'bank_transfer': return 'Transfer Bank';
@@ -127,20 +153,14 @@ const OrdersPage = () => {
   };
 
   const getPaymentStatus = (order: Order) => {
-    // Jika order status adalah 'paid', anggap pembayaran berhasil
-    if (order.status === 'paid') {
-      return { status: 'success', text: 'Berhasil', color: 'text-green-600' };
-    }
-    
-    // Jika ada paymentStatus dari Midtrans
+    // Prioritize paymentStatus from Midtrans
     if (order.paymentStatus) {
       switch (order.paymentStatus) {
         case 'settlement':
+        case 'capture':
           return { status: 'success', text: 'Berhasil', color: 'text-green-600' };
         case 'pending':
-          return { status: 'pending', text: 'Menunggu', color: 'text-yellow-600' };
-        case 'capture':
-          return { status: 'success', text: 'Terkonfirmasi', color: 'text-green-600' };
+          return { status: 'pending', text: 'Menunggu Pembayaran', color: 'text-amber-500' };
         case 'deny':
           return { status: 'failed', text: 'Ditolak', color: 'text-red-600' };
         case 'cancel':
@@ -150,20 +170,29 @@ const OrdersPage = () => {
         case 'failure':
           return { status: 'failed', text: 'Gagal', color: 'text-red-600' };
         default:
-          return { status: 'pending', text: 'Menunggu', color: 'text-yellow-600' };
+          return { status: 'pending', text: 'Menunggu Pembayaran', color: 'text-amber-500' };
       }
     }
     
-    // Default berdasarkan order status
-    return { status: 'pending', text: 'Menunggu', color: 'text-yellow-600' };
+    // Fallback to order status
+    if (order.status === 'paid') {
+      return { status: 'success', text: 'Berhasil', color: 'text-green-600' };
+    }
+    
+    return { status: 'pending', text: 'Menunggu Pembayaran', color: 'text-amber-500' };
+  };
+
+  const shouldShowPayButton = (order: Order) => {
+    const paymentStatus = getPaymentStatus(order);
+    return paymentStatus.status === 'pending' || paymentStatus.status === 'failed';
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-amber-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-stone-600">Memuat pesanan...</p>
+          <div className="w-16 h-16 border-4 border-blue-900 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Memuat pesanan...</p>
         </div>
       </div>
     );
@@ -171,14 +200,14 @@ const OrdersPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-amber-50">
+      <div className="min-h-screen bg-white">
         <Navbar />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
           <div className="bg-red-50 border border-red-200 rounded-3xl p-6 text-center">
             <AlertCircle className="text-red-600 mx-auto mb-4" size={48} />
             <h2 className="text-xl font-bold text-red-800 mb-2">Terjadi Kesalahan</h2>
             <p className="text-red-600 mb-4">{error}</p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center flex-wrap">
               <button 
                 onClick={() => window.location.reload()}
                 className="bg-red-600 text-white px-6 py-3 rounded-full hover:bg-red-700 transition"
@@ -187,7 +216,7 @@ const OrdersPage = () => {
               </button>
               <button 
                 onClick={() => router.push('/produk')}
-                className="bg-amber-600 text-white px-6 py-3 rounded-full hover:bg-amber-700 transition"
+                className="bg-blue-900 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition"
               >
                 Belanja Sekarang
               </button>
@@ -200,20 +229,30 @@ const OrdersPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-white">
       <Navbar />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <h1 className="text-3xl font-bold text-stone-800 mb-8">Riwayat Pesanan</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Riwayat Pesanan</h1>
+          <button
+            onClick={loadOrders}
+            disabled={loading}
+            className="flex items-center gap-2 bg-blue-900 text-white px-4 py-2 rounded-full hover:bg-blue-800 transition disabled:opacity-50"
+          >
+            <RotateCw size={16} className={loading ? "animate-spin" : ""} />
+            {loading ? 'Memuat...' : 'Refresh'}
+          </button>
+        </div>
 
         {orders.length === 0 ? (
           <div className="text-center py-12">
-            <ShoppingBag size={64} className="text-stone-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-stone-800 mb-4">Belum Ada Pesanan</h2>
-            <p className="text-stone-600 mb-6">Yuk, temukan batik cantik untuk koleksimu!</p>
+            <ShoppingBag size={64} className="text-gray-400 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Belum Ada Pesanan</h2>
+            <p className="text-gray-600 mb-6">Yuk, temukan batik cantik untuk koleksimu!</p>
             <button 
               onClick={() => router.push('/produk')}
-              className="bg-amber-600 text-white px-6 py-3 rounded-full hover:bg-amber-700 transition"
+              className="bg-blue-900 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition"
             >
               Jelajahi Katalog
             </button>
@@ -222,47 +261,40 @@ const OrdersPage = () => {
           <div className="space-y-6">
             {orders.map((order) => {
               const paymentStatus = getPaymentStatus(order);
+              const showPayButton = shouldShowPayButton(order);
               
               return (
-                <div key={order.orderId} className="bg-white rounded-3xl shadow-lg p-6">
+                <div key={order.orderId} className="bg-white rounded-3xl shadow-lg p-6 border border-gray-200">
                   {/* Order Header */}
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
                     <div>
-                      <h3 className="font-bold text-stone-800 text-lg">
+                      <h3 className="font-bold text-gray-900 text-lg">
                         Order ID: {order.orderId}
                       </h3>
-                      <p className="text-stone-600 text-sm">
+                      <p className="text-gray-600 text-sm">
                         {formatDate(order.createdAt)}
                       </p>
                     </div>
                     <div className="flex items-center gap-2 mt-2 sm:mt-0">
                       {getStatusIcon(order.status)}
-                      <span className={`font-semibold ${
-                        order.status === 'paid' || order.status === 'delivered' 
-                          ? 'text-green-600' 
-                          : order.status === 'processing' 
-                          ? 'text-amber-600'
-                          : order.status === 'shipped'
-                          ? 'text-blue-600'
-                          : 'text-gray-600'
-                      }`}>
+                      <span className={`font-semibold ${getStatusColor(order.status)}`}>
                         {getStatusText(order.status)}
                       </span>
                     </div>
                   </div>
 
                   {/* Payment Information */}
-                  <div className="bg-gray-50 rounded-xl p-4 mb-4">
-                    <h4 className="font-semibold text-stone-800 mb-2">Informasi Pembayaran</h4>
+                  <div className="bg-blue-50 rounded-xl p-4 mb-4 border border-blue-100">
+                    <h4 className="font-semibold text-gray-900 mb-2">Informasi Pembayaran</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                       <div className="flex items-center gap-2">
-                        <span className="text-stone-600">Status:</span>
+                        <span className="text-gray-600">Status:</span>
                         <span className={`font-semibold ${paymentStatus.color}`}>
                           {paymentStatus.text}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-stone-600">Metode:</span>
+                        <span className="text-gray-600">Metode:</span>
                         <div className="flex items-center gap-1">
                           {getPaymentMethodIcon(order.paymentMethod)}
                           <span className="font-semibold">
@@ -272,21 +304,23 @@ const OrdersPage = () => {
                       </div>
                       {order.paymentMethod && (
                         <div className="flex items-center gap-2">
-                          <span className="text-stone-600">Provider:</span>
+                          <span className="text-gray-600">Provider:</span>
                           <span className="font-semibold">Midtrans</span>
                         </div>
                       )}
                       {order.transactionId && (
                         <div className="flex items-center gap-2">
-                          <span className="text-stone-600">ID Transaksi:</span>
-                          <span className="font-mono text-xs">{order.transactionId}</span>
+                          <span className="text-gray-600">ID Transaksi:</span>
+                          <span className="font-mono text-xs bg-gray-100 px-2 py-1 rounded">
+                            {order.transactionId}
+                          </span>
                         </div>
                       )}
                     </div>
                   </div>
 
                   {/* Order Items */}
-                  <div className="border-t border-stone-200 pt-4 mb-4">
+                  <div className="border-t border-gray-200 pt-4 mb-4">
                     {order.items.map((item, index) => (
                       <div key={index} className="flex gap-4 mb-4 last:mb-0">
                         <img 
@@ -295,11 +329,11 @@ const OrdersPage = () => {
                           className="w-16 h-16 object-cover rounded-xl"
                         />
                         <div className="flex-1">
-                          <h4 className="font-semibold text-stone-800">{item.name}</h4>
-                          <p className="text-sm text-stone-600">
+                          <h4 className="font-semibold text-gray-900">{item.name}</h4>
+                          <p className="text-sm text-gray-600">
                             {item.size} • {item.color} • Qty: {item.quantity}
                           </p>
-                          <p className="font-bold text-amber-700 mt-1">
+                          <p className="font-bold text-amber-600 mt-1">
                             {formatPrice(item.price)}
                           </p>
                         </div>
@@ -308,34 +342,34 @@ const OrdersPage = () => {
                   </div>
 
                   {/* Order Summary */}
-                  <div className="border-t border-stone-200 pt-4">
+                  <div className="border-t border-gray-200 pt-4">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-stone-600">Subtotal</span>
+                      <span className="text-gray-600">Subtotal</span>
                       <span className="font-semibold">{formatPrice(order.subtotal)}</span>
                     </div>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-stone-600">Ongkos Kirim</span>
+                      <span className="text-gray-600">Ongkos Kirim</span>
                       <span className="font-semibold">{formatPrice(order.shipping)}</span>
                     </div>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-stone-600">NFT Certificate</span>
+                      <span className="text-gray-600">NFT Certificate</span>
                       <span className="font-semibold text-green-600">GRATIS</span>
                     </div>
-                    <div className="flex justify-between items-center border-t border-stone-200 pt-2">
-                      <span className="font-bold text-stone-800">Total</span>
-                      <span className="font-bold text-amber-700 text-lg">
+                    <div className="flex justify-between items-center border-t border-gray-200 pt-2">
+                      <span className="font-bold text-gray-900">Total</span>
+                      <span className="font-bold text-amber-600 text-lg">
                         {formatPrice(order.total)}
                       </span>
                     </div>
                   </div>
 
                   {/* Shipping Address */}
-                  <div className="border-t border-stone-200 pt-4 mt-4">
+                  <div className="border-t border-gray-200 pt-4 mt-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <MapPin size={16} className="text-stone-600" />
-                      <h4 className="font-semibold text-stone-800">Alamat Pengiriman</h4>
+                      <MapPin size={16} className="text-gray-600" />
+                      <h4 className="font-semibold text-gray-900">Alamat Pengiriman</h4>
                     </div>
-                    <p className="text-stone-600 text-sm">
+                    <p className="text-gray-600 text-sm">
                       {order.shippingAddress.name}<br />
                       {order.shippingAddress.address}<br />
                       {order.shippingAddress.city}, {order.shippingAddress.province} {order.shippingAddress.postalCode}<br />
@@ -345,10 +379,10 @@ const OrdersPage = () => {
 
                   {/* NFT Info */}
                   {order.nftTransactionHash && (
-                    <div className="border-t border-stone-200 pt-4 mt-4">
-                      <h4 className="font-semibold text-stone-800 mb-2">NFT Certificate</h4>
-                      <p className="text-sm text-stone-600 mb-1">Transaction Hash:</p>
-                      <p className="font-mono text-xs text-purple-600 break-all">
+                    <div className="border-t border-gray-200 pt-4 mt-4">
+                      <h4 className="font-semibold text-gray-900 mb-2">NFT Certificate</h4>
+                      <p className="text-sm text-gray-600 mb-1">Transaction Hash:</p>
+                      <p className="font-mono text-xs text-purple-600 break-all bg-purple-50 p-2 rounded border border-purple-100">
                         {order.nftTransactionHash}
                       </p>
                     </div>
@@ -356,10 +390,10 @@ const OrdersPage = () => {
 
                   {/* Estimated Delivery */}
                   {order.estimatedDelivery && (
-                    <div className="border-t border-stone-200 pt-4 mt-4">
+                    <div className="border-t border-gray-200 pt-4 mt-4">
                       <div className="flex items-center gap-2">
-                        <Clock size={16} className="text-stone-600" />
-                        <span className="text-sm text-stone-600">
+                        <Clock size={16} className="text-gray-600" />
+                        <span className="text-sm text-gray-600">
                           Estimasi Pengiriman: {formatDate(order.estimatedDelivery)}
                         </span>
                       </div>
@@ -367,18 +401,19 @@ const OrdersPage = () => {
                   )}
 
                   {/* Action Buttons */}
-                  {paymentStatus.status === 'pending' && (
-                    <div className="border-t border-stone-200 pt-4 mt-4">
-                      <div className="flex gap-3">
+                  {showPayButton && (
+                    <div className="border-t border-gray-200 pt-4 mt-4">
+                      <div className="flex gap-3 flex-wrap">
                         <button 
-                          onClick={() => window.location.reload()}
-                          className="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition text-sm"
+                          onClick={loadOrders}
+                          className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition text-sm flex items-center gap-2"
                         >
+                          <RotateCw size={14} />
                           Periksa Status
                         </button>
                         <button 
                           onClick={() => router.push('/checkout')}
-                          className="bg-white text-amber-600 border border-amber-600 px-4 py-2 rounded-lg hover:bg-amber-50 transition text-sm"
+                          className="bg-white text-blue-900 border border-blue-900 px-4 py-2 rounded-lg hover:bg-blue-50 transition text-sm"
                         >
                           Bayar Sekarang
                         </button>

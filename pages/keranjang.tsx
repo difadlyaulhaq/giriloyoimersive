@@ -65,27 +65,27 @@ const KeranjangPage = () => {
   const total = subtotal + shipping;
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-white">
       <Navbar />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <div className="flex items-center gap-4 mb-8">
           <Link href="/produk">
-            <button className="flex items-center gap-2 text-stone-600 hover:text-stone-800 transition">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition">
               <ArrowLeft size={20} />
               Kembali ke Belanja
             </button>
           </Link>
-          <h1 className="text-3xl font-bold text-stone-800">Keranjang Belanja</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Keranjang Belanja</h1>
         </div>
 
         {cartItems.length === 0 ? (
           <div className="text-center py-12">
-            <ShoppingCart size={64} className="text-stone-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-stone-800 mb-4">Keranjang Kosong</h2>
-            <p className="text-stone-600 mb-6">Yuk, temukan batik cantik untuk koleksimu!</p>
+            <ShoppingCart size={64} className="text-gray-400 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Keranjang Kosong</h2>
+            <p className="text-gray-600 mb-6">Yuk, temukan batik cantik untuk koleksimu!</p>
             <Link href="/produk">
-              <button className="bg-amber-600 text-white px-6 py-3 rounded-full hover:bg-amber-700 transition">
+              <button className="bg-blue-900 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition">
                 Jelajahi Katalog
               </button>
             </Link>
@@ -94,14 +94,14 @@ const KeranjangPage = () => {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-3xl shadow-xl p-6">
-                <h2 className="text-xl font-bold text-stone-800 mb-6">
+              <div className="bg-white rounded-3xl shadow-xl p-6 border border-gray-200">
+                <h2 className="text-xl font-bold text-gray-900 mb-6">
                   Item dalam Keranjang ({cartItems.length})
                 </h2>
                 
                 <div className="space-y-6">
                   {cartItems.map(item => (
-                    <div key={item.id} className="flex gap-4 pb-6 border-b border-stone-200 last:border-b-0">
+                    <div key={item.id} className="flex gap-4 pb-6 border-b border-gray-200 last:border-b-0">
                       <img 
                         src={item.image} 
                         alt={item.name}
@@ -110,14 +110,14 @@ const KeranjangPage = () => {
                       
                       <div className="flex-1">
                         <Link href={`/produk/${item.slug}`}>
-                          <h3 className="font-bold text-stone-800 hover:text-amber-700 transition cursor-pointer">
+                          <h3 className="font-bold text-gray-900 hover:text-blue-900 transition cursor-pointer">
                             {item.name}
                           </h3>
                         </Link>
-                        <p className="text-sm text-stone-600 mt-1">
+                        <p className="text-sm text-gray-600 mt-1">
                           {item.size} • {item.color}
                         </p>
-                        <p className="font-bold text-amber-700 mt-2">
+                        <p className="font-bold text-amber-600 mt-2">
                           {formatPrice(item.price)}
                         </p>
                         
@@ -125,14 +125,14 @@ const KeranjangPage = () => {
                           <div className="flex items-center gap-3">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="w-8 h-8 bg-stone-100 rounded-lg flex items-center justify-center hover:bg-stone-200 transition"
+                              className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition"
                             >
                               <Minus size={16} />
                             </button>
                             <span className="font-semibold w-8 text-center">{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-8 h-8 bg-stone-100 rounded-lg flex items-center justify-center hover:bg-stone-200 transition"
+                              className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition"
                             >
                               <Plus size={16} />
                             </button>
@@ -155,30 +155,30 @@ const KeranjangPage = () => {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-3xl shadow-xl p-6 sticky top-8">
-                <h2 className="text-xl font-bold text-stone-800 mb-6">Ringkasan Belanja</h2>
+              <div className="bg-white rounded-3xl shadow-xl p-6 sticky top-8 border border-gray-200">
+                <h2 className="text-xl font-bold text-gray-900 mb-6">Ringkasan Belanja</h2>
                 
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between text-sm">
-                    <span className="text-stone-600">Subtotal</span>
-                    <span className="font-semibold text-stone-800">{formatPrice(subtotal)}</span>
+                    <span className="text-gray-600">Subtotal</span>
+                    <span className="font-semibold text-gray-900">{formatPrice(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-stone-600">Ongkos Kirim</span>
-                    <span className="font-semibold text-stone-800">{formatPrice(shipping)}</span>
+                    <span className="text-gray-600">Ongkos Kirim</span>
+                    <span className="font-semibold text-gray-900">{formatPrice(shipping)}</span>
                   </div>
                   <div className="flex justify-between text-sm items-center">
-                    <span className="text-stone-600 flex items-center gap-2">
+                    <span className="text-gray-600 flex items-center gap-2">
                       NFT Certificate
                       <Award size={14} className="text-purple-600" />
                     </span>
                     <span className="font-semibold text-green-600">GRATIS</span>
                   </div>
                   
-                  <div className="border-t border-stone-200 pt-4">
+                  <div className="border-t border-gray-200 pt-4">
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-stone-800">Total</span>
-                      <span className="font-bold text-amber-700 text-xl">{formatPrice(total)}</span>
+                      <span className="font-bold text-gray-900">Total</span>
+                      <span className="font-bold text-amber-600 text-xl">{formatPrice(total)}</span>
                     </div>
                   </div>
                 </div>
@@ -186,20 +186,20 @@ const KeranjangPage = () => {
                 <div className="space-y-3">
                   <button 
                     onClick={proceedToCheckout}
-                    className="w-full bg-amber-600 text-white py-4 rounded-full font-bold hover:bg-amber-700 transition text-lg"
+                    className="w-full bg-blue-900 text-white py-4 rounded-full font-bold hover:bg-blue-800 transition text-lg"
                   >
                     Lanjut ke Checkout
                   </button>
                   
                   <Link href="/produk">
-                    <button className="w-full bg-white text-amber-600 border-2 border-amber-600 py-4 rounded-full font-bold hover:bg-amber-50 transition">
+                    <button className="w-full bg-white text-blue-900 border-2 border-blue-900 py-4 rounded-full font-bold hover:bg-blue-50 transition">
                       Lanjutkan Belanja
                     </button>
                   </Link>
                 </div>
 
-                <div className="mt-6 p-4 bg-amber-50 rounded-xl">
-                  <p className="text-xs text-stone-600 leading-relaxed">
+                <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                  <p className="text-xs text-gray-600 leading-relaxed">
                     🎁 Setiap pembelian batik dilengkapi dengan NFT Certificate sebagai bukti keaslian digital
                   </p>
                 </div>

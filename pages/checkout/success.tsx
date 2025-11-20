@@ -1,161 +1,164 @@
 // pages/checkout/success.tsx
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { CheckCircle, Download, Mail, Sparkles, ShoppingBag } from 'lucide-react';
+import { CheckCircle, Award, Mail, ExternalLink, Sparkles } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import Link from 'next/link';
 
 const CheckoutSuccess = () => {
   const router = useRouter();
   const { order_id, transaction_status, transaction_id } = router.query;
   const [order, setOrder] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [nftStatus, setNftStatus] = useState<'minting' | 'minted' | 'failed'>('minting');
 
   useEffect(() => {
     if (order_id) {
-      // Simulate fetching order data
-      setTimeout(() => {
-        setOrder({
-          orderId: order_id,
-          transactionId: transaction_id,
-          status: transaction_status,
-          total: 1850000, // Example amount
-          items: [
-            { name: "Batik Kawung Klasik Premium", quantity: 1, price: 850000 },
-            { name: "Batik Parang Rusak Tulis", quantity: 1, price: 1200000 }
-          ],
-          nftTransactionHash: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEB5"
-        });
-        setLoading(false);
-      }, 1000);
-    }
-  }, [order_id, transaction_id, transaction_status]);
+      // Fetch order details
+      fetchOrderDetails(order_id as string);
+      
+      // Check NFT status periodically
+      const interval = setInterval(() => {
+        checkNFTStatus(order_id as string);
+      }, 5000);
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0
-    }).format(price);
+      return () => clearInterval(interval);
+    }
+  }, [order_id]);
+
+  const fetchOrderDetails = async (orderId: string) => {
+    try {
+      // Implementasi fetch order details dari database
+      console.log('Fetching order details:', orderId);
+    } catch (error) {
+      console.error('Error fetching order details:', error);
+    }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-amber-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto"></div>
-          <p className="mt-4 text-lg text-stone-600">Memuat informasi pesanan...</p>
-        </div>
-      </div>
-    );
-  }
+  const checkNFTStatus = async (orderId: string) => {
+    try {
+      // Implementasi check NFT status
+      // Jika NFT sudah ready, set nftStatus ke 'minted'
+      setNftStatus('minted');
+    } catch (error) {
+      console.error('Error checking NFT status:', error);
+      setNftStatus('failed');
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
       
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          {/* Header Success */}
-          <div className="bg-gradient-to-r from-green-500 to-green-600 p-8 text-center text-white">
-            <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckCircle size={40} />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 text-center border border-slate-200">
+          {/* Success Icon */}
+          <div className="w-24 h-24 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <CheckCircle size={48} className="text-white" />
+          </div>
+          
+          <h1 className="text-3xl font-bold text-slate-800 mb-4">
+            Pembayaran Berhasil! 🎉
+          </h1>
+          
+          <p className="text-slate-600 mb-8 text-lg">
+            Terima kasih telah berbelanja di <span className="font-semibold text-blue-900">Desa Wisata Batik Giriloyo</span>
+          </p>
+
+          {/* Order Info */}
+          <div className="bg-slate-50 rounded-xl p-6 mb-8 border border-slate-200">
+            <h2 className="text-xl font-bold text-slate-800 mb-4">
+              Informasi Pesanan Premium
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4 text-left">
+              <div>
+                <p className="text-slate-600">Order ID</p>
+                <p className="font-semibold font-mono text-slate-800">{order_id}</p>
+              </div>
+              <div>
+                <p className="text-slate-600">Status Pembayaran</p>
+                <p className="font-semibold text-green-600">Berhasil</p>
+              </div>
             </div>
-            <h1 className="text-3xl lg:text-4xl font-bold mb-2">Pembayaran Berhasil! 🎉</h1>
-            <p className="text-lg opacity-90">Terima kasih telah berbelanja di Desa Wisata Batik Giriloyo</p>
           </div>
 
-          <div className="p-8">
-            {/* Order Summary */}
-            <div className="bg-amber-50 rounded-2xl p-6 mb-6">
-              <h2 className="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
-                <ShoppingBag size={20} />
-                Detail Pesanan
+          {/* NFT Status */}
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 mb-8 border border-blue-200">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Award className="text-amber-600" size={32} />
+              <h2 className="text-xl font-bold text-blue-900">
+                Sertifikat Digital Heritage NFT
               </h2>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-stone-600">Order ID:</span>
-                  <span className="font-bold text-stone-800">{order?.orderId}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-600">Status:</span>
-                  <span className="font-bold text-green-600 capitalize">{transaction_status}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-600">Transaction ID:</span>
-                  <span className="font-mono text-sm text-stone-600">{transaction_id}</span>
-                </div>
-                <div className="border-t border-stone-300 pt-3 mt-3">
-                  <div className="flex justify-between text-lg">
-                    <span className="font-bold text-stone-800">Total Pembayaran:</span>
-                    <span className="font-bold text-green-600">{formatPrice(order?.total || 0)}</span>
-                  </div>
-                </div>
-              </div>
             </div>
-
-            {/* NFT Certificate */}
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 mb-6 border border-purple-200">
-              <div className="flex items-center gap-3 mb-4">
-                <Sparkles className="text-purple-600" size={24} />
-                <h3 className="text-xl font-bold text-stone-800">NFT Certificate Minted!</h3>
-              </div>
-              <p className="text-stone-600 mb-4">
-                Sertifikat digital NFT Anda telah berhasil dibuat dan akan dikirim ke email dalam 5-10 menit.
-              </p>
-              <div className="bg-white rounded-xl p-4 mb-4">
-                <p className="text-sm text-stone-600 mb-1">Transaction Hash:</p>
-                <p className="font-mono text-xs text-purple-600 break-all">
-                  {order?.nftTransactionHash}
+            
+            {nftStatus === 'minting' && (
+              <div className="space-y-4">
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-4 h-4 border-2 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
+                  <p className="text-blue-900 font-semibold">
+                    Sedang mencetak sertifikat digital...
+                  </p>
+                </div>
+                <p className="text-slate-600 text-sm">
+                  Sertifikat keaslian digital heritage sedang diproses dan akan dikirim ke email Anda
                 </p>
               </div>
-              <div className="flex gap-3">
-                <button className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
-                  <Download size={16} />
-                  Download NFT
-                </button>
-                <button className="flex items-center gap-2 border border-purple-600 text-purple-600 px-4 py-2 rounded-lg hover:bg-purple-50 transition">
+            )}
+            
+            {nftStatus === 'minted' && (
+              <div className="space-y-4">
+                <div className="flex items-center justify-center gap-2">
+                  <CheckCircle size={20} className="text-green-500" />
+                  <p className="text-green-700 font-semibold">
+                    Sertifikat Digital Berhasil Dicetak!
+                  </p>
+                </div>
+                <p className="text-slate-600 text-sm">
+                  Sertifikat keaslian digital heritage telah dikirim ke email Anda
+                </p>
+                <button className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-3 rounded-lg hover:shadow-xl transition flex items-center gap-2 mx-auto shadow-lg hover:shadow-amber-500/25">
                   <Mail size={16} />
-                  Kirim ke Email
+                  Lihat di Email
                 </button>
               </div>
-            </div>
-
-            {/* Next Steps */}
-            <div className="bg-blue-50 rounded-2xl p-6 mb-6 border border-blue-200">
-              <h3 className="text-lg font-bold text-stone-800 mb-3">Apa Selanjutnya?</h3>
-              <div className="space-y-2 text-sm text-stone-600">
-                <p>✅ Batik akan diproses oleh pengrajin dalam <strong>7-14 hari kerja</strong></p>
-                <p>✅ Anda akan menerima email konfirmasi dengan detail pesanan</p>
-                <p>✅ NFT certificate akan dikirim ke email Anda</p>
-                <p>✅ Status pengiriman dapat dilacak di halaman pesanan</p>
+            )}
+            
+            {nftStatus === 'failed' && (
+              <div className="space-y-4">
+                <p className="text-red-700 font-semibold">
+                  Gagal mencetak sertifikat digital
+                </p>
+                <p className="text-slate-600 text-sm">
+                  Tim premium kami akan menghubungi Anda untuk proses lebih lanjut
+                </p>
               </div>
-            </div>
+            )}
+          </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/orders" className="flex-1">
-                <button className="w-full bg-gradient-to-r from-amber-800 to-amber-900 text-white px-6 py-3 rounded-full font-bold hover:shadow-xl transition">
-                  Lihat Pesanan Saya
-                </button>
-              </Link>
-              <Link href="/produk" className="flex-1">
-                <button className="w-full bg-white text-amber-800 border-2 border-amber-800 px-6 py-3 rounded-full font-bold hover:bg-amber-50 transition">
-                  Lanjut Belanja
-                </button>
-              </Link>
-            </div>
+          {/* Next Steps */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => router.push('/produk')}
+              className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-3 rounded-lg hover:shadow-xl transition font-semibold shadow-lg hover:shadow-amber-500/25 flex items-center gap-2"
+            >
+              <Sparkles size={18} />
+              Lanjut Berbelanja
+            </button>
+            <button
+              onClick={() => router.push('/orders')}
+              className="bg-white text-slate-700 border-2 border-slate-300 px-8 py-3 rounded-lg hover:bg-slate-50 transition font-semibold"
+            >
+              Lihat Pesanan Saya
+            </button>
+          </div>
 
-            {/* Support Info */}
-            <div className="text-center mt-6 pt-6 border-t border-stone-200">
-              <p className="text-sm text-stone-500">
-                Butuh bantuan?{' '}
-                <a href="mailto:support@giriloyo.com" className="text-amber-600 hover:underline">
-                  Hubungi Customer Service
-                </a>
-              </p>
-            </div>
+          {/* Support Info */}
+          <div className="text-center mt-8 pt-6 border-t border-slate-200">
+            <p className="text-sm text-slate-500">
+              Butuh bantuan?{' '}
+              <a href="mailto:support@giriloyo.com" className="text-blue-700 hover:underline font-medium">
+                Hubungi Customer Service Premium
+              </a>
+            </p>
           </div>
         </div>
       </div>

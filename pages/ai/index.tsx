@@ -111,7 +111,7 @@ const AIChatPage = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-purple-50 to-pink-50">
-      <Navbar />
+      <Navbar/>
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
@@ -122,6 +122,7 @@ const AIChatPage = () => {
           >
             <ArrowLeft size={24} className="text-stone-600" />
           </button>
+          
           <div className="flex-1">
             <h1 className="text-3xl font-bold text-stone-800 flex items-center gap-3">
               <div className="w-12 h-12 bg-linear-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">

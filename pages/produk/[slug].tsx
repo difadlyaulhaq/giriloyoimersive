@@ -43,12 +43,12 @@ const ProductDetailPage = () => {
   // Redirect if product not found
   if (!product) {
     return (
-      <div className="min-h-screen bg-amber-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-stone-800 mb-4">Produk tidak ditemukan</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Produk tidak ditemukan</h1>
           <button 
             onClick={() => router.push('/produk')}
-            className="bg-amber-600 text-white px-6 py-3 rounded-full hover:bg-amber-700"
+            className="bg-blue-900 text-white px-6 py-3 rounded-full hover:bg-blue-800"
           >
             Kembali ke Katalog
           </button>
@@ -120,24 +120,24 @@ const ProductDetailPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-white">
       <Navbar />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-stone-600 mb-8">
-          <button onClick={() => router.push('/')} className="hover:text-amber-700">Home</button>
+        <nav className="flex items-center gap-2 text-sm text-gray-600 mb-8">
+          <button onClick={() => router.push('/')} className="hover:text-blue-900">Home</button>
           <span>/</span>
-          <button onClick={() => router.push('/produk')} className="hover:text-amber-700">Katalog</button>
+          <button onClick={() => router.push('/produk')} className="hover:text-blue-900">Katalog</button>
           <span>/</span>
-          <span className="text-stone-800 font-semibold">{product.name}</span>
+          <span className="text-gray-900 font-semibold">{product.name}</span>
         </nav>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div className="space-y-4">
             <div 
-              className="relative h-96 lg:h-[500px] bg-stone-100 rounded-3xl overflow-hidden cursor-zoom-in"
+              className="relative h-96 lg:h-[500px] bg-gray-100 rounded-3xl overflow-hidden cursor-zoom-in"
               onMouseEnter={() => setIsZoomed(true)}
               onMouseLeave={() => setIsZoomed(false)}
             >
@@ -149,7 +149,7 @@ const ProductDetailPage = () => {
                 }`}
               />
               <button className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition">
-                <ZoomIn size={20} className="text-stone-700" />
+                <ZoomIn size={20} className="text-gray-700" />
               </button>
               
               {/* Badges */}
@@ -159,7 +159,7 @@ const ProductDetailPage = () => {
                 </div>
               )}
               {product.nftIncluded && (
-                <div className="absolute top-16 left-4 bg-linear-to-r from-amber-500 to-amber-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
+                <div className="absolute top-16 left-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
                   <Award size={12} />
                   NFT Included
                 </div>
@@ -172,8 +172,8 @@ const ProductDetailPage = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={` shrink-0 w-20 h-20 bg-stone-100 rounded-xl overflow-hidden border-2 ${
-                    selectedImage === index ? 'border-amber-600' : 'border-transparent'
+                  className={` shrink-0 w-20 h-20 bg-gray-100 rounded-xl overflow-hidden border-2 ${
+                    selectedImage === index ? 'border-blue-900' : 'border-transparent'
                   }`}
                 >
                   <img 
@@ -189,13 +189,13 @@ const ProductDetailPage = () => {
           {/* Product Info */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl lg:text-4xl font-bold text-stone-800 mb-2">
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                 {product.name}
               </h1>
-              <div className="flex items-center gap-4 text-sm text-stone-600 mb-4">
+              <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
                 <div className="flex items-center gap-1">
                   <Star size={16} className="text-amber-500 fill-amber-500" />
-                  <span className="font-bold text-stone-800">{product.rating}</span>
+                  <span className="font-bold text-gray-900">{product.rating}</span>
                   <span>({product.reviews} ulasan)</span>
                 </div>
                 <span>•</span>
@@ -210,25 +210,25 @@ const ProductDetailPage = () => {
 
             {/* Price */}
             <div className="flex items-baseline gap-3">
-              <span className="text-3xl font-bold text-amber-700">
+              <span className="text-3xl font-bold text-amber-600">
                 {formatPrice(product.price)}
               </span>
               {product.originalPrice > product.price && (
-                <span className="text-lg text-stone-500 line-through">
+                <span className="text-lg text-gray-500 line-through">
                   {formatPrice(product.originalPrice)}
                 </span>
               )}
             </div>
 
             {/* Description */}
-            <p className="text-stone-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed">
               {product.description}
             </p>
 
             {/* Features */}
             <div className="grid grid-cols-2 gap-2">
               {product.features.map((feature: string, index: number) => (
-                <div key={index} className="flex items-center gap-2 text-sm text-stone-600">
+                <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
                   <Check size={16} className="text-green-600" />
                   {feature}
                 </div>
@@ -237,7 +237,7 @@ const ProductDetailPage = () => {
 
             {/* Size Selection */}
             <div>
-              <h3 className="font-bold text-stone-800 mb-3">Pilih Ukuran</h3>
+              <h3 className="font-bold text-gray-900 mb-3">Pilih Ukuran</h3>
               <div className="flex flex-wrap gap-3">
                 {product.sizes.map((size: string) => (
                   <button
@@ -245,8 +245,8 @@ const ProductDetailPage = () => {
                     onClick={() => setSelectedSize(size)}
                     className={`px-6 py-3 rounded-xl border-2 font-semibold transition ${
                       selectedSize === size
-                        ? 'border-amber-600 bg-amber-100 text-amber-800'
-                        : 'border-stone-200 hover:border-amber-400 text-stone-700'
+                        ? 'border-blue-900 bg-blue-100 text-blue-900'
+                        : 'border-gray-200 hover:border-blue-600 text-gray-700'
                     }`}
                   >
                     {size}
@@ -257,7 +257,7 @@ const ProductDetailPage = () => {
 
             {/* Color Selection */}
             <div>
-              <h3 className="font-bold text-stone-800 mb-3">Pilih Warna</h3>
+              <h3 className="font-bold text-gray-900 mb-3">Pilih Warna</h3>
               <div className="flex flex-wrap gap-3">
                 {product.colors.map((color: ProductColor) => (
                   <button
@@ -265,15 +265,15 @@ const ProductDetailPage = () => {
                     onClick={() => setSelectedColor(color.id)}
                     className={`flex items-center gap-2 px-4 py-3 rounded-xl border-2 transition ${
                       selectedColor === color.id
-                        ? 'border-amber-600 bg-amber-50'
-                        : 'border-stone-200 hover:border-amber-400'
+                        ? 'border-blue-900 bg-blue-50'
+                        : 'border-gray-200 hover:border-blue-600'
                     }`}
                   >
                     <div 
-                      className="w-6 h-6 rounded-full border border-stone-300"
+                      className="w-6 h-6 rounded-full border border-gray-300"
                       style={{ backgroundColor: color.hex }}
                     />
-                    <span className="font-medium text-stone-700">{color.name}</span>
+                    <span className="font-medium text-gray-700">{color.name}</span>
                   </button>
                 ))}
               </div>
@@ -281,24 +281,24 @@ const ProductDetailPage = () => {
 
             {/* Quantity */}
             <div>
-              <h3 className="font-bold text-stone-800 mb-3">Jumlah</h3>
+              <h3 className="font-bold text-gray-900 mb-3">Jumlah</h3>
               <div className="flex items-center gap-4">
-                <div className="flex items-center gap-3 border-2 border-stone-400 rounded-xl px-4 py-3">
+                <div className="flex items-center gap-3 border-2 border-gray-400 rounded-xl px-4 py-3">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-8 h-8 bg-stone-300 rounded-lg flex items-center justify-center hover:bg-stone-200 transition"
+                    className="w-8 h-8 bg-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-200 transition"
                   >
                     <Minus size={16} />
                   </button>
                   <span className="font-bold text-lg w-8 text-center text-black">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="w-8 h-8 bg-stone-300 rounded-lg flex items-center justify-center hover:bg-stone-200 transition"
+                    className="w-8 h-8 bg-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-200 transition"
                   >
                     <Plus size={16} />
                   </button>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-stone-600">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
                   <Clock size={16} />
                   <span>Proses: {product.processingTime}</span>
                 </div>
@@ -307,12 +307,12 @@ const ProductDetailPage = () => {
 
             {/* NFT Info */}
             {product.nftIncluded && (
-              <div className="bg-linear-to-br from-purple-50 to-pink-50 rounded-2xl p-4 border border-purple-200">
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 border border-purple-200">
                 <div className="flex items-center gap-3">
                   <Sparkles className="text-purple-600" size={24} />
                   <div>
                     <p className="font-bold text-purple-700 text-sm">NFT Certificate Included</p>
-                    <p className="text-xs text-stone-600">Sertifikat keaslian digital akan dikirim ke email Anda</p>
+                    <p className="text-xs text-gray-600">Sertifikat keaslian digital akan dikirim ke email Anda</p>
                   </div>
                 </div>
               </div>
@@ -323,11 +323,11 @@ const ProductDetailPage = () => {
               <button
                 onClick={handleAddToCart}
                 disabled={addingToCart || !selectedSize || !selectedColor}
-                className="flex-1 bg-white text-amber-800 border-2 border-amber-800 px-8 py-4 rounded-full font-bold hover:bg-amber-50 transition text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-white text-blue-900 border-2 border-blue-900 px-8 py-4 rounded-full font-bold hover:bg-blue-50 transition text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {addingToCart ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-amber-800 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-blue-900 border-t-transparent rounded-full animate-spin"></div>
                     Menambahkan...
                   </>
                 ) : (
@@ -340,7 +340,7 @@ const ProductDetailPage = () => {
               <button
                 onClick={handleBuyNow}
                 disabled={addingToCart || !selectedSize || !selectedColor}
-                className="flex-1 bg-linear-to-r from-amber-800 to-amber-900 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-gradient-to-r from-blue-900 to-slate-900 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition text-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {addingToCart ? 'Menambahkan...' : 'Beli Sekarang'}
               </button>
@@ -353,13 +353,13 @@ const ProductDetailPage = () => {
                 className={`flex items-center gap-2 px-6 py-3 rounded-full border transition ${
                   isFavorited
                     ? 'bg-red-50 border-red-200 text-red-600'
-                    : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
+                    : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 <Heart size={20} className={isFavorited ? 'fill-red-600' : ''} />
                 {isFavorited ? 'Disukai' : 'Suka'}
               </button>
-              <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-stone-200 bg-white text-stone-600 hover:bg-stone-50 transition">
+              <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 transition">
                 <Share2 size={20} />
                 Bagikan
               </button>
