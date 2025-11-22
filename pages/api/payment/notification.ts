@@ -1,6 +1,7 @@
 // pages/api/payment/notification.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 const midtransClient = require('midtrans-client');
+import { getOrderById, updateOrderStatus } from '@/utils/orderUtils';
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,23 +29,78 @@ export default async function handler(
     // Update order status berdasarkan notifikasi
     if (transactionStatus === 'capture') {
       if (fraudStatus === 'challenge') {
-        // TODO: Update order status to challenge
+        await updateOrderStatus(orderId, 'pending');
       } else if (fraudStatus === 'accept') {
-        // TODO: Update order status to paid/success
+        await updateOrderStatus(orderId, 'paid');
+        // Trigger NFT minting untuk order yang sudah dibayar
+        await triggerNFTMinting(orderId);
       }
     } else if (transactionStatus === 'settlement') {
-      // TODO: Update order status to paid/success
+      await updateOrderStatus(orderId, 'paid');
+      // Trigger NFT minting untuk order yang sudah dibayar
+      await triggerNFTMinting(orderId);
     } else if (transactionStatus === 'cancel' ||
       transactionStatus === 'deny' ||
       transactionStatus === 'expire') {
-      // TODO: Update order status to failed/cancelled
+      await updateOrderStatus(orderId, 'cancelled');
     } else if (transactionStatus === 'pending') {
-      // TODO: Update order status to pending
+      await updateOrderStatus(orderId, 'pending');
     }
 
     res.status(200).json({ received: true });
   } catch (error) {
     console.error('Error handling Midtrans notification:', error);
     res.status(500).json({ error: 'Failed to process notification' });
+  }
+}
+
+// Fungsi untuk trigger NFT minting
+async function triggerNFTMinting(orderId: string) {
+  try {
+    console.log(`🔄 Starting NFT minting process for order: ${orderId}`);
+    
+    const order = await getOrderById(orderId);
+    if (!order) {
+      console.error(`Order ${orderId} not found`);
+      return;
+    }
+
+    // Untuk setiap item di order, mint NFT
+    for (const item of order.items) {
+      const nftData = {
+        orderId: order.orderId,
+        customerEmail: order.shippingAddress.email,
+        customerName: order.shippingAddress.name,
+        productName: item.name,
+        productImage: item.image,
+        artisan: "Pengrajin Giriloyo", // Default value, bisa disesuaikan
+        location: "Desa Giriloyo, Yogyakarta",
+        motif: item.name.split('Motif ')[1] || item.name,
+        processingTime: "14-21 hari"
+      };
+
+      console.log(`🎨 Minting NFT for item: ${item.name}`);
+
+      const mintResponse = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/nft/mint`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(nftData),
+      });
+
+      if (mintResponse.ok) {
+        const result = await mintResponse.json();
+        console.log(`✅ NFT minted successfully: ${result.nftId}`);
+        
+        // Update order dengan NFT transaction hash
+        // Anda bisa menyimpan ini di database jika diperlukan
+      } else {
+        const error = await mintResponse.text();
+        console.error(`❌ NFT minting failed: ${error}`);
+      }
+    }
+  } catch (error) {
+    console.error('Error in triggerNFTMinting:', error);
   }
 }

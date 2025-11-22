@@ -41,9 +41,14 @@ export interface Order {
   shipping: number;
   nftFee: number;
   total: number;
-  nftTransactionHash?: string;
   
-  // Tambahan field untuk Midtrans
+  // NFT Related Fields
+  nftTransactionHash?: string;
+  nftStatus?: 'pending' | 'minted' | 'failed';
+  nftMintedAt?: string;
+  nftIds?: string[]; // Array of NFT IDs untuk multiple items
+  
+  // Payment Fields
   paymentMethod?: string;
   paymentStatus?: 'pending' | 'settlement' | 'capture' | 'deny' | 'cancel' | 'expire' | 'failure';
   transactionId?: string;
@@ -225,5 +230,38 @@ export const saveOrderToLocalStorage = (order: Order): void => {
     
     const updatedOrders = [...existingOrders.filter(o => o.orderId !== order.orderId), order];
     localStorage.setItem('orders', JSON.stringify(updatedOrders));
+  }
+};
+
+export const updateNFTStatus = async (orderId: string, nftStatus: 'pending' | 'minted' | 'failed', nftIds?: string[], nftTransactionHash?: string): Promise<boolean> => {
+  try {
+    const orderRef = doc(db, 'orders', orderId);
+    const updateData: any = {
+      nftStatus,
+      updatedAt: new Date().toISOString()
+    };
+
+    if (nftIds) updateData.nftIds = nftIds;
+    if (nftTransactionHash) updateData.nftTransactionHash = nftTransactionHash;
+    if (nftStatus === 'minted') updateData.nftMintedAt = new Date().toISOString();
+
+    await updateDoc(orderRef, updateData);
+
+    // Juga update di localStorage
+    if (typeof window !== 'undefined') {
+      const ordersJson = localStorage.getItem('orders');
+      if (ordersJson) {
+        const orders: Order[] = JSON.parse(ordersJson);
+        const updatedOrders = orders.map(order => 
+          order.orderId === orderId ? { ...order, ...updateData } : order
+        );
+        localStorage.setItem('orders', JSON.stringify(updatedOrders));
+      }
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Error updating NFT status:', error);
+    return false;
   }
 };
